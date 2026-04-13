@@ -214,9 +214,9 @@ export function HomepageShowcase() {
           </div>
         </div>
 
-        <div className="grid gap-6 px-4 py-6 sm:px-8 lg:grid-cols-[1.08fr_0.92fr] lg:px-10 lg:py-10">
+        <div className="space-y-8 px-4 py-6 sm:px-8 lg:px-10 lg:py-10">
           <div className="relative">
-            <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 z-10 hidden min-[1280px]:block">
+            <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 z-10 hidden min-[1600px]:block">
               {n.map((note) => (
                 <div
                   key={note.id}
@@ -241,7 +241,7 @@ export function HomepageShowcase() {
                   {stamps[stamp]}
                 </button>
                 <div className="space-y-4">
-                  <h1 className="text-balance font-[Courier_New,Courier,monospace] text-[clamp(2.8rem,7vw,5.8rem)] font-black leading-[0.95] tracking-[0.08em] text-ink sm:text-[clamp(3.4rem,6vw,6.8rem)]">
+                  <h1 className="mx-auto max-w-[12ch] text-balance font-[Courier_New,Courier,monospace] text-[clamp(2.45rem,6vw,5.2rem)] font-black leading-[0.95] tracking-[0.08em] text-ink sm:text-[clamp(3rem,5.5vw,6rem)]">
                     # FÖRNEDRINGSKASSAN
                   </h1>
                   <p className="mx-auto max-w-2xl text-pretty text-base leading-7 text-steel sm:text-lg sm:leading-8">
