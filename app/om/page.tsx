@@ -9,9 +9,13 @@ const description =
 export const metadata: Metadata = {
   title,
   description,
+  alternates: {
+    canonical: "/om",
+  },
   openGraph: {
     title,
     description,
+    url: "/om",
   },
   twitter: {
     title,
@@ -25,6 +29,21 @@ export default function OmPage() {
       title="Om projektet"
       intro="Förnedringskassan är ett satiriskt projekt och en form av samhällskommentar om hur byråkratiska system kan upplevas när språk, process och ansvar glider bort från människan."
     >
+      <section className="rounded-dossier border border-stamp/20 bg-stamp/10 p-6">
+        <p className="text-xs uppercase tracking-[0.34em] text-stamp">
+          Tydlig disclaimer
+        </p>
+        <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-ink">
+          Förnedringskassan är inte en verklig myndighet
+        </h2>
+        <p className="mt-4 max-w-4xl text-base leading-8 text-steel">
+          Den här webbplatsen är ett satiriskt och fiktivt projekt. Den är skapad som
+          samhällskommentar och ska inte tolkas som officiell information, rådgivning eller
+          representation av Försäkringskassan, någon annan myndighet eller någon verklig
+          offentlig verksamhet.
+        </p>
+      </section>
+
       <section className="grid gap-6 md:grid-cols-2">
         <article className="institution-card p-6">
           <h2 className="font-display text-2xl font-semibold text-ink">Vad detta är</h2>

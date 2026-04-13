@@ -158,7 +158,7 @@ export function FriskforklaringAssessment() {
       <section className="grid gap-6 lg:grid-cols-[1.08fr_0.92fr]">
         <form
           onSubmit={handleSubmit}
-          className="bureaucratic-panel rise-fade overflow-hidden rounded-dossier border border-steel/20 bg-[linear-gradient(180deg,rgba(255,255,255,0.94),rgba(246,243,236,0.94))] p-6 shadow-slip"
+          className="bureaucratic-panel rise-fade overflow-hidden rounded-dossier border border-steel/20 bg-[linear-gradient(180deg,rgba(255,255,255,0.94),rgba(246,243,236,0.94))] p-5 sm:p-6 shadow-slip"
         >
           <div className="flex flex-col gap-3 border-b border-steel/15 pb-5 sm:flex-row sm:items-end sm:justify-between">
             <div>
@@ -192,7 +192,7 @@ export function FriskforklaringAssessment() {
                   {question.prompt}
                 </p>
                 <p className="mt-2 text-sm leading-6 text-steel">{question.hint}</p>
-                <div className="mt-4 grid gap-3 sm:grid-cols-3">
+                <div className="mt-4 grid gap-2 sm:grid-cols-3">
                   {(["ja", "nej", "otydligt"] as const).map((value) => {
                     const checked = formState[question.key] === value;
 
@@ -200,7 +200,7 @@ export function FriskforklaringAssessment() {
                       <label
                         key={value}
                         className={[
-                          "flex cursor-pointer items-center justify-between rounded-2xl border px-4 py-3 text-sm transition",
+                          "flex min-h-11 cursor-pointer items-center justify-between rounded-2xl border px-4 py-3 text-sm transition",
                           checked
                             ? "border-ink bg-ink text-paper shadow-slip"
                             : "border-steel/20 bg-paper/80 text-ink hover:border-steel/45 hover:bg-white",
@@ -231,7 +231,7 @@ export function FriskforklaringAssessment() {
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <button
               type="submit"
-              className="inline-flex flex-col items-center justify-center rounded-full bg-ink px-6 py-3 text-sm font-medium text-paper transition hover:bg-seal"
+              className="inline-flex min-h-12 flex-col items-center justify-center rounded-full bg-ink px-6 py-3 text-sm font-medium text-paper transition hover:bg-seal"
             >
               <span>Fatta automatiskt beslut</span>
               <span className="text-xs font-normal text-paper/70">
@@ -244,7 +244,7 @@ export function FriskforklaringAssessment() {
                 setFormState(initialState);
                 setDecision(null);
               }}
-              className="inline-flex flex-col items-center justify-center rounded-full border border-steel/25 bg-paper px-6 py-3 text-sm font-medium text-ink transition hover:border-steel/50 hover:bg-white"
+              className="inline-flex min-h-12 flex-col items-center justify-center rounded-full border border-steel/25 bg-paper px-6 py-3 text-sm font-medium text-ink transition hover:border-steel/50 hover:bg-white"
             >
               <span>Rensa egen uppfattning</span>
               <span className="text-xs font-normal text-steel">
@@ -254,7 +254,7 @@ export function FriskforklaringAssessment() {
           </div>
         </form>
 
-        <aside className="bureaucratic-panel rise-fade rounded-dossier border border-steel/20 bg-[linear-gradient(180deg,rgba(240,235,228,0.92),rgba(250,248,244,0.92))] p-6 shadow-slip">
+        <aside className="bureaucratic-panel rise-fade rounded-dossier border border-steel/20 bg-[linear-gradient(180deg,rgba(240,235,228,0.92),rgba(250,248,244,0.92))] p-5 sm:p-6 shadow-slip">
           <p className="text-xs uppercase tracking-[0.3em] text-steel">Tolkningsstöd</p>
           <h2 className="mt-2 font-display text-3xl font-semibold tracking-tight text-ink">
             Så här misstolkar vi underlaget
@@ -307,7 +307,7 @@ export function FriskforklaringAssessment() {
             </div>
           </div>
 
-          <div className="grid gap-8 px-6 py-8 sm:px-8 lg:grid-cols-[1.15fr_0.85fr]">
+          <div className="grid gap-8 px-5 py-7 sm:px-8 lg:grid-cols-[1.15fr_0.85fr]">
             <article>
               <p className="text-xs uppercase tracking-[0.28em] text-steel">
                 Formellt ställningstagande
@@ -328,7 +328,7 @@ export function FriskforklaringAssessment() {
                 <button
                   type="button"
                   onClick={() => setDecision(buildDecision(formState))}
-                  className="inline-flex flex-col items-center justify-center rounded-full bg-ink px-6 py-3 text-sm font-medium text-paper transition hover:bg-seal"
+                  className="inline-flex min-h-12 flex-col items-center justify-center rounded-full bg-ink px-6 py-3 text-sm font-medium text-paper transition hover:bg-seal"
                 >
                   <span>Begär omprövning</span>
                   <span className="text-xs font-normal text-paper/70">
@@ -337,7 +337,7 @@ export function FriskforklaringAssessment() {
                 </button>
                 <Link
                   href="/normalt-forekommande-arbeten"
-                  className="inline-flex flex-col items-center justify-center rounded-full border border-steel/25 bg-white px-6 py-3 text-sm font-medium text-ink transition hover:border-steel/50 hover:bg-paper"
+                  className="inline-flex min-h-12 flex-col items-center justify-center rounded-full border border-steel/25 bg-white px-6 py-3 text-sm font-medium text-ink transition hover:border-steel/50 hover:bg-paper"
                 >
                   <span>Se normalt förekommande arbeten</span>
                   <span className="text-xs font-normal text-steel">
@@ -346,7 +346,7 @@ export function FriskforklaringAssessment() {
                 </Link>
                 <Link
                   href="/nadalage"
-                  className="inline-flex flex-col items-center justify-center rounded-full border border-steel/25 bg-paper px-6 py-3 text-sm font-medium text-ink transition hover:border-steel/50 hover:bg-white"
+                  className="inline-flex min-h-12 flex-col items-center justify-center rounded-full border border-steel/25 bg-paper px-6 py-3 text-sm font-medium text-ink transition hover:border-steel/50 hover:bg-white"
                 >
                   <span>Aktivera nådeläge</span>
                   <span className="text-xs font-normal text-steel">

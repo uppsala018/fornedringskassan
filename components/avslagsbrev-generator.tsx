@@ -230,7 +230,7 @@ export function AvslagsbrevGenerator() {
       <section className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
         <form
           onSubmit={handleSubmit}
-          className="bureaucratic-panel rounded-dossier border border-steel/20 bg-white/80 p-6 shadow-sm"
+          className="bureaucratic-panel rounded-dossier border border-steel/20 bg-white/80 p-5 sm:p-6 shadow-sm"
         >
           <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
@@ -387,7 +387,7 @@ export function AvslagsbrevGenerator() {
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <button
               type="submit"
-              className="inline-flex flex-col items-center justify-center rounded-full bg-ink px-6 py-3 text-sm font-medium text-paper transition hover:bg-ink/90"
+              className="inline-flex min-h-12 flex-col items-center justify-center rounded-full bg-ink px-6 py-3 text-sm font-medium text-paper transition hover:bg-ink/90"
             >
               <span>Generera avslagsbrev</span>
               <span className="text-xs font-normal text-paper/70">
@@ -397,7 +397,7 @@ export function AvslagsbrevGenerator() {
             <button
               type="button"
               onClick={generate}
-              className="inline-flex flex-col items-center justify-center rounded-full border border-steel/25 bg-paper px-6 py-3 text-sm font-medium text-ink transition hover:border-steel/50 hover:bg-white"
+              className="inline-flex min-h-12 flex-col items-center justify-center rounded-full border border-steel/25 bg-paper px-6 py-3 text-sm font-medium text-ink transition hover:border-steel/50 hover:bg-white"
             >
               <span>Randomisera</span>
               <span className="text-xs font-normal text-steel">
@@ -407,7 +407,7 @@ export function AvslagsbrevGenerator() {
           </div>
         </form>
 
-        <aside className="bureaucratic-panel rounded-dossier border border-steel/20 bg-paper p-6 shadow-sm">
+        <aside className="bureaucratic-panel rounded-dossier border border-steel/20 bg-paper p-5 sm:p-6 shadow-sm">
           <p className="text-xs uppercase tracking-[0.3em] text-steel">Parametrar</p>
           <h2 className="mt-2 text-2xl font-semibold tracking-tight text-ink">
             Sammanställning av avsiktslös precision
@@ -451,8 +451,8 @@ export function AvslagsbrevGenerator() {
             </div>
           </div>
 
-          <div className="grid gap-8 px-6 py-8 sm:px-8 lg:grid-cols-[1.15fr_0.85fr]">
-            <article className="rounded-[1.5rem] border border-steel/15 bg-paper p-6">
+          <div className="grid gap-8 px-5 py-7 sm:px-8 lg:grid-cols-[1.15fr_0.85fr]">
+            <article className="rounded-[1.5rem] border border-steel/15 bg-paper p-5 sm:p-6">
               <p className="whitespace-pre-line text-base leading-8 text-ink">
                 {letter.fullText}
               </p>
@@ -480,7 +480,7 @@ export function AvslagsbrevGenerator() {
                 <button
                   type="button"
                   onClick={copyLetter}
-                  className="inline-flex flex-col items-center justify-center rounded-full bg-ink px-6 py-3 text-sm font-medium text-paper transition hover:bg-ink/90"
+                  className="inline-flex min-h-12 flex-col items-center justify-center rounded-full bg-ink px-6 py-3 text-sm font-medium text-paper transition hover:bg-ink/90"
                 >
                   <span>{copyLabel}</span>
                   <span className="text-xs font-normal text-paper/70">
@@ -490,7 +490,7 @@ export function AvslagsbrevGenerator() {
                 <button
                   type="button"
                   onClick={generate}
-                  className="inline-flex flex-col items-center justify-center rounded-full border border-steel/25 bg-paper px-6 py-3 text-sm font-medium text-ink transition hover:border-steel/50 hover:bg-white"
+                  className="inline-flex min-h-12 flex-col items-center justify-center rounded-full border border-steel/25 bg-paper px-6 py-3 text-sm font-medium text-ink transition hover:border-steel/50 hover:bg-white"
                 >
                   <span>Randomisera</span>
                   <span className="text-xs font-normal text-steel">
@@ -500,7 +500,7 @@ export function AvslagsbrevGenerator() {
                 <button
                   type="button"
                   onClick={downloadLetter}
-                  className="inline-flex flex-col items-center justify-center rounded-full border border-steel/25 bg-paper px-6 py-3 text-sm font-medium text-ink transition hover:border-steel/50 hover:bg-white"
+                  className="inline-flex min-h-12 flex-col items-center justify-center rounded-full border border-steel/25 bg-paper px-6 py-3 text-sm font-medium text-ink transition hover:border-steel/50 hover:bg-white"
                 >
                   <span>Ladda ner som text</span>
                   <span className="text-xs font-normal text-steel">

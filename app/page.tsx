@@ -10,9 +10,13 @@ const description =
 export const metadata: Metadata = {
   title,
   description,
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     title,
     description,
+    url: "/",
   },
   twitter: {
     title,
@@ -80,34 +84,50 @@ const featureCards = [
 
 export default function HomePage() {
   return (
-    <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
+    <div className="mx-auto max-w-6xl px-3 py-8 sm:px-6 lg:px-8 lg:py-14">
       <section className="bureaucratic-panel overflow-hidden rounded-dossier border border-steel/20 bg-white/84 shadow-docket">
-        <div className="grid gap-8 px-6 py-8 sm:px-8 lg:grid-cols-[1.2fr_0.8fr] lg:px-10 lg:py-10">
+        <div className="border-b border-steel/15 bg-[linear-gradient(180deg,rgba(255,255,255,0.85),rgba(246,243,236,0.92))] px-5 py-5 sm:px-8">
+          <p className="text-xs uppercase tracking-[0.34em] text-stamp">
+            Satirisk parodi. Inte en myndighet. Inte Försäkringskassan.
+          </p>
+          <p className="mt-3 max-w-4xl text-sm leading-7 text-steel">
+            Förnedringskassan är ett fiktivt serviceorgan för dig som behöver ett beslut,
+            ett avslag eller en ny handläggare innan hoppet hinner återhämta sig.
+          </p>
+        </div>
+
+        <div className="grid gap-8 px-5 py-7 sm:px-8 lg:grid-cols-[1.2fr_0.8fr] lg:px-10 lg:py-10">
           <div>
             <p className="text-sm uppercase tracking-[0.34em] text-steel">
               Central enhet för formellt missmod
-            </p>
-            <p className="mt-4 status-chip">
-              Parodi. Inte officiell, inte ansluten till någon myndighet och inte avsedd att
-              misstas för en sådan.
             </p>
             <h1 className="mt-6 max-w-4xl font-display text-5xl font-semibold leading-tight tracking-tight text-ink sm:text-6xl">
               Vi prövar din mänskliga rimlighet enligt intern rutin FÖRN-01.
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-steel">
-              Förnedringskassan är ett fiktivt serviceorgan för dig som behöver ett beslut,
-              ett avslag eller en ny handläggare innan hoppet hinner återhämta sig. Tonen är
-              torr, processen är hövlig och utfallet är nästan alltid administrativt
-              beklagligt.
+              Tonen är torr, processen är hövlig och utfallet är nästan alltid administrativt
+              beklagligt. Hela idén är att kännas byråkratisk utan att likna någon verklig
+              myndighet.
             </p>
 
-            <div className="mt-8 grid gap-4 sm:grid-cols-2">
+            <div className="mt-6 rounded-[1.35rem] border border-stamp/20 bg-stamp/10 p-4 sm:p-5">
+              <p className="text-xs uppercase tracking-[0.28em] text-stamp">
+                Satirisk disclaimer
+              </p>
+              <p className="mt-3 text-sm leading-7 text-ink">
+                Detta är en parodi och samhällskommentar. Ingen del är officiell, ingen del
+                är juridisk eller medicinsk rådgivning, och inget här ska förväxlas med en
+                verklig myndighet eller dess varumärke.
+              </p>
+            </div>
+
+            <div className="mt-8 grid gap-3 sm:grid-cols-2">
               {mainActions.map((action, index) => (
                 <Link
                   key={action.href}
                   href={action.href}
                   className={[
-                    "rounded-[1.45rem] border px-5 py-4 transition shadow-slip",
+                    "rounded-[1.45rem] border px-5 py-4 min-h-24 transition shadow-slip",
                     index === 0
                       ? "border-ink bg-ink text-paper hover:bg-seal"
                       : "border-steel/20 bg-paper/90 text-ink hover:border-steel/45 hover:bg-white",
@@ -124,8 +144,8 @@ export default function HomePage() {
           </div>
 
           <aside className="rounded-dossier border border-dashed border-steel/25 bg-paper/95 p-6">
-            <div className="grid min-h-72 place-items-center rounded-[1.5rem] border border-steel/15 bg-ledger bg-[size:24px_24px] bg-center p-6">
-              <div className="w-full max-w-sm rounded-[1.5rem] border border-stamp/30 bg-white/92 p-6 shadow-slip">
+            <div className="grid min-h-72 place-items-center rounded-[1.5rem] border border-steel/15 bg-ledger bg-[size:24px_24px] bg-center p-5 sm:p-6">
+              <div className="w-full max-w-sm rounded-[1.5rem] border border-stamp/30 bg-white/92 p-5 sm:p-6 shadow-slip">
                 <LogoMark className="items-start" />
                 <p className="mt-5 text-sm leading-7 text-ink">
                   Ett påhittat märke med formulärblad, stämpelsigil och torr
@@ -140,8 +160,8 @@ export default function HomePage() {
               </p>
               <p className="mt-2 text-sm leading-7 text-steel">
                 Klinisk beige, pappersgrått och en dämpad stämpelton. Tillräckligt sterilt
-                för att kännas byråkratiskt, men för egensinnigt för att likna något
-                verkligt.
+                för att kännas byråkratiskt, men tillräckligt egenartat för att inte kunna
+                misstas för en offentlig identitet.
               </p>
             </div>
           </aside>
@@ -162,12 +182,12 @@ export default function HomePage() {
           </p>
         </div>
 
-        <div className="mt-6 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+        <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           {featureCards.map((card) => (
             <Link
               key={card.href}
               href={card.href}
-              className="bureaucratic-panel institution-card p-6 transition hover:-translate-y-0.5 hover:border-steel/40 hover:bg-white"
+            className="bureaucratic-panel institution-card p-6 min-h-56 transition hover:-translate-y-0.5 hover:border-steel/40 hover:bg-white"
             >
               <p className="text-xs uppercase tracking-[0.3em] text-steel">
                 Verktyg {card.index}

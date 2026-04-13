@@ -1,7 +1,7 @@
 export function SiteFooter() {
   return (
     <footer className="border-t border-steel/20 bg-ink text-paper">
-      <div className="mx-auto grid max-w-6xl gap-6 px-4 py-8 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:px-8 lg:py-10">
+      <div className="mx-auto grid max-w-6xl gap-6 px-3 py-8 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:px-8 lg:py-10">
         <div>
           <p className="text-sm uppercase tracking-[0.3em] text-paper/65">
             Fiktiv byrå för inre utmattning
@@ -11,7 +11,7 @@ export function SiteFooter() {
             myndighet, rådgivningstjänst eller formellt beslutsorgan.
           </p>
         </div>
-        <div className="rounded-[1.35rem] border border-white/10 bg-white/5 p-5">
+        <div className="rounded-[1.35rem] border border-white/10 bg-white/5 p-4 sm:p-5">
           <p className="text-xs uppercase tracking-[0.28em] text-paper/55">Driftstatus</p>
           <p className="mt-3 text-sm leading-7 text-paper/75">
             Handläggningstid för svar: 6 till 18 verksamhetsliv. Intern omtolkning
