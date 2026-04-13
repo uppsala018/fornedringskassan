@@ -1,0 +1,222 @@
+"use client";
+
+import { useMemo, useState } from "react";
+
+import { PageShell } from "@/components/page-shell";
+import {
+  globalApplyOutcomes,
+  jobCategories,
+  jobs,
+  type JobCategory,
+  type JobRecord,
+} from "@/lib/normala-jobb";
+
+type FilterCategory = "Alla" | JobCategory;
+
+function shuffle<T>(items: T[]) {
+  const copy = [...items];
+
+  for (let index = copy.length - 1; index > 0; index -= 1) {
+    const swapIndex = Math.floor(Math.random() * (index + 1));
+    [copy[index], copy[swapIndex]] = [copy[swapIndex], copy[index]];
+  }
+
+  return copy;
+}
+
+function absurdityLabel(level: number) {
+  if (level >= 9) return "Systemiskt högprioriterad";
+  if (level >= 7) return "Utvidgat matchningsläge";
+  if (level >= 5) return "Administrativt tänkbar";
+  return "Formellt prövbar";
+}
+
+function pickOutcome(job: JobRecord) {
+  const outcomePool = [...job.applyOutcomes, ...globalApplyOutcomes];
+  return outcomePool[Math.floor(Math.random() * outcomePool.length)];
+}
+
+export function NormaltForekommandeArbetenPage() {
+  const [category, setCategory] = useState<FilterCategory>("Alla");
+  const [seed, setSeed] = useState(0);
+  const [outcomesById, setOutcomesById] = useState<Record<string, string>>({});
+
+  const categories: FilterCategory[] = ["Alla", ...jobCategories];
+
+  const visibleJobs = useMemo(() => {
+    const filteredJobs =
+      category === "Alla" ? jobs : jobs.filter((job) => job.category === category);
+
+    return shuffle(filteredJobs).slice(0, 9);
+  }, [category, seed]);
+
+  function handleApply(job: JobRecord) {
+    setOutcomesById((current) => ({
+      ...current,
+      [job.id]: pickOutcome(job),
+    }));
+  }
+
+  return (
+    <PageShell
+      title="Normalt förekommande arbeten"
+      intro="Du har nu, efter samlad bedömning, överförts till Arbetsförnedringen för fortsatt matchning mot arbeten som anses rimliga i den mån rimlighet kan upprätthållas av tillräckligt många interna funktioner."
+    >
+      <section className="grid gap-6 lg:grid-cols-[1.08fr_0.92fr]">
+        <article className="bureaucratic-panel rise-fade overflow-hidden rounded-dossier border border-steel/20 bg-[linear-gradient(180deg,rgba(255,255,255,0.95),rgba(239,243,247,0.94))] p-6 shadow-slip">
+          <p className="text-xs uppercase tracking-[0.3em] text-steel">
+            Överlämning till ny funktion
+          </p>
+          <h2 className="mt-2 font-display text-3xl font-semibold tracking-tight text-ink">
+            Arbetsförnedringen har tagit emot ärendet
+          </h2>
+          <p className="mt-4 text-base leading-8 text-steel">
+            Efter att du administrativt friskförklarats har din fortsatta
+            försörjningsvärdighet överförts till en separat satirisk funktion för
+            arbetsmatchning, intern omtolkning och kontrollerad verklighetsförskjutning.
+          </p>
+
+          <div className="mt-5 rounded-[1.35rem] border border-steel/15 bg-white/80 p-5">
+            <p className="text-xs uppercase tracking-[0.28em] text-steel">
+              Samlad bedömning
+            </p>
+            <p className="mt-3 text-sm leading-7 text-steel">
+              Följande arbeten bedöms som rimliga enligt samlad bedömning, tillgängligt
+              underlag och en tillfälligt utvidgad uppfattning om vad som normalt kan anses
+              förekomma.
+            </p>
+          </div>
+        </article>
+
+        <aside className="bureaucratic-panel rise-fade rounded-dossier border border-steel/20 bg-[linear-gradient(180deg,rgba(235,239,244,0.92),rgba(255,255,255,0.92))] p-6 shadow-slip">
+          <p className="text-xs uppercase tracking-[0.3em] text-steel">
+            Filtrering av möjligheter
+          </p>
+          <h2 className="mt-2 font-display text-3xl font-semibold tracking-tight text-ink">
+            Kategorisera din nya rimlighet
+          </h2>
+          <p className="mt-4 text-sm leading-7 text-steel">
+            Urvalet kan avgränsas efter hur teoretiskt, symboliskt eller administrativt
+            oförankrat arbetet bedöms vara.
+          </p>
+
+          <div className="mt-5 grid gap-3">
+            {categories.map((item) => {
+              const isActive = item === category;
+
+              return (
+                <button
+                  key={item}
+                  type="button"
+                  onClick={() => setCategory(item)}
+                  className={[
+                    "rounded-2xl border px-4 py-3 text-left text-sm transition",
+                    isActive
+                      ? "border-ink bg-ink text-paper shadow-slip"
+                      : "border-steel/20 bg-white/85 text-ink hover:border-steel/45 hover:bg-white",
+                  ].join(" ")}
+                >
+                  {item}
+                </button>
+              );
+            })}
+          </div>
+
+          <button
+            type="button"
+            onClick={() => setSeed((current) => current + 1)}
+            className="mt-5 inline-flex flex-col items-center justify-center rounded-full border border-steel/25 bg-paper px-6 py-3 text-sm font-medium text-ink transition hover:border-steel/50 hover:bg-white"
+          >
+            <span>Omfördela urval</span>
+            <span className="text-xs font-normal text-steel">
+              Handläggarkedjan uppdateras
+            </span>
+          </button>
+        </aside>
+      </section>
+
+      <section className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+        {visibleJobs.map((job) => (
+          <article
+            key={job.id}
+            className="bureaucratic-panel rise-fade rounded-dossier border border-steel/20 bg-white/88 p-6 shadow-slip"
+          >
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="status-chip">{job.category}</span>
+              <span className="status-chip bg-paper/85 text-steel">{job.location}</span>
+            </div>
+
+            <h3 className="mt-4 font-display text-2xl font-semibold tracking-tight text-ink">
+              {job.title}
+            </h3>
+            <p className="mt-4 text-base leading-7 text-steel">{job.description}</p>
+
+            <dl className="mt-5 grid gap-3">
+              <div className="rounded-2xl border border-steel/15 bg-paper/80 p-4">
+                <dt className="text-xs uppercase tracking-[0.24em] text-steel">
+                  Anställningsform
+                </dt>
+                <dd className="mt-2 text-sm font-medium text-ink">{job.employmentType}</dd>
+              </div>
+              <div className="rounded-2xl border border-steel/15 bg-paper/80 p-4">
+                <dt className="text-xs uppercase tracking-[0.24em] text-steel">
+                  Ersättningsmodell
+                </dt>
+                <dd className="mt-2 text-sm font-medium text-ink">{job.compensation}</dd>
+              </div>
+              <div className="rounded-2xl border border-steel/15 bg-paper/80 p-4">
+                <dt className="text-xs uppercase tracking-[0.24em] text-steel">
+                  Bedömd rimlighet
+                </dt>
+                <dd className="mt-2 text-sm font-medium text-ink">
+                  {absurdityLabel(job.absurdityLevel)} ({job.absurdityLevel}/10)
+                </dd>
+              </div>
+            </dl>
+
+            <div className="mt-5 grid gap-4">
+              <div className="rounded-[1.25rem] border border-steel/15 bg-white/75 p-4">
+                <p className="text-xs uppercase tracking-[0.24em] text-steel">
+                  Arbetsuppgifter i urval
+                </p>
+                <ul className="mt-3 space-y-2 text-sm leading-6 text-steel">
+                  {job.duties.slice(0, 2).map((duty) => (
+                    <li key={duty}>{duty}</li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="rounded-[1.25rem] border border-steel/15 bg-white/75 p-4">
+                <p className="text-xs uppercase tracking-[0.24em] text-steel">Grundkrav</p>
+                <ul className="mt-3 space-y-2 text-sm leading-6 text-steel">
+                  {job.requirements.slice(0, 2).map((requirement) => (
+                    <li key={requirement}>{requirement}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => handleApply(job)}
+              className="mt-6 inline-flex flex-col items-center justify-center rounded-full bg-ink px-6 py-3 text-sm font-medium text-paper transition hover:bg-seal"
+            >
+              <span>Anmäl intresse</span>
+              <span className="text-xs font-normal text-paper/70">
+                Verklighet konverteras till matchning
+              </span>
+            </button>
+
+            <div className="mt-4 min-h-20 rounded-[1.25rem] border border-dashed border-steel/20 bg-white/70 p-4">
+              <p className="text-xs uppercase tracking-[0.24em] text-steel">Utfall</p>
+              <p className="mt-2 text-sm leading-7 text-ink">
+                {outcomesById[job.id] ??
+                  "Ingen ansökan registrerad ännu. Tjänsten hålls tills vidare öppen i teorin och stängd i praktiken."}
+              </p>
+            </div>
+          </article>
+        ))}
+      </section>
+    </PageShell>
+  );
+}
