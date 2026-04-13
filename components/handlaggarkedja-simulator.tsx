@@ -207,8 +207,8 @@ export function HandlaggarkedjaSimulator() {
       title="Handläggarkedja"
       intro="En interaktiv simulering av hur ansvar gradvis löses upp i artighet, process och hänvisningar till något större än människan framför dig."
     >
-      <section className="grid gap-6 lg:grid-cols-[1.08fr_0.92fr]">
-        <article className="bureaucratic-panel rise-fade overflow-hidden rounded-dossier border border-steel/20 bg-[linear-gradient(180deg,rgba(255,255,255,0.94),rgba(239,242,241,0.94))] p-6 shadow-slip">
+      <section className="grid gap-6 lg:grid-cols-[1.08fr_0.92fr] lg:gap-8">
+        <article className="bureaucratic-panel rise-fade overflow-hidden rounded-dossier border border-steel/20 bg-[linear-gradient(180deg,rgba(255,255,255,0.94),rgba(239,242,241,0.94))] p-5 shadow-slip sm:p-6 lg:p-8">
           <div className="flex flex-col gap-4 border-b border-steel/15 pb-5 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <p className="text-xs uppercase tracking-[0.3em] text-steel">
@@ -301,7 +301,7 @@ export function HandlaggarkedjaSimulator() {
           <h2 className="mt-2 font-display text-3xl font-semibold tracking-tight text-ink">
             Från person till process till system
           </h2>
-          <div className="mt-5 space-y-3">
+          <div className="mt-5 space-y-4">
             {history.length === 0 ? (
               <p className="rounded-2xl border border-steel/15 bg-white/80 p-4 text-sm leading-7 text-steel">
                 {statusMicrocopy.emptyChain}
@@ -310,7 +310,7 @@ export function HandlaggarkedjaSimulator() {
               history.map((entry, index) => (
                 <div
                   key={`${entry.stage}-${index}`}
-                  className="rise-fade rounded-2xl border border-steel/15 bg-white/82 p-4"
+                  className="rise-fade rounded-2xl border border-steel/15 bg-white/82 p-4 shadow-sm"
                 >
                   <p className="text-xs uppercase tracking-[0.24em] text-steel">
                     Överlämning {index + 1}

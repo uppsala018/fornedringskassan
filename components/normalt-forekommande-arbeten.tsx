@@ -100,7 +100,7 @@ export function NormaltForekommandeArbetenPage() {
             oförankrat arbetet bedöms vara.
           </p>
 
-          <div className="mt-5 grid gap-3">
+          <div className="mt-5 flex flex-wrap gap-3">
             {categories.map((item) => {
               const isActive = item === category;
 
@@ -110,7 +110,7 @@ export function NormaltForekommandeArbetenPage() {
                   type="button"
                   onClick={() => setCategory(item)}
                   className={[
-                    "rounded-2xl border px-4 py-3 text-left text-sm transition",
+                    "min-h-12 rounded-2xl border px-4 py-3 text-sm transition",
                     isActive
                       ? "border-ink bg-ink text-paper shadow-slip"
                       : "border-steel/20 bg-white/85 text-ink hover:border-steel/45 hover:bg-white",
@@ -125,7 +125,7 @@ export function NormaltForekommandeArbetenPage() {
           <button
             type="button"
             onClick={() => setSeed((current) => current + 1)}
-            className="mt-5 inline-flex flex-col items-center justify-center rounded-full border border-steel/25 bg-paper px-6 py-3 text-sm font-medium text-ink transition hover:border-steel/50 hover:bg-white"
+            className="mt-5 inline-flex min-h-12 flex-col items-center justify-center rounded-full border border-steel/25 bg-paper px-6 py-3 text-sm font-medium text-ink transition hover:border-steel/50 hover:bg-white"
           >
             <span>Omfördela urval</span>
             <span className="text-xs font-normal text-steel">
