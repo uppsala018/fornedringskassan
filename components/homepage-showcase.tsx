@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
@@ -198,79 +198,79 @@ export function HomepageShowcase() {
     <div className="mx-auto max-w-6xl px-2 py-7 sm:px-6 lg:px-8 lg:py-14">
       <section className="bureaucratic-panel relative overflow-hidden rounded-dossier border border-steel/20 bg-white/84 shadow-docket">
         <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-          <div className="paper-drift absolute left-[-2%] top-24 text-[clamp(1.1rem,3.2vw,2.8rem)] font-display uppercase tracking-[0.34em] text-ink/3">DIARIENUMMER</div>
-          <div className="paper-drift absolute right-[-2%] top-64 text-[clamp(1rem,2.8vw,2.2rem)] font-display uppercase tracking-[0.3em] text-ink/3">KOMPLETTERING</div>
+          <div className="paper-drift absolute left-[-2%] top-24 text-[clamp(0.7rem,1.8vw,1.6rem)] font-display uppercase tracking-[0.28em] text-ink/2">DIARIENUMMER</div>
+          <div className="paper-drift absolute right-[-2%] top-64 text-[clamp(0.65rem,1.5vw,1.3rem)] font-display uppercase tracking-[0.24em] text-ink/2">KOMPLETTERING</div>
         </div>
-        <div className="relative border-b border-steel/15 bg-[linear-gradient(180deg,rgba(255,255,255,0.9),rgba(234,226,214,0.94))] px-4 py-4 sm:px-8">
+        <div className="relative border-b border-steel/15 bg-[linear-gradient(180deg,rgba(255,255,255,0.9),rgba(234,226,214,0.94))] px-3 py-3 sm:px-6 sm:py-4 lg:px-8">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div className="space-y-3">
               <div className="flex flex-wrap items-center gap-3">
-                <p className="text-xs uppercase tracking-[0.34em] text-stamp">Satirisk parodi. Inte en myndighet. Inte Försäkringskassan.</p>
-                <span className="inline-flex rounded-full border border-[#c8102e]/20 bg-[#c8102e]/8 px-3 py-1 text-[10px] uppercase tracking-[0.22em] text-stamp">Fiktiv signal</span>
+                <p className="text-[10px] uppercase tracking-[0.28em] text-stamp sm:text-xs">Satirisk parodi. Inte en myndighet. Inte Försäkringskassan.</p>
+                <span className="inline-flex rounded-full border border-[#c8102e]/20 bg-[#c8102e]/8 px-2.5 py-1 text-[9px] uppercase tracking-[0.18em] text-stamp sm:px-3 sm:text-[10px]">Fiktiv signal</span>
               </div>
-              <p className="max-w-4xl text-sm leading-7 text-steel">Förnedringskassan är ett fiktivt serviceorgan för dig som behöver ett beslut, ett avslag eller en ny handläggare innan hoppet hinner återhämta sig.</p>
+              <p className="max-w-3xl text-[12px] leading-5 text-steel sm:text-[13px] sm:leading-6">Förnedringskassan är ett fiktivt serviceorgan för dig som behöver ett beslut, ett avslag eller en ny handläggare innan hoppet hinner återhämta sig.</p>
             </div>
-            <button type="button" onClick={() => setStamp((v) => (v + 1) % stamps.length)} className="inline-flex min-h-11 items-center rounded-full border border-stamp/30 bg-stamp/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-stamp transition hover:-translate-y-0.5 hover:bg-stamp/15">Byt stämpel</button>
+            <button type="button" onClick={() => setStamp((v) => (v + 1) % stamps.length)} className="inline-flex min-h-10 items-center rounded-full border border-stamp/30 bg-stamp/10 px-3.5 py-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-stamp transition hover:-translate-y-0.5 hover:bg-stamp/15">Byt stämpel</button>
           </div>
         </div>
 
-        <div className="space-y-8 px-4 py-6 sm:px-8 lg:px-10 lg:py-10">
+        <div className="space-y-6 px-3 py-5 sm:px-6 lg:px-8 lg:py-8">
           <div className="relative">
             <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 z-10 hidden min-[1600px]:block">
               {n.map((note) => (
                 <div
                   key={note.id}
-                  className="bubble-pop absolute max-w-[145px] rounded-full border border-stamp/15 bg-white/92 px-3 py-2 text-[9px] uppercase tracking-[0.12em] leading-[1.45] text-stamp shadow-sm"
+                  className="bubble-pop absolute max-w-[125px] rounded-full border border-stamp/15 bg-white/92 px-2.5 py-2 text-[8px] uppercase tracking-[0.1em] leading-[1.35] text-stamp shadow-sm"
                   style={note.style}
                 >
                   {note.text}
                 </div>
               ))}
             </div>
-            <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
-              <p className="inline-flex rounded-full border border-stamp/20 bg-stamp/10 px-4 py-2 text-xs uppercase tracking-[0.28em] text-stamp">
+            <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
+              <p className="inline-flex rounded-full border border-stamp/20 bg-stamp/10 px-3 py-1.5 text-[10px] uppercase tracking-[0.22em] text-stamp sm:px-4 sm:py-2 sm:text-xs">
                 Central enhet för formellt missmod
               </p>
-              <p className="mt-5 text-sm uppercase tracking-[0.34em] text-steel">Ärendets framsida</p>
-              <div className="relative mt-4 flex w-full flex-col items-center gap-6">
+              <p className="mt-3 text-[9px] uppercase tracking-[0.22em] text-steel sm:text-[10px] sm:tracking-[0.26em]">Ärendets framsida</p>
+              <div className="relative mt-3 flex w-full flex-col items-center gap-4 sm:gap-5">
                 <button
                   type="button"
                   onClick={() => setStamp((v) => (v + 1) % stamps.length)}
-                  className="stamp-drop inline-flex rotate-[-8deg] rounded-[1.5rem] border-[5px] border-stamp/80 bg-[#c8102e] px-6 py-4 text-sm font-black uppercase tracking-[0.28em] text-white shadow-[0_24px_50px_rgba(200,16,46,0.28)] ring-1 ring-stamp/20 transition hover:scale-[1.03] active:scale-[0.99]"
+                  className="stamp-drop inline-flex rotate-[-8deg] rounded-[1.1rem] border-[4px] border-stamp/80 bg-[#c8102e] px-4 py-2.5 text-[10px] font-black uppercase tracking-[0.22em] text-white shadow-[0_18px_32px_rgba(200,16,46,0.24)] ring-1 ring-stamp/20 transition hover:scale-[1.02] active:scale-[0.99] sm:px-5 sm:py-3 sm:text-xs"
                 >
                   {stamps[stamp]}
                 </button>
-                <div className="space-y-4">
-                  <h1 className="mx-auto max-w-[12ch] text-balance font-[Courier_New,Courier,monospace] text-[clamp(2.45rem,6vw,5.2rem)] font-black leading-[0.95] tracking-[0.08em] text-ink sm:text-[clamp(3rem,5.5vw,6rem)]">
+                <div className="space-y-3">
+                  <h1 className="mx-auto max-w-[10ch] text-balance font-[Courier_New,Courier,monospace] text-[clamp(1.5rem,3.2vw,3.3rem)] font-black leading-[0.95] tracking-[0.05em] text-ink sm:text-[clamp(1.9rem,3.6vw,4rem)]">
                     # FÖRNEDRINGSKASSAN
                   </h1>
-                  <p className="mx-auto max-w-2xl text-pretty text-base leading-7 text-steel sm:text-lg sm:leading-8">
+                  <p className="mx-auto max-w-lg text-pretty text-[12px] leading-5 text-steel sm:text-sm sm:leading-6">
                     Vi prövar din mänskliga rimlighet enligt intern rutin FÖRN-01.
                   </p>
                 </div>
               </div>
-              <div className="mt-6 max-w-3xl rounded-[1.35rem] border border-stamp/20 bg-stamp/10 p-4 sm:p-5">
-                <div className="flex flex-wrap items-center justify-center gap-3">
-                  <p className="text-xs uppercase tracking-[0.28em] text-stamp">Satirisk disclaimer</p>
+              <div className="mt-5 max-w-2xl rounded-[1.2rem] border border-stamp/20 bg-stamp/10 p-3 sm:p-4">
+                <div className="flex flex-wrap items-center justify-center gap-2.5">
+                  <p className="text-[9px] uppercase tracking-[0.18em] text-stamp sm:text-[10px]">Satirisk disclaimer</p>
                   <span className="inline-flex rounded-full border border-[#ffcc00]/35 bg-[#ffcc00]/12 px-3 py-1 text-[10px] uppercase tracking-[0.22em] text-ink">Fiktiv signal</span>
                 </div>
-                <p className="mt-3 text-sm leading-7 text-ink">
+                <p className="mt-2.5 text-[12px] leading-5 text-ink sm:text-[13px] sm:leading-6">
                   Detta är en parodi och samhällskommentar. Ingen del är officiell, ingen del är juridisk eller medicinsk rådgivning, och inget här ska förväxlas med en verklig myndighet eller dess varumärke.
                 </p>
               </div>
-              <div className="mt-7 flex w-full flex-col items-center gap-3 sm:flex-row sm:flex-wrap sm:justify-center">
-                <button onClick={start} className="inline-flex min-h-14 w-full items-center justify-center rounded-full border-2 border-[#c8102e] bg-[#c8102e] px-8 py-4 text-base font-black uppercase tracking-[0.18em] text-white shadow-[0_20px_50px_rgba(200,16,46,0.2)] transition hover:-translate-y-0.5 hover:bg-[#ad0d27] sm:w-auto">
+              <div className="mt-6 flex w-full flex-col items-center gap-2.5 sm:flex-row sm:flex-wrap sm:justify-center">
+                <button onClick={start} className="inline-flex min-h-12 w-full items-center justify-center rounded-full border-2 border-[#c8102e] bg-[#c8102e] px-6 py-3 text-[13px] font-black uppercase tracking-[0.16em] text-white shadow-[0_16px_36px_rgba(200,16,46,0.18)] transition hover:-translate-y-0.5 hover:bg-[#ad0d27] sm:w-auto sm:px-7 sm:py-3.5 sm:text-sm">
                   Starta mitt fiktiva ärende
                 </button>
-                <span className="inline-flex min-h-14 items-center justify-center rounded-full border border-steel/20 bg-paper px-5 py-3 text-center text-sm text-steel">
+                <span className="inline-flex min-h-12 items-center justify-center rounded-full border border-steel/20 bg-paper px-4 py-3 text-center text-[13px] text-steel sm:px-5 sm:text-sm">
                   Din tydlighet har registrerats.
                 </span>
               </div>
-              <div className="mt-4 inline-flex max-w-full rounded-full border border-[#ffcc00]/50 bg-[#ffcc00]/18 px-4 py-2 text-xs uppercase tracking-[0.18em] text-ink sm:tracking-[0.24em]">
+              <div className="mt-3 inline-flex max-w-full rounded-full border border-[#ffcc00]/50 bg-[#ffcc00]/18 px-3 py-1.5 text-[10px] uppercase tracking-[0.16em] text-ink sm:px-4 sm:text-xs sm:tracking-[0.22em]">
                 {bubbles[bubble]}
               </div>
             </div>
-            <div className="mt-7 grid gap-3 sm:mt-8 sm:grid-cols-2">
+            <div className="mt-6 grid gap-3 sm:mt-7 sm:grid-cols-2">
               {actions.map(([href, label, tone, sublabel], i) => (
                 <Link
                   key={href}
@@ -282,30 +282,30 @@ export function HomepageShowcase() {
                   onMouseLeave={() => setHover(null)}
                   className={`paper-shuffle-hover relative min-h-28 overflow-hidden rounded-[1.45rem] border px-4 py-4 text-left transition-all duration-200 shadow-slip sm:px-5 hover:-translate-y-1 hover:shadow-[0_22px_48px_rgba(29,42,45,0.16)] ${i === 0 ? "border-ink bg-ink text-paper hover:bg-seal" : "border-steel/20 bg-paper/90 text-ink hover:border-steel/45 hover:bg-white"}`}
                 >
-                  <span className="block text-xs uppercase tracking-[0.28em] opacity-70">{tone}</span>
-                  <span className="mt-2 block text-base font-semibold">{label}</span>
-                  <span className="mt-2 block text-sm opacity-70">{sublabel}</span>
-                  {hover === i ? <span className={`bubble-pop absolute bottom-4 right-4 rounded-full border px-3 py-2 text-[11px] uppercase tracking-[0.2em] shadow-sm ${i === 0 ? "border-white/15 bg-white/10 text-paper" : "border-stamp/20 bg-white/92 text-stamp"}`}>{hoverText}</span> : null}
+                  <span className="block text-[10px] uppercase tracking-[0.22em] opacity-70">{tone}</span>
+                  <span className="mt-2 block text-sm font-semibold sm:text-base">{label}</span>
+                  <span className="mt-1.5 block text-[13px] leading-5 opacity-70 sm:text-sm">{sublabel}</span>
+                  {hover === i ? <span className={`bubble-pop absolute bottom-3 right-3 rounded-full border px-2.5 py-1.5 text-[10px] uppercase tracking-[0.16em] shadow-sm ${i === 0 ? "border-white/15 bg-white/10 text-paper" : "border-stamp/20 bg-white/92 text-stamp"}`}>{hoverText}</span> : null}
                 </Link>
               ))}
             </div>
           </div>
 
-          <div className="grid gap-4 md:grid-cols-3">
-            <div className="rounded-[1.5rem] border border-stamp/30 bg-paper/95 p-5 shadow-slip">
+          <div className="grid gap-3 md:grid-cols-3">
+            <div className="rounded-[1.25rem] border border-stamp/30 bg-paper/95 p-4 shadow-slip">
               <LogoMark className="items-start" />
-              <p className="mt-5 text-sm leading-7 text-ink">
+              <p className="mt-4 text-[12px] leading-5 text-ink sm:text-[13px] sm:leading-6">
                 Ett påhittat märke med formulärblad, stämpelsigil och torr självuppfattning. Avsiktligt byråkratiskt, men inte lånat från någon verklig institution.
               </p>
             </div>
-            <div className="rounded-[1.5rem] border border-steel/15 bg-white/80 p-5 shadow-slip">
-              <p className="text-xs uppercase tracking-[0.28em] text-steel">Visuell riktlinje</p>
-              <p className="mt-2 text-sm leading-7 text-steel">
+            <div className="rounded-[1.25rem] border border-steel/15 bg-white/80 p-4 shadow-slip">
+              <p className="text-[10px] uppercase tracking-[0.22em] text-steel sm:text-xs">Visuell riktlinje</p>
+              <p className="mt-2 text-[12px] leading-5 text-steel sm:text-[13px] sm:leading-6">
                 Klinisk beige, pappersgrått och en dämpad stämpelton. Tillräckligt sterilt för att kännas byråkratiskt, men tillräckligt egenartat för att inte kunna misstas för en offentlig identitet.
               </p>
             </div>
-            <div className="rounded-[1.5rem] border border-stamp/20 bg-stamp/10 p-5 shadow-slip">
-              <p className="text-xs uppercase tracking-[0.28em] text-stamp">Handläggarbubblan</p>
+            <div className="rounded-[1.25rem] border border-stamp/20 bg-stamp/10 p-4 shadow-slip">
+              <p className="text-[9px] uppercase tracking-[0.18em] text-stamp sm:text-[10px]">Handläggarbubblan</p>
               <p className="mt-2 text-sm leading-7 text-ink">{bubbles[bubble]}</p>
             </div>
           </div>
