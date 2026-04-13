@@ -197,10 +197,6 @@ export function HomepageShowcase() {
   return (
     <div className="mx-auto max-w-6xl px-2 py-7 sm:px-6 lg:px-8 lg:py-14">
       <section className="bureaucratic-panel relative overflow-hidden rounded-dossier border border-steel/20 bg-white/84 shadow-docket">
-        <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-          <div className="paper-drift absolute left-[-2%] top-24 text-[clamp(0.7rem,1.8vw,1.6rem)] font-display uppercase tracking-[0.28em] text-ink/2">DIARIENUMMER</div>
-          <div className="paper-drift absolute right-[-2%] top-64 text-[clamp(0.65rem,1.5vw,1.3rem)] font-display uppercase tracking-[0.24em] text-ink/2">KOMPLETTERING</div>
-        </div>
         <div className="relative border-b border-steel/15 bg-[linear-gradient(180deg,rgba(255,255,255,0.9),rgba(234,226,214,0.94))] px-3 py-3 sm:px-6 sm:py-4 lg:px-8">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div className="space-y-3">
@@ -228,11 +224,7 @@ export function HomepageShowcase() {
               ))}
             </div>
             <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
-              <p className="inline-flex rounded-full border border-stamp/20 bg-stamp/10 px-3 py-1.5 text-[10px] uppercase tracking-[0.22em] text-stamp sm:px-4 sm:py-2 sm:text-xs">
-                Central enhet för formellt missmod
-              </p>
-              <p className="mt-3 text-[9px] uppercase tracking-[0.22em] text-steel sm:text-[10px] sm:tracking-[0.26em]">Ärendets framsida</p>
-              <div className="relative mt-3 flex w-full flex-col items-center gap-4 sm:gap-5">
+              <div className="relative mt-1 flex w-full flex-col items-center gap-4 sm:gap-5">
                 <button
                   type="button"
                   onClick={() => setStamp((v) => (v + 1) % stamps.length)}
@@ -240,14 +232,6 @@ export function HomepageShowcase() {
                 >
                   {stamps[stamp]}
                 </button>
-                <div className="space-y-3">
-                  <h1 className="mx-auto max-w-[10ch] text-balance font-[Courier_New,Courier,monospace] text-[clamp(1.5rem,3.2vw,3.3rem)] font-black leading-[0.95] tracking-[0.05em] text-ink sm:text-[clamp(1.9rem,3.6vw,4rem)]">
-                    # FÖRNEDRINGSKASSAN
-                  </h1>
-                  <p className="mx-auto max-w-lg text-pretty text-[12px] leading-5 text-steel sm:text-sm sm:leading-6">
-                    Vi prövar din mänskliga rimlighet enligt intern rutin FÖRN-01.
-                  </p>
-                </div>
               </div>
               <div className="mt-5 max-w-2xl rounded-[1.2rem] border border-stamp/20 bg-stamp/10 p-3 sm:p-4">
                 <div className="flex flex-wrap items-center justify-center gap-2.5">
@@ -293,7 +277,7 @@ export function HomepageShowcase() {
 
           <div className="grid gap-3 md:grid-cols-3">
             <div className="rounded-[1.25rem] border border-stamp/30 bg-paper/95 p-4 shadow-slip">
-              <LogoMark className="items-start" />
+              <LogoMark compact showTagline={false} className="items-start" />
               <p className="mt-4 text-[12px] leading-5 text-ink sm:text-[13px] sm:leading-6">
                 Ett påhittat märke med formulärblad, stämpelsigil och torr självuppfattning. Avsiktligt byråkratiskt, men inte lånat från någon verklig institution.
               </p>
