@@ -198,8 +198,8 @@ export function HomepageShowcase() {
     <div className="mx-auto max-w-6xl px-2 py-7 sm:px-6 lg:px-8 lg:py-14">
       <section className="bureaucratic-panel relative overflow-hidden rounded-dossier border border-steel/20 bg-white/84 shadow-docket">
         <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-          <div className="paper-drift absolute left-[-3%] top-8 text-[clamp(2rem,6vw,5rem)] font-display uppercase tracking-[0.28em] text-ink/5">DIARIENUMMER</div>
-          <div className="paper-drift absolute right-[-4%] top-36 text-[clamp(1.7rem,5.4vw,4.4rem)] font-display uppercase tracking-[0.24em] text-ink/4">KOMPLETTERING</div>
+          <div className="paper-drift absolute left-[-2%] top-14 text-[clamp(1.4rem,3.8vw,3.2rem)] font-display uppercase tracking-[0.34em] text-ink/4">DIARIENUMMER</div>
+          <div className="paper-drift absolute right-[-2%] top-44 text-[clamp(1.1rem,3.2vw,2.6rem)] font-display uppercase tracking-[0.3em] text-ink/4">KOMPLETTERING</div>
         </div>
         <div className="relative border-b border-steel/15 bg-[linear-gradient(180deg,rgba(255,255,255,0.9),rgba(234,226,214,0.94))] px-4 py-4 sm:px-8">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
@@ -214,38 +214,74 @@ export function HomepageShowcase() {
           </div>
         </div>
 
-        <div className="grid gap-6 px-4 py-6 sm:px-8 lg:grid-cols-[1.18fr_0.82fr] lg:px-10 lg:py-10">
+        <div className="grid gap-6 px-4 py-6 sm:px-8 lg:grid-cols-[1.08fr_0.92fr] lg:px-10 lg:py-10">
           <div className="relative">
-            <div aria-hidden className="pointer-events-none absolute inset-0 z-10 hidden min-[1280px]:block">
+            <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 z-10 hidden min-[1280px]:block">
               {n.map((note) => (
                 <div
                   key={note.id}
-                  className="bubble-pop absolute max-w-[160px] rounded-full border border-stamp/15 bg-white/90 px-3 py-2 text-[9px] uppercase tracking-[0.14em] leading-[1.45] text-stamp shadow-sm"
+                  className="bubble-pop absolute max-w-[145px] rounded-full border border-stamp/15 bg-white/92 px-3 py-2 text-[9px] uppercase tracking-[0.12em] leading-[1.45] text-stamp shadow-sm"
                   style={note.style}
                 >
                   {note.text}
                 </div>
               ))}
             </div>
-            <div className="inline-flex rounded-full border border-stamp/20 bg-stamp/10 px-4 py-2 text-xs uppercase tracking-[0.28em] text-stamp">Central enhet för formellt missmod</div>
-            <div className="relative mt-6">
-              <button type="button" onClick={() => setStamp((v) => (v + 1) % stamps.length)} className="stamp-drop absolute -top-3 right-0 hidden rotate-[-9deg] rounded-[1.2rem] border-4 border-stamp/80 bg-[#c8102e] px-4 py-2.5 text-[0.72rem] font-black uppercase tracking-[0.2em] text-white shadow-[0_18px_40px_rgba(200,16,46,0.25)] ring-1 ring-stamp/20 transition hover:scale-[1.02] sm:block">{stamps[stamp]}</button>
-              <p className="text-sm uppercase tracking-[0.34em] text-steel">Ärendets framsida</p>
-              <h1 className="mt-4 max-w-[14ch] text-balance font-display text-[2.45rem] font-semibold leading-[1.02] tracking-tight text-ink sm:text-6xl lg:text-7xl"><span className="block text-sm font-semibold uppercase tracking-[0.35em] text-stamp">#</span>Förnedringskassan</h1>
-              <p className="mt-5 max-w-xl text-pretty text-base leading-7 text-steel sm:text-lg sm:leading-8">Vi prövar din mänskliga rimlighet enligt intern rutin FÖRN-01.</p>
-              <div className="mt-6 rounded-[1.35rem] border border-stamp/20 bg-stamp/10 p-4 sm:p-5">
-                <div className="flex flex-wrap items-center gap-3"><p className="text-xs uppercase tracking-[0.28em] text-stamp">Satirisk disclaimer</p><span className="inline-flex rounded-full border border-[#ffcc00]/35 bg-[#ffcc00]/12 px-3 py-1 text-[10px] uppercase tracking-[0.22em] text-ink">Fiktiv signal</span></div>
-                <p className="mt-3 text-sm leading-7 text-ink">Detta är en parodi och samhällskommentar. Ingen del är officiell, ingen del är juridisk eller medicinsk rådgivning, och inget här ska förväxlas med en verklig myndighet eller dess varumärke.</p>
+            <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
+              <p className="inline-flex rounded-full border border-stamp/20 bg-stamp/10 px-4 py-2 text-xs uppercase tracking-[0.28em] text-stamp">
+                Central enhet för formellt missmod
+              </p>
+              <p className="mt-5 text-sm uppercase tracking-[0.34em] text-steel">Ärendets framsida</p>
+              <div className="relative mt-4 flex w-full flex-col items-center gap-6">
+                <button
+                  type="button"
+                  onClick={() => setStamp((v) => (v + 1) % stamps.length)}
+                  className="stamp-drop inline-flex rotate-[-8deg] rounded-[1.5rem] border-[5px] border-stamp/80 bg-[#c8102e] px-6 py-4 text-sm font-black uppercase tracking-[0.28em] text-white shadow-[0_24px_50px_rgba(200,16,46,0.28)] ring-1 ring-stamp/20 transition hover:scale-[1.03] active:scale-[0.99]"
+                >
+                  {stamps[stamp]}
+                </button>
+                <div className="space-y-4">
+                  <h1 className="text-balance font-[Courier_New,Courier,monospace] text-[clamp(2.8rem,7vw,5.8rem)] font-black leading-[0.95] tracking-[0.08em] text-ink sm:text-[clamp(3.4rem,6vw,6.8rem)]">
+                    # FÖRNEDRINGSKASSAN
+                  </h1>
+                  <p className="mx-auto max-w-2xl text-pretty text-base leading-7 text-steel sm:text-lg sm:leading-8">
+                    Vi prövar din mänskliga rimlighet enligt intern rutin FÖRN-01.
+                  </p>
+                </div>
               </div>
-              <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-                <button onClick={start} className="inline-flex min-h-12 w-full items-center justify-center rounded-full border border-[#c8102e] bg-[#c8102e] px-6 py-3 text-sm font-semibold text-white shadow-slip transition hover:-translate-y-0.5 hover:bg-[#ad0d27] sm:w-auto sm:px-7 sm:py-4">Starta mitt fiktiva ärende</button>
-                <span className="inline-flex min-h-12 items-center justify-center rounded-full border border-steel/20 bg-paper px-5 py-3 text-center text-sm text-steel">Din tydlighet har registrerats.</span>
+              <div className="mt-6 max-w-3xl rounded-[1.35rem] border border-stamp/20 bg-stamp/10 p-4 sm:p-5">
+                <div className="flex flex-wrap items-center justify-center gap-3">
+                  <p className="text-xs uppercase tracking-[0.28em] text-stamp">Satirisk disclaimer</p>
+                  <span className="inline-flex rounded-full border border-[#ffcc00]/35 bg-[#ffcc00]/12 px-3 py-1 text-[10px] uppercase tracking-[0.22em] text-ink">Fiktiv signal</span>
+                </div>
+                <p className="mt-3 text-sm leading-7 text-ink">
+                  Detta är en parodi och samhällskommentar. Ingen del är officiell, ingen del är juridisk eller medicinsk rådgivning, och inget här ska förväxlas med en verklig myndighet eller dess varumärke.
+                </p>
               </div>
-              <div className="mt-4 inline-flex max-w-full rounded-full border border-[#ffcc00]/50 bg-[#ffcc00]/18 px-4 py-2 text-xs uppercase tracking-[0.18em] text-ink sm:tracking-[0.24em]">{bubbles[bubble]}</div>
+              <div className="mt-7 flex w-full flex-col items-center gap-3 sm:flex-row sm:flex-wrap sm:justify-center">
+                <button onClick={start} className="inline-flex min-h-14 w-full items-center justify-center rounded-full border-2 border-[#c8102e] bg-[#c8102e] px-8 py-4 text-base font-black uppercase tracking-[0.18em] text-white shadow-[0_20px_50px_rgba(200,16,46,0.2)] transition hover:-translate-y-0.5 hover:bg-[#ad0d27] sm:w-auto">
+                  Starta mitt fiktiva ärende
+                </button>
+                <span className="inline-flex min-h-14 items-center justify-center rounded-full border border-steel/20 bg-paper px-5 py-3 text-center text-sm text-steel">
+                  Din tydlighet har registrerats.
+                </span>
+              </div>
+              <div className="mt-4 inline-flex max-w-full rounded-full border border-[#ffcc00]/50 bg-[#ffcc00]/18 px-4 py-2 text-xs uppercase tracking-[0.18em] text-ink sm:tracking-[0.24em]">
+                {bubbles[bubble]}
+              </div>
             </div>
             <div className="mt-7 grid gap-3 sm:mt-8 sm:grid-cols-2">
               {actions.map(([href, label, tone, sublabel], i) => (
-                <Link key={href} href={href} onMouseEnter={() => { setHover(i); setHoverText(r(comments)); }} onMouseLeave={() => setHover(null)} className={`paper-shuffle-hover relative min-h-28 overflow-hidden rounded-[1.45rem] border px-4 py-4 transition-all duration-200 shadow-slip sm:px-5 hover:-translate-y-1 hover:shadow-[0_22px_48px_rgba(29,42,45,0.16)] ${i === 0 ? "border-ink bg-ink text-paper hover:bg-seal" : "border-steel/20 bg-paper/90 text-ink hover:border-steel/45 hover:bg-white"}`}>
+                <Link
+                  key={href}
+                  href={href}
+                  onMouseEnter={() => {
+                    setHover(i);
+                    setHoverText(r(comments));
+                  }}
+                  onMouseLeave={() => setHover(null)}
+                  className={`paper-shuffle-hover relative min-h-28 overflow-hidden rounded-[1.45rem] border px-4 py-4 text-left transition-all duration-200 shadow-slip sm:px-5 hover:-translate-y-1 hover:shadow-[0_22px_48px_rgba(29,42,45,0.16)] ${i === 0 ? "border-ink bg-ink text-paper hover:bg-seal" : "border-steel/20 bg-paper/90 text-ink hover:border-steel/45 hover:bg-white"}`}
+                >
                   <span className="block text-xs uppercase tracking-[0.28em] opacity-70">{tone}</span>
                   <span className="mt-2 block text-base font-semibold">{label}</span>
                   <span className="mt-2 block text-sm opacity-70">{sublabel}</span>
