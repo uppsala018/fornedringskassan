@@ -198,8 +198,8 @@ export function HomepageShowcase() {
     <div className="mx-auto max-w-6xl px-2 py-7 sm:px-6 lg:px-8 lg:py-14">
       <section className="bureaucratic-panel relative overflow-hidden rounded-dossier border border-steel/20 bg-white/84 shadow-docket">
         <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-          <div className="paper-drift absolute left-[-2%] top-14 text-[clamp(1.4rem,3.8vw,3.2rem)] font-display uppercase tracking-[0.34em] text-ink/4">DIARIENUMMER</div>
-          <div className="paper-drift absolute right-[-2%] top-44 text-[clamp(1.1rem,3.2vw,2.6rem)] font-display uppercase tracking-[0.3em] text-ink/4">KOMPLETTERING</div>
+          <div className="paper-drift absolute left-[-2%] top-24 text-[clamp(1.1rem,3.2vw,2.8rem)] font-display uppercase tracking-[0.34em] text-ink/3">DIARIENUMMER</div>
+          <div className="paper-drift absolute right-[-2%] top-64 text-[clamp(1rem,2.8vw,2.2rem)] font-display uppercase tracking-[0.3em] text-ink/3">KOMPLETTERING</div>
         </div>
         <div className="relative border-b border-steel/15 bg-[linear-gradient(180deg,rgba(255,255,255,0.9),rgba(234,226,214,0.94))] px-4 py-4 sm:px-8">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
@@ -291,20 +291,24 @@ export function HomepageShowcase() {
             </div>
           </div>
 
-          <aside className="relative overflow-hidden rounded-dossier border border-dashed border-steel/25 bg-paper/95 p-6">
-            <div className="absolute inset-x-4 top-4 h-px bg-gradient-to-r from-transparent via-stamp/30 to-transparent" />
-            <div className="grid min-h-72 place-items-center rounded-[1.5rem] border border-steel/15 bg-ledger bg-[size:24px_24px] bg-center p-5 sm:p-6">
-              <div className="w-full max-w-sm rounded-[1.5rem] border border-stamp/30 bg-white/92 p-5 shadow-slip sm:p-6">
-                <LogoMark className="items-start" />
-                <p className="mt-5 text-sm leading-7 text-ink">Ett påhittat märke med formulärblad, stämpelsigil och torr självuppfattning. Avsiktligt byråkratiskt, men inte lånat från någon verklig institution.</p>
-              </div>
+          <div className="grid gap-4 md:grid-cols-3">
+            <div className="rounded-[1.5rem] border border-stamp/30 bg-paper/95 p-5 shadow-slip">
+              <LogoMark className="items-start" />
+              <p className="mt-5 text-sm leading-7 text-ink">
+                Ett påhittat märke med formulärblad, stämpelsigil och torr självuppfattning. Avsiktligt byråkratiskt, men inte lånat från någon verklig institution.
+              </p>
             </div>
-            <div className="mt-5 rounded-[1.25rem] border border-steel/15 bg-white/80 p-4">
+            <div className="rounded-[1.5rem] border border-steel/15 bg-white/80 p-5 shadow-slip">
               <p className="text-xs uppercase tracking-[0.28em] text-steel">Visuell riktlinje</p>
-              <p className="mt-2 text-sm leading-7 text-steel">Klinisk beige, pappersgrått och en dämpad stämpelton. Tillräckligt sterilt för att kännas byråkratiskt, men tillräckligt egenartat för att inte kunna misstas för en offentlig identitet.</p>
+              <p className="mt-2 text-sm leading-7 text-steel">
+                Klinisk beige, pappersgrått och en dämpad stämpelton. Tillräckligt sterilt för att kännas byråkratiskt, men tillräckligt egenartat för att inte kunna misstas för en offentlig identitet.
+              </p>
             </div>
-            <div className="mt-5 rounded-[1.25rem] border border-stamp/20 bg-stamp/10 p-4"><p className="text-xs uppercase tracking-[0.28em] text-stamp">Handläggarbubblan</p><p className="mt-2 text-sm leading-7 text-ink">{bubbles[bubble]}</p></div>
-          </aside>
+            <div className="rounded-[1.5rem] border border-stamp/20 bg-stamp/10 p-5 shadow-slip">
+              <p className="text-xs uppercase tracking-[0.28em] text-stamp">Handläggarbubblan</p>
+              <p className="mt-2 text-sm leading-7 text-ink">{bubbles[bubble]}</p>
+            </div>
+          </div>
         </div>
       </section>
 
