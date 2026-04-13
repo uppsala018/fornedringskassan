@@ -165,7 +165,7 @@ export function FriskforklaringAssessment() {
               <p className="text-xs uppercase tracking-[0.3em] text-stamp">
                 Automatisk prövning
               </p>
-              <h2 className="mt-2 font-display text-3xl font-semibold tracking-tight text-ink">
+              <h2 className="mt-2 text-balance font-display text-3xl font-semibold tracking-tight text-ink">
                 Självskattning av misstänkt funktion
               </h2>
             </div>
@@ -256,7 +256,7 @@ export function FriskforklaringAssessment() {
 
         <aside className="bureaucratic-panel rise-fade rounded-dossier border border-steel/20 bg-[linear-gradient(180deg,rgba(240,235,228,0.92),rgba(250,248,244,0.92))] p-5 sm:p-6 shadow-slip">
           <p className="text-xs uppercase tracking-[0.3em] text-steel">Tolkningsstöd</p>
-          <h2 className="mt-2 font-display text-3xl font-semibold tracking-tight text-ink">
+          <h2 className="mt-2 text-balance font-display text-3xl font-semibold tracking-tight text-ink">
             Så här misstolkar vi underlaget
           </h2>
           <ul className="mt-5 space-y-4 text-base leading-7 text-steel">
@@ -292,7 +292,7 @@ export function FriskforklaringAssessment() {
             </p>
             <div className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
               <div>
-                <h2 className="font-display text-3xl font-semibold tracking-tight">
+                <h2 className="text-balance font-display text-3xl font-semibold tracking-tight">
                   {decision.rubric}
                 </h2>
                 <p className="mt-2 max-w-2xl text-sm leading-6 text-paper/75">
@@ -312,7 +312,7 @@ export function FriskforklaringAssessment() {
               <p className="text-xs uppercase tracking-[0.28em] text-steel">
                 Formellt ställningstagande
               </p>
-              <h3 className="mt-3 font-display text-3xl font-semibold tracking-tight text-ink">
+              <h3 className="mt-3 text-balance font-display text-3xl font-semibold tracking-tight text-ink">
                 {decision.status}
               </h3>
               <p className="mt-5 text-base leading-8 text-steel">{decision.body}</p>

@@ -214,7 +214,7 @@ export function HandlaggarkedjaSimulator() {
               <p className="text-xs uppercase tracking-[0.3em] text-steel">
                 Aktiv kontaktpunkt
               </p>
-              <h2 className="mt-2 font-display text-3xl font-semibold tracking-tight text-ink">
+              <h2 className="mt-2 text-balance font-display text-3xl font-semibold tracking-tight text-ink">
                 {stage.title}
               </h2>
             </div>
@@ -298,7 +298,7 @@ export function HandlaggarkedjaSimulator() {
           <p className="text-xs uppercase tracking-[0.3em] text-steel">
             Förskjutning av ansvar
           </p>
-          <h2 className="mt-2 font-display text-3xl font-semibold tracking-tight text-ink">
+          <h2 className="mt-2 text-balance font-display text-3xl font-semibold tracking-tight text-ink">
             Från person till process till system
           </h2>
           <div className="mt-5 space-y-4">

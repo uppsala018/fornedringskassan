@@ -33,7 +33,7 @@ export default function OmPage() {
         <p className="text-xs uppercase tracking-[0.34em] text-stamp">
           Tydlig disclaimer
         </p>
-        <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-ink">
+        <h2 className="mt-3 text-balance font-display text-3xl font-semibold tracking-tight text-ink">
           Förnedringskassan är inte en verklig myndighet
         </h2>
         <p className="mt-4 max-w-4xl text-base leading-8 text-steel">
@@ -46,7 +46,7 @@ export default function OmPage() {
 
       <section className="grid gap-6 md:grid-cols-2">
         <article className="institution-card p-6">
-          <h2 className="font-display text-2xl font-semibold text-ink">Vad detta är</h2>
+          <h2 className="text-balance font-display text-2xl font-semibold text-ink">Vad detta är</h2>
           <div className="mt-4 space-y-4 text-base leading-8 text-steel">
             <p>
               Webbplatsen är satir och social kommentar. Den är fiktiv och skapad för att
@@ -60,7 +60,7 @@ export default function OmPage() {
         </article>
 
         <article className="institution-card p-6">
-          <h2 className="font-display text-2xl font-semibold text-ink">Vad detta inte är</h2>
+          <h2 className="text-balance font-display text-2xl font-semibold text-ink">Vad detta inte är</h2>
           <div className="mt-4 space-y-4 text-base leading-8 text-steel">
             <p>
               Innehållet är inte juridisk rådgivning, inte medicinsk rådgivning och inte
@@ -76,7 +76,7 @@ export default function OmPage() {
 
       <section className="institution-card p-8">
         <p className="text-sm uppercase tracking-[0.32em] text-steel">Syfte</p>
-        <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-ink">
+        <h2 className="mt-3 text-balance font-display text-3xl font-semibold tracking-tight text-ink">
           Vad satiren riktar in sig på
         </h2>
         <ul className="mt-6 space-y-4 text-base leading-8 text-steel">
@@ -88,7 +88,7 @@ export default function OmPage() {
       </section>
 
       <section className="rounded-dossier border border-steel/20 bg-paper p-8">
-        <h2 className="font-display text-2xl font-semibold text-ink">Vem satiren gäller</h2>
+        <h2 className="text-balance font-display text-2xl font-semibold text-ink">Vem satiren gäller</h2>
         <p className="mt-4 max-w-3xl text-base leading-8 text-steel">
           Satiren är riktad mot system, språkbruk och maktlös byråkratisk logik. Den är
           inte riktad mot sjuka personer, utsatta människor eller någon som befinner sig i

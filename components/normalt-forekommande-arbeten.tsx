@@ -67,7 +67,7 @@ export function NormaltForekommandeArbetenPage() {
           <p className="text-xs uppercase tracking-[0.3em] text-steel">
             Överlämning till ny funktion
           </p>
-          <h2 className="mt-2 font-display text-3xl font-semibold tracking-tight text-ink">
+          <h2 className="mt-2 text-balance font-display text-3xl font-semibold tracking-tight text-ink">
             Arbetsförnedringen har tagit emot ärendet
           </h2>
           <p className="mt-4 text-base leading-8 text-steel">
@@ -92,7 +92,7 @@ export function NormaltForekommandeArbetenPage() {
           <p className="text-xs uppercase tracking-[0.3em] text-steel">
             Filtrering av möjligheter
           </p>
-          <h2 className="mt-2 font-display text-3xl font-semibold tracking-tight text-ink">
+          <h2 className="mt-2 text-balance font-display text-3xl font-semibold tracking-tight text-ink">
             Kategorisera din nya rimlighet
           </h2>
           <p className="mt-4 text-sm leading-7 text-steel">
@@ -146,7 +146,7 @@ export function NormaltForekommandeArbetenPage() {
               <span className="status-chip bg-paper/85 text-steel">{job.location}</span>
             </div>
 
-            <h3 className="mt-4 font-display text-2xl font-semibold tracking-tight text-ink">
+            <h3 className="mt-4 text-balance font-display text-2xl font-semibold tracking-tight text-ink">
               {job.title}
             </h3>
             <p className="mt-4 text-base leading-7 text-steel">{job.description}</p>

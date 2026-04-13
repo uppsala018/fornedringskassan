@@ -197,6 +197,17 @@ export function HomepageShowcase() {
   return (
     <div className="mx-auto max-w-6xl px-2 py-7 sm:px-6 lg:px-8 lg:py-14">
       <section className="bureaucratic-panel relative overflow-hidden rounded-dossier border border-steel/20 bg-white/84 shadow-docket">
+        <div aria-hidden className="pointer-events-none absolute inset-0 z-10 hidden xl:block">
+          {n.map((note) => (
+            <div
+              key={note.id}
+              className="bubble-pop absolute max-w-[180px] rounded-full border border-stamp/15 bg-white/88 px-3 py-2 text-[10px] uppercase tracking-[0.16em] text-stamp shadow-sm"
+              style={note.style}
+            >
+              {note.text}
+            </div>
+          ))}
+        </div>
         <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
           <div className="paper-drift absolute left-[-4%] top-8 text-[clamp(2.5rem,8vw,7rem)] font-display uppercase tracking-[0.32em] text-ink/5">DIARIENUMMER</div>
           <div className="paper-drift absolute right-[-3%] top-32 text-[clamp(2rem,7vw,6rem)] font-display uppercase tracking-[0.28em] text-ink/4">KOMPLETTERING</div>
@@ -220,7 +231,7 @@ export function HomepageShowcase() {
             <div className="relative mt-6">
               <button type="button" onClick={() => setStamp((v) => (v + 1) % stamps.length)} className="stamp-drop absolute -top-4 right-0 hidden rotate-[-9deg] rounded-[1.35rem] border-4 border-stamp/80 bg-[#c8102e] px-5 py-3 text-sm font-black uppercase tracking-[0.24em] text-white shadow-[0_18px_40px_rgba(200,16,46,0.25)] ring-1 ring-stamp/20 transition hover:scale-[1.02] sm:block">{stamps[stamp]}</button>
               <p className="text-sm uppercase tracking-[0.34em] text-steel">Ärendets framsida</p>
-              <h1 className="mt-4 max-w-4xl font-display text-[2.85rem] font-semibold leading-[1.03] tracking-tight text-ink sm:text-6xl lg:text-7xl"><span className="block text-sm font-semibold uppercase tracking-[0.35em] text-stamp">#</span>Förnedringskassan</h1>
+              <h1 className="mt-4 max-w-4xl text-balance font-display text-[2.5rem] font-semibold leading-[1.03] tracking-tight text-ink sm:text-6xl lg:text-7xl"><span className="block text-sm font-semibold uppercase tracking-[0.35em] text-stamp">#</span>Förnedringskassan</h1>
               <p className="mt-5 max-w-2xl text-base leading-7 text-steel sm:text-lg sm:leading-8">Vi prövar din mänskliga rimlighet enligt intern rutin FÖRN-01.</p>
               <div className="mt-6 rounded-[1.35rem] border border-stamp/20 bg-stamp/10 p-4 sm:p-5">
                 <div className="flex flex-wrap items-center gap-3"><p className="text-xs uppercase tracking-[0.28em] text-stamp">Satirisk disclaimer</p><span className="inline-flex rounded-full border border-[#ffcc00]/35 bg-[#ffcc00]/12 px-3 py-1 text-[10px] uppercase tracking-[0.22em] text-ink">Fiktiv signal</span></div>
@@ -263,7 +274,7 @@ export function HomepageShowcase() {
 
       <section className="mt-12">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-          <div><p className="text-sm uppercase tracking-[0.32em] text-steel">Huvudfunktioner</p><h2 className="mt-3 font-display text-4xl font-semibold tracking-tight text-ink">Verktyg för den som vill bli professionellt ifrågasatt</h2></div>
+          <div><p className="text-sm uppercase tracking-[0.32em] text-steel">Huvudfunktioner</p><h2 className="mt-3 text-balance font-display text-4xl font-semibold tracking-tight text-ink">Verktyg för den som vill bli professionellt ifrågasatt</h2></div>
           <p className="max-w-2xl text-base leading-7 text-steel">Välj rätt kanal för ditt missöde. Samtliga tjänster är framtagna med samma respekt för individen som ett korrekt diariefört missförstånd.</p>
         </div>
         <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
@@ -283,14 +294,14 @@ export function HomepageShowcase() {
       <section className="mt-12 grid gap-6 lg:grid-cols-[1.04fr_0.96fr]">
         <article className="bureaucratic-panel rounded-dossier border border-steel/20 bg-white/88 p-7 shadow-slip">
           <p className="text-xs uppercase tracking-[0.3em] text-steel">Handläggarens dagbok</p>
-          <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-ink">Små anteckningar från ett stort missförstånd</h2>
+          <h2 className="mt-3 text-balance font-display text-3xl font-semibold tracking-tight text-ink">Små anteckningar från ett stort missförstånd</h2>
           <div className="mt-6 grid gap-4 sm:grid-cols-2">
             {diary.map(([time, text]) => <div key={time} className="rounded-[1.25rem] border border-steel/15 bg-paper/85 p-4"><p className="text-xs uppercase tracking-[0.26em] text-stamp">{time}</p><p className="mt-3 text-sm leading-7 text-steel">{text}</p></div>)}
           </div>
         </article>
         <aside className="bureaucratic-panel rounded-dossier border border-steel/20 bg-[linear-gradient(180deg,rgba(255,255,255,0.92),rgba(248,243,233,0.94))] p-7 shadow-slip">
           <p className="text-xs uppercase tracking-[0.3em] text-steel">Dela beslut</p>
-          <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-ink">Sprid missförståndet med stil</h2>
+          <h2 className="mt-3 text-balance font-display text-3xl font-semibold tracking-tight text-ink">Sprid missförståndet med stil</h2>
           <p className="mt-4 text-sm leading-7 text-steel">Kopiera länken eller öppna en liten X-ruta med en färdig formulering. Detta är framför allt användbart när ett beslut känns för absurt för att bära ensam.</p>
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
             <button onClick={copyUrl} className="inline-flex min-h-11 items-center justify-center rounded-full border border-steel/20 bg-paper px-5 py-3 text-sm font-medium text-ink transition hover:border-steel/45 hover:bg-white">{linkCopied ? "Länk kopierad" : "Kopiera länk"}</button>
@@ -303,12 +314,12 @@ export function HomepageShowcase() {
       <section className="mt-12 grid gap-6 lg:grid-cols-[1.12fr_0.88fr]">
         <article className="bureaucratic-panel overflow-hidden rounded-dossier border border-steel/20 bg-ink p-8 text-paper shadow-docket">
           <p className="text-xs uppercase tracking-[0.3em] text-paper/60">Nådeläge</p>
-          <h2 className="mt-4 font-display text-4xl font-semibold tracking-tight">När regelverket skaver erbjuder vi ett kort avbrott i den mekaniska värdigheten.</h2>
+          <h2 className="mt-4 text-balance font-display text-4xl font-semibold tracking-tight">När regelverket skaver erbjuder vi ett kort avbrott i den mekaniska värdigheten.</h2>
           <p className="mt-5 max-w-2xl text-base leading-8 text-paper/82">I vanliga fall uttrycker vi oss i fasta formuleringar, med tydlig distans och välkontrollerad beklagan. I nådeläge byter vi till ett språk som antyder att du är en människa med omständigheter, inte bara ett ärende som kom in fel vecka.</p>
         </article>
         <aside className="bureaucratic-panel institution-card p-8">
           <p className="text-xs uppercase tracking-[0.3em] text-steel">Meddelande till besökare</p>
-          <h2 className="mt-4 font-display text-4xl font-semibold tracking-tight text-ink">Allt här är påhittat. Känslan är däremot obehagligt bekant.</h2>
+          <h2 className="mt-4 text-balance font-display text-4xl font-semibold tracking-tight text-ink">Allt här är påhittat. Känslan är däremot obehagligt bekant.</h2>
           <p className="mt-5 text-base leading-8 text-steel">Den här sidan är en satirisk parodi på byråkrati, handläggarspråk och fördröjd välvilja. Ingen del är officiell, och ingen verklig myndighet står bakom innehållet, även om formuleringarna stundvis låter som att någon med pärm har granskat dem.</p>
           <Link href="/om" className="mt-8 inline-flex min-h-12 items-center rounded-full border border-steel/25 bg-paper px-6 py-3 text-sm font-medium text-ink transition hover:border-steel/50 hover:bg-white">Läs mer om projektet</Link>
         </aside>
@@ -320,7 +331,7 @@ export function HomepageShowcase() {
             <div className="flex flex-col gap-4 border-b border-white/10 pb-4 lg:flex-row lg:items-start lg:justify-between">
               <div>
                 <p className="text-xs uppercase tracking-[0.34em] text-paper/55">Starta mitt fiktiva ärende</p>
-                <h2 id="case-modal-title" className="mt-3 font-display text-[2.15rem] font-semibold leading-tight tracking-tight sm:text-5xl">Vad vill du bli förnedrad för idag?</h2>
+                <h2 id="case-modal-title" className="mt-3 text-balance font-display text-[2.15rem] font-semibold leading-tight tracking-tight sm:text-5xl">Vad vill du bli förnedrad för idag?</h2>
                 <p className="mt-4 max-w-2xl text-sm leading-7 text-paper/78 sm:text-base">Skriv en kort fråga så låter vi den passera genom den administrativa förskjutningen, där allt blir tydligare och samtidigt mindre användbart.</p>
               </div>
               <div className="flex flex-wrap items-center gap-2">
@@ -368,13 +379,6 @@ export function HomepageShowcase() {
         </div>
       ) : null}
 
-      <div aria-hidden className="pointer-events-none fixed inset-0 z-40 hidden sm:block">
-        {n.map((note) => (
-          <div key={note.id} className="bubble-pop absolute max-w-[220px] rounded-full border border-stamp/15 bg-white/88 px-3 py-2 text-[11px] uppercase tracking-[0.18em] text-stamp shadow-sm sm:max-w-[190px]" style={note.style}>
-            {note.text}
-          </div>
-        ))}
-      </div>
     </div>
   );
 }

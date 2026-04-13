@@ -70,7 +70,7 @@ export function NadalageView() {
         <div className="grid gap-10 px-6 py-8 sm:px-8 lg:grid-cols-[1.15fr_0.85fr] lg:px-10 lg:py-10">
           <div>
             <p className="text-sm uppercase tracking-[0.34em] text-[#6f7f78]">Nådeläge</p>
-            <h1 className="mt-4 max-w-3xl font-display text-5xl font-semibold tracking-tight text-[#203134] sm:text-6xl">
+            <h1 className="mt-4 max-w-3xl text-balance font-display text-5xl font-semibold tracking-tight text-[#203134] sm:text-6xl">
               En stilla paus utanför bedömningen.
             </h1>
             <p className="mt-5 max-w-2xl text-lg leading-8 text-[#536561]">
