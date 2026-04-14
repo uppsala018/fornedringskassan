@@ -37,6 +37,24 @@ const steps = [
 ] as const;
 
 type Note = { id: string; text: string; style: CSSProperties };
+type ShareTarget =
+  | {
+      label: string;
+      description: string;
+      kind: "link";
+      buildHref: (url: string, text: string) => string;
+    }
+  | {
+      label: string;
+      description: string;
+      kind: "copy";
+      buildCopyText: (url: string, text: string) => string;
+    }
+  | {
+      label: string;
+      description: string;
+      kind: "system";
+    };
 
 const r = <T,>(items: readonly T[]) => items[Math.floor(Math.random() * items.length)];
 const notes = (): Note[] =>
@@ -45,6 +63,81 @@ const notes = (): Note[] =>
     text: r(bubbles),
     style: Math.random() > 0.5 ? { top: `${18 + i * 18}%`, left: `${8 + Math.random() * 16}%` } : { top: `${18 + i * 18}%`, right: `${8 + Math.random() * 16}%` },
   }));
+
+const shareTargets: ShareTarget[] = [
+  {
+    label: "X",
+    description: "Kort text och länk i ett klassiskt myndighetsflöde.",
+    kind: "link",
+    buildHref: (url, text) =>
+      `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`,
+  },
+  {
+    label: "Facebook",
+    description: "Delar länken i ditt vanliga flöde.",
+    kind: "link",
+    buildHref: (url) => `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
+  },
+  {
+    label: "Messenger",
+    description: "Öppnar Messenger om appen eller webbtjänsten finns tillgänglig.",
+    kind: "link",
+    buildHref: (url) => `fb-messenger://share/?link=${encodeURIComponent(url)}`,
+  },
+  {
+    label: "WhatsApp",
+    description: "Fungerar bra för snabb spridning i samtalstrådar.",
+    kind: "link",
+    buildHref: (url, text) =>
+      `https://wa.me/?text=${encodeURIComponent(`${text}\n${url}`)}`,
+  },
+  {
+    label: "Telegram",
+    description: "Öppnar Telegram med färdig länk och text.",
+    kind: "link",
+    buildHref: (url, text) =>
+      `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`,
+  },
+  {
+    label: "LinkedIn",
+    description: "Delar i ett mer professionellt flöde.",
+    kind: "link",
+    buildHref: (url) =>
+      `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`,
+  },
+  {
+    label: "Pinterest",
+    description: "Delar bäst som länk med kort beskrivning.",
+    kind: "link",
+    buildHref: (url, text) =>
+      `https://pinterest.com/pin/create/button/?url=${encodeURIComponent(url)}&description=${encodeURIComponent(text)}`,
+  },
+  {
+    label: "Reddit",
+    description: "Öppnar ett inläggsfönster med länk och rubrik.",
+    kind: "link",
+    buildHref: (url, text) =>
+      `https://www.reddit.com/submit?url=${encodeURIComponent(url)}&title=${encodeURIComponent(text)}`,
+  },
+  {
+    label: "Instagram",
+    description: "Ingen direkt webblänk. Kopierar en caption som du kan klistra in i appen.",
+    kind: "copy",
+    buildCopyText: (url, text) => `${text}\n\n${url}\n#Förnedringskassan #Satir`,
+  },
+  {
+    label: "E-post",
+    description: "Skapar ett färdigt meddelande i din e-postklient.",
+    kind: "link",
+    buildHref: (url, text) =>
+      `mailto:?subject=${encodeURIComponent(text)}&body=${encodeURIComponent(`${text}\n\n${url}`)}`,
+  },
+  {
+    label: "Dela via enhetsmeny",
+    description: "Visar operativsystemets egna delningsruta när den finns.",
+    kind: "system",
+  },
+];
 
 const decision = (q: string) =>
   [
@@ -85,7 +178,8 @@ export function HomepageShowcase() {
   const [typed, setTyped] = useState("");
   const [copied, setCopied] = useState(false);
   const [linkCopied, setLinkCopied] = useState(false);
-  const [stampNotice, setStampNotice] = useState("");
+  const [shareOpen, setShareOpen] = useState(false);
+  const [shareCopied, setShareCopied] = useState(false);
 
   useEffect(() => {
     const t1 = window.setInterval(() => setBubble((v) => (v + 1) % bubbles.length), 4200);
@@ -132,12 +226,6 @@ export function HomepageShowcase() {
     typeTimer.current && window.clearInterval(typeTimer.current);
   }, []);
 
-  useEffect(() => {
-    if (!stampNotice) return;
-    const timer = window.setTimeout(() => setStampNotice(""), 1600);
-    return () => window.clearTimeout(timer);
-  }, [stampNotice]);
-
   const start = () => {
     setOpen(true);
     setCopied(false);
@@ -152,7 +240,6 @@ export function HomepageShowcase() {
 
   const advanceStamp = () => {
     setStamp((v) => (v + 1) % stamps.length);
-    setStampNotice("Ny stämpel har registrerats.");
   };
 
   const submit = (e: FormEvent<HTMLFormElement>) => {
@@ -204,7 +291,45 @@ export function HomepageShowcase() {
     window.setTimeout(() => setLinkCopied(false), 1400);
   };
 
-  const shareX = () => window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(typed || full || "Jag fick ett beslut från Förnedringskassan.")}&url=${encodeURIComponent(window.location.href)}`, "_blank", "noopener,noreferrer");
+  const shareText = typed || full || "Jag fick ett beslut från Förnedringskassan.";
+
+  const copyShareCaption = async () => {
+    const caption = `${shareText}\n\n${window.location.href}`;
+    await navigator.clipboard.writeText(caption);
+    setShareCopied(true);
+    window.setTimeout(() => setShareCopied(false), 1400);
+  };
+
+  const shareViaSystem = async () => {
+    if (typeof navigator === "undefined" || !("share" in navigator)) {
+      await copyShareCaption();
+      return;
+    }
+
+    await navigator.share({
+      title: "Förnedringskassan",
+      text: shareText,
+      url: window.location.href,
+    });
+  };
+
+  const openShareTarget = async (target: ShareTarget) => {
+    const url = window.location.href;
+
+    if (target.kind === "link") {
+      window.open(target.buildHref(url, shareText), "_blank", "noopener,noreferrer");
+      return;
+    }
+
+    if (target.kind === "copy") {
+      await navigator.clipboard.writeText(target.buildCopyText(url, shareText));
+      setShareCopied(true);
+      window.setTimeout(() => setShareCopied(false), 1400);
+      return;
+    }
+
+    await shareViaSystem();
+  };
 
   return (
     <div className="mx-auto max-w-6xl px-2 py-7 sm:px-6 lg:px-8 lg:py-14">
@@ -268,11 +393,6 @@ export function HomepageShowcase() {
                 {stamps[stamp]}
               </button>
             </div>
-            {stampNotice ? (
-              <p className="mt-2 text-[10px] uppercase tracking-[0.22em] text-stamp sm:text-xs">
-                {stampNotice}
-              </p>
-            ) : null}
             <div className="mt-5 max-w-2xl rounded-[1.2rem] border border-stamp/20 bg-stamp/10 p-3 sm:p-4">
               <div className="flex flex-wrap items-center justify-center gap-2.5">
                 <p className="text-[9px] uppercase tracking-[0.18em] text-stamp sm:text-[10px]">Satirisk disclaimer</p>
@@ -366,10 +486,10 @@ export function HomepageShowcase() {
         <aside className="bureaucratic-panel rounded-dossier border border-steel/20 bg-[linear-gradient(180deg,rgba(255,255,255,0.94),rgba(248,243,233,0.96))] p-7 shadow-slip">
           <p className="text-xs uppercase tracking-[0.3em] text-ink/72">Dela beslut</p>
           <h2 className="mt-3 text-balance font-display text-3xl font-semibold tracking-tight text-ink">Sprid missförståndet med stil</h2>
-          <p className="mt-4 text-sm leading-7 text-ink/76">Kopiera länken eller öppna en liten X-ruta med en färdig formulering. Detta är framför allt användbart när ett beslut känns för absurt för att bära ensam.</p>
+          <p className="mt-4 text-sm leading-7 text-ink/76">Välj plattform i en delningsruta, eller kopiera länken direkt. Instagram får en färdig caption, övriga tjänster öppnas med en förifylld länk när det går.</p>
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
             <button onClick={copyUrl} className="inline-flex min-h-11 items-center justify-center rounded-full border border-steel/20 bg-paper px-5 py-3 text-sm font-medium text-ink transition hover:border-steel/45 hover:bg-white">{linkCopied ? "Länk kopierad" : "Kopiera länk"}</button>
-            <button onClick={shareX} className="inline-flex min-h-11 items-center justify-center rounded-full border border-[#c8102e] bg-[#c8102e] px-5 py-3 text-sm font-medium text-white transition hover:bg-[#ad0d27]">Dela på X</button>
+            <button onClick={() => setShareOpen(true)} className="inline-flex min-h-11 items-center justify-center rounded-full border border-[#c8102e] bg-[#c8102e] px-5 py-3 text-sm font-medium text-white transition hover:bg-[#ad0d27]">Välj socialt nätverk</button>
           </div>
           <div className="mt-5 rounded-[1.25rem] border border-stamp/20 bg-stamp/10 p-4 text-sm leading-7 text-ink">Färdig text: <span className="font-medium">“Ett administrativt helt rimligt nej.”</span></div>
         </aside>
@@ -431,13 +551,83 @@ export function HomepageShowcase() {
                   </div>
                   <p className="mt-2 text-[10px] uppercase tracking-[0.24em] text-paper/55">Textexport i PDF-klädsel</p>
                   <div className="mt-4 grid gap-2 sm:grid-cols-2">
-                    <button type="button" onClick={shareX} className="inline-flex min-h-11 items-center justify-center rounded-full border border-[#c8102e] bg-[#c8102e] px-4 py-2 text-sm font-medium text-white transition hover:bg-[#ad0d27]">Dela på X</button>
+                    <button type="button" onClick={() => setShareOpen(true)} className="inline-flex min-h-11 items-center justify-center rounded-full border border-[#c8102e] bg-[#c8102e] px-4 py-2 text-sm font-medium text-white transition hover:bg-[#ad0d27]">Välj socialt nätverk</button>
                     <button type="button" onClick={copyUrl} className="inline-flex min-h-11 items-center justify-center rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-medium text-paper transition hover:bg-white/15">{linkCopied ? "Länk kopierad" : "Kopiera länk"}</button>
                   </div>
                   <div className="mt-4 inline-flex max-w-full rounded-full border border-[#ffcc00]/30 bg-[#ffcc00]/10 px-4 py-2 text-center text-[10px] uppercase tracking-[0.18em] text-paper/80 sm:text-xs sm:tracking-[0.24em]">{stamps[stamp]}</div>
                   <button type="button" onClick={advanceStamp} className="mt-4 inline-flex min-h-11 items-center rounded-full border border-[#ffcc00]/35 bg-[#ffcc00]/12 px-4 py-2 text-sm font-medium text-paper transition hover:bg-[#ffcc00]/18">Byt stämpeltext</button>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      ) : null}
+
+      {shareOpen ? (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(29,42,45,0.68)] px-2 py-2 backdrop-blur-sm sm:px-3 sm:py-4"
+          onClick={() => setShareOpen(false)}
+          role="presentation"
+        >
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="share-modal-title"
+            className="bureaucratic-panel relative max-h-[92vh] w-full max-w-5xl overflow-y-auto rounded-dossier border border-steel/20 bg-[linear-gradient(180deg,rgba(31,42,45,0.98),rgba(23,31,33,0.99))] p-3 text-paper shadow-[0_32px_80px_rgba(0,0,0,0.35)] sm:p-6"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex flex-col gap-4 border-b border-white/10 pb-4 lg:flex-row lg:items-start lg:justify-between">
+              <div>
+                <p className="text-xs uppercase tracking-[0.34em] text-paper/55">Delningsruta</p>
+                <h2 id="share-modal-title" className="mt-3 text-balance font-display text-[2.15rem] font-semibold leading-tight tracking-tight sm:text-5xl">
+                  Välj vart du vill dela beslutet
+                </h2>
+                <p className="mt-4 max-w-2xl text-sm leading-7 text-paper/78 sm:text-base">
+                  Här finns de vanligaste sociala vägarna. Instagram får en caption att klistra in, Messenger och andra appar öppnas när webbläsaren tillåter det.
+                </p>
+              </div>
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="status-chip border-white/10 bg-white/8 text-paper">{shareText.slice(0, 42)}</span>
+                <button onClick={() => setShareOpen(false)} className="inline-flex min-h-11 items-center rounded-full border border-white/15 bg-white/8 px-4 py-2 text-sm text-paper transition hover:bg-white/12">Stäng</button>
+              </div>
+            </div>
+
+            <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {shareTargets.map((target) => (
+                <button
+                  key={target.label}
+                  type="button"
+                  onClick={() => void openShareTarget(target)}
+                  className="rounded-[1.35rem] border border-white/10 bg-white/8 p-4 text-left transition hover:-translate-y-0.5 hover:bg-white/12"
+                >
+                  <p className="text-sm font-semibold text-paper">{target.label}</p>
+                  <p className="mt-2 text-sm leading-6 text-paper/76">{target.description}</p>
+                </button>
+              ))}
+            </div>
+
+            <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              <button
+                type="button"
+                onClick={() => void copyShareCaption()}
+                className="inline-flex min-h-11 items-center justify-center rounded-full border border-white/15 bg-white/10 px-5 py-3 text-sm font-medium text-paper transition hover:bg-white/15"
+              >
+                {shareCopied ? "Kopierat" : "Kopiera caption"}
+              </button>
+              <button
+                type="button"
+                onClick={() => void shareViaSystem()}
+                className="inline-flex min-h-11 items-center justify-center rounded-full border border-[#c8102e] bg-[#c8102e] px-5 py-3 text-sm font-medium text-white transition hover:bg-[#ad0d27]"
+              >
+                Dela via enhetsmenyn
+              </button>
+              <button
+                type="button"
+                onClick={copyUrl}
+                className="inline-flex min-h-11 items-center justify-center rounded-full border border-white/15 bg-white/10 px-5 py-3 text-sm font-medium text-paper transition hover:bg-white/15"
+              >
+                {linkCopied ? "Länk kopierad" : "Kopiera länk"}
+              </button>
             </div>
           </div>
         </div>
