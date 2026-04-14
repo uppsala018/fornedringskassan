@@ -17,7 +17,7 @@ export function SiteHeader() {
           <div className="rounded-[1.25rem] border border-stamp/20 bg-[linear-gradient(90deg,rgba(255,255,255,0.9),rgba(244,238,229,0.95))] px-4 py-2.5 shadow-slip">
             <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
               <div className="flex flex-wrap items-center gap-3">
-                <p className="text-[11px] uppercase tracking-[0.3em] text-steel">
+                <p className="text-[11px] uppercase tracking-[0.3em] text-ink/75">
                   Satirisk parodi, inte myndighet
                 </p>
                 <span className="inline-flex rounded-full border border-[#ffcc00]/35 bg-[#ffcc00]/12 px-3 py-1 text-[10px] uppercase tracking-[0.22em] text-ink">
@@ -33,7 +33,7 @@ export function SiteHeader() {
               <LogoMark compact showTagline={false} />
             </Link>
             <div className="hidden lg:block">
-              <p className="text-[11px] uppercase tracking-[0.26em] text-steel">
+              <p className="text-[11px] uppercase tracking-[0.26em] text-ink/68">
                 Fiktiv institutionell yta
               </p>
             </div>

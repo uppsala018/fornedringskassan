@@ -211,29 +211,29 @@ export function HandlaggarkedjaSimulator() {
         <article className="bureaucratic-panel rise-fade overflow-hidden rounded-dossier border border-steel/20 bg-[linear-gradient(180deg,rgba(255,255,255,0.94),rgba(239,242,241,0.94))] p-5 shadow-slip sm:p-6 lg:p-8">
           <div className="flex flex-col gap-4 border-b border-steel/15 pb-5 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <p className="text-xs uppercase tracking-[0.3em] text-steel">
+              <p className="text-xs uppercase tracking-[0.3em] text-ink/72">
                 Aktiv kontaktpunkt
               </p>
               <h2 className="mt-2 text-balance font-display text-3xl font-semibold tracking-tight text-ink">
                 {stage.title}
               </h2>
             </div>
-            <div className="rounded-2xl border border-steel/20 bg-paper/90 px-4 py-3 text-sm text-ink shadow-slip">
+            <div className="rounded-2xl border border-steel/20 bg-paper/94 px-4 py-3 text-sm text-ink shadow-slip">
               Handläggare {stageIndex + 1} av {stages.length}
             </div>
           </div>
 
           <div className="mt-6 grid gap-4 md:grid-cols-[0.82fr_1.18fr]">
-            <div className="rounded-[1.35rem] border border-steel/15 bg-paper/90 p-5">
-              <p className="text-xs uppercase tracking-[0.28em] text-steel">Funktion</p>
+            <div className="rounded-[1.35rem] border border-steel/15 bg-paper/94 p-5">
+              <p className="text-xs uppercase tracking-[0.28em] text-ink/72">Funktion</p>
               <p className="mt-2 text-lg font-medium text-ink">{stage.department}</p>
-              <p className="mt-4 text-sm leading-7 text-steel">{stage.posture}</p>
+              <p className="mt-4 text-sm leading-7 text-ink/76">{stage.posture}</p>
             </div>
             <div className="rounded-[1.35rem] border border-steel/15 bg-white/88 p-5">
-              <p className="text-xs uppercase tracking-[0.28em] text-steel">
+              <p className="text-xs uppercase tracking-[0.28em] text-ink/72">
                 Aktuell återkoppling
               </p>
-              <p className="mt-2 text-sm leading-6 text-steel">
+              <p className="mt-2 text-sm leading-6 text-ink/76">
                 {statusMicrocopy.helperChain}
               </p>
               <p className="mt-4 text-base leading-8 text-ink">
@@ -243,15 +243,15 @@ export function HandlaggarkedjaSimulator() {
             </div>
           </div>
 
-          <div className="mt-6 rounded-[1.35rem] border border-steel/15 bg-white/70 p-5">
-            <p className="text-xs uppercase tracking-[0.28em] text-steel">
+          <div className="mt-6 rounded-[1.35rem] border border-steel/15 bg-white/82 p-5">
+            <p className="text-xs uppercase tracking-[0.28em] text-ink/72">
               Nästa förskjutning
             </p>
-            <p className="mt-3 text-sm leading-7 text-steel">{nextHint}</p>
+            <p className="mt-3 text-sm leading-7 text-ink/76">{nextHint}</p>
           </div>
 
           <div className="mt-6">
-            <p className="text-xs uppercase tracking-[0.28em] text-steel">
+            <p className="text-xs uppercase tracking-[0.28em] text-ink/72">
               Välj nästa kontaktförsök
             </p>
             <div className="mt-4 grid gap-3 sm:grid-cols-2">
@@ -260,10 +260,10 @@ export function HandlaggarkedjaSimulator() {
                   key={action}
                   type="button"
                   onClick={() => handleAction(action)}
-                  className="inline-flex flex-col items-center justify-center rounded-2xl border border-steel/20 bg-paper/85 px-4 py-4 text-sm font-medium text-ink transition hover:-translate-y-0.5 hover:border-steel/45 hover:bg-white"
+                  className="inline-flex flex-col items-center justify-center rounded-2xl border border-steel/20 bg-paper/92 px-4 py-4 text-sm font-medium text-ink transition hover:-translate-y-0.5 hover:border-steel/45 hover:bg-white"
                 >
                   <span>{action}</span>
-                  <span className="text-xs font-normal text-steel">
+                  <span className="text-xs font-normal text-ink/72">
                     Handläggarkedjan uppdateras
                   </span>
                 </button>
@@ -278,7 +278,7 @@ export function HandlaggarkedjaSimulator() {
               className="inline-flex flex-col items-center justify-center rounded-full bg-ink px-6 py-3 text-sm font-medium text-paper transition hover:bg-seal"
             >
               <span>Börja om från Handläggare 1</span>
-              <span className="text-xs font-normal text-paper/70">
+              <span className="text-xs font-normal text-paper/84">
                 Ansvar återförs till första synliga person
               </span>
             </button>
@@ -287,15 +287,15 @@ export function HandlaggarkedjaSimulator() {
               className="inline-flex flex-col items-center justify-center rounded-full border border-steel/25 bg-paper px-6 py-3 text-sm font-medium text-ink transition hover:border-steel/50 hover:bg-white"
             >
               <span>Växla till nådeläge</span>
-              <span className="text-xs font-normal text-steel">
-                Ett oväntat förtydligande har inträffat
+              <span className="text-xs font-normal text-ink/72">
+                Ett oväntat förtydligande har diarieförts
               </span>
             </Link>
           </div>
         </article>
 
-        <aside className="bureaucratic-panel rise-fade rounded-dossier border border-steel/20 bg-[linear-gradient(180deg,rgba(235,240,239,0.92),rgba(255,255,255,0.92))] p-6 shadow-slip">
-          <p className="text-xs uppercase tracking-[0.3em] text-steel">
+        <aside className="bureaucratic-panel rise-fade rounded-dossier border border-steel/20 bg-[linear-gradient(180deg,rgba(235,240,239,0.94),rgba(255,255,255,0.96))] p-6 shadow-slip">
+          <p className="text-xs uppercase tracking-[0.3em] text-ink/72">
             Förskjutning av ansvar
           </p>
           <h2 className="mt-2 text-balance font-display text-3xl font-semibold tracking-tight text-ink">
@@ -303,16 +303,16 @@ export function HandlaggarkedjaSimulator() {
           </h2>
           <div className="mt-5 space-y-4">
             {history.length === 0 ? (
-              <p className="rounded-2xl border border-steel/15 bg-white/80 p-4 text-sm leading-7 text-steel">
+              <p className="rounded-2xl border border-steel/15 bg-white/86 p-4 text-sm leading-7 text-ink/76">
                 {statusMicrocopy.emptyChain}
               </p>
             ) : (
               history.map((entry, index) => (
                 <div
                   key={`${entry.stage}-${index}`}
-                  className="rise-fade rounded-2xl border border-steel/15 bg-white/82 p-4 shadow-sm"
+                  className="rise-fade rounded-2xl border border-steel/15 bg-white/88 p-4 shadow-sm"
                 >
-                  <p className="text-xs uppercase tracking-[0.24em] text-steel">
+                  <p className="text-xs uppercase tracking-[0.24em] text-ink/72">
                     Överlämning {index + 1}
                   </p>
                   <p className="mt-2 text-sm font-medium text-ink">

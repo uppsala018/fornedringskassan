@@ -1,14 +1,14 @@
 export const statusMicrocopy = {
   loadingTitle: "Intern omtolkning pågår",
   loadingBody:
-    "Verklighet konverteras till underlag. Var god invänta administrativ förskjutning.",
+    "Verklighet konverteras till underlag. Ditt tålamod har diarieförts och processen fortsätter i ordnad väntan.",
   helperDecision:
-    "Din tydlighet har registrerats och placerats i lämplig beslutsmiljö.",
+    "Din tydlighet har diarieförts och placerats i lämplig beslutsmiljö.",
   helperChain:
     "Handläggarkedjan uppdateras utan att någon riktigt står för det.",
   helperGenerator:
     "Underlagets känsloliv reduceras nu till användbar formalia.",
-  helperWarmth: "Ett oväntat förtydligande har inträffat.",
+  helperWarmth: "Ett oväntat förtydligande har diarieförts.",
   emptyDecision:
     "Inget beslut ännu. Formuläret inväntar tillräckligt mycket tolkbar verklighet.",
   emptyLetter:

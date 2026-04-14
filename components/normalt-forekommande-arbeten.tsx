@@ -64,23 +64,23 @@ export function NormaltForekommandeArbetenPage() {
     >
       <section className="grid gap-6 lg:grid-cols-[1.08fr_0.92fr]">
         <article className="bureaucratic-panel rise-fade overflow-hidden rounded-dossier border border-steel/20 bg-[linear-gradient(180deg,rgba(255,255,255,0.95),rgba(239,243,247,0.94))] p-6 shadow-slip">
-          <p className="text-xs uppercase tracking-[0.3em] text-steel">
+          <p className="text-xs uppercase tracking-[0.3em] text-ink/72">
             Överlämning till ny funktion
           </p>
           <h2 className="mt-2 text-balance font-display text-3xl font-semibold tracking-tight text-ink">
             Arbetsförnedringen har tagit emot ärendet
           </h2>
-          <p className="mt-4 text-base leading-8 text-steel">
+          <p className="mt-4 text-base leading-8 text-ink/76">
             Efter att du administrativt friskförklarats har din fortsatta
             försörjningsvärdighet överförts till en separat satirisk funktion för
             arbetsmatchning, intern omtolkning och kontrollerad verklighetsförskjutning.
           </p>
 
-          <div className="mt-5 rounded-[1.35rem] border border-steel/15 bg-white/80 p-5">
-            <p className="text-xs uppercase tracking-[0.28em] text-steel">
+          <div className="mt-5 rounded-[1.35rem] border border-steel/15 bg-white/86 p-5">
+            <p className="text-xs uppercase tracking-[0.28em] text-ink/72">
               Samlad bedömning
             </p>
-            <p className="mt-3 text-sm leading-7 text-steel">
+            <p className="mt-3 text-sm leading-7 text-ink/76">
               Följande arbeten bedöms som rimliga enligt samlad bedömning, tillgängligt
               underlag och en tillfälligt utvidgad uppfattning om vad som normalt kan anses
               förekomma.
@@ -89,13 +89,13 @@ export function NormaltForekommandeArbetenPage() {
         </article>
 
         <aside className="bureaucratic-panel rise-fade rounded-dossier border border-steel/20 bg-[linear-gradient(180deg,rgba(235,239,244,0.92),rgba(255,255,255,0.92))] p-6 shadow-slip">
-          <p className="text-xs uppercase tracking-[0.3em] text-steel">
+          <p className="text-xs uppercase tracking-[0.3em] text-ink/72">
             Filtrering av möjligheter
           </p>
           <h2 className="mt-2 text-balance font-display text-3xl font-semibold tracking-tight text-ink">
             Kategorisera din nya rimlighet
           </h2>
-          <p className="mt-4 text-sm leading-7 text-steel">
+          <p className="mt-4 text-sm leading-7 text-ink/76">
             Urvalet kan avgränsas efter hur teoretiskt, symboliskt eller administrativt
             oförankrat arbetet bedöms vara.
           </p>
@@ -112,8 +112,8 @@ export function NormaltForekommandeArbetenPage() {
                   className={[
                     "min-h-12 rounded-2xl border px-4 py-3 text-sm transition",
                     isActive
-                      ? "border-ink bg-ink text-paper shadow-slip"
-                      : "border-steel/20 bg-white/85 text-ink hover:border-steel/45 hover:bg-white",
+                    ? "border-ink bg-ink text-paper shadow-slip"
+                      : "border-steel/20 bg-white/90 text-ink hover:border-steel/45 hover:bg-white",
                   ].join(" ")}
                 >
                   {item}
@@ -128,7 +128,7 @@ export function NormaltForekommandeArbetenPage() {
             className="mt-5 inline-flex min-h-12 flex-col items-center justify-center rounded-full border border-steel/25 bg-paper px-6 py-3 text-sm font-medium text-ink transition hover:border-steel/50 hover:bg-white"
           >
             <span>Omfördela urval</span>
-            <span className="text-xs font-normal text-steel">
+            <span className="text-xs font-normal text-ink/72">
               Handläggarkedjan uppdateras
             </span>
           </button>
@@ -139,33 +139,33 @@ export function NormaltForekommandeArbetenPage() {
         {visibleJobs.map((job) => (
           <article
             key={job.id}
-            className="bureaucratic-panel rise-fade rounded-dossier border border-steel/20 bg-white/88 p-6 shadow-slip"
+            className="bureaucratic-panel rise-fade rounded-dossier border border-steel/20 bg-white/90 p-6 shadow-slip"
           >
             <div className="flex flex-wrap items-center gap-2">
               <span className="status-chip">{job.category}</span>
-              <span className="status-chip bg-paper/85 text-steel">{job.location}</span>
+              <span className="status-chip bg-paper/92 text-ink/76">{job.location}</span>
             </div>
 
             <h3 className="mt-4 text-balance font-display text-2xl font-semibold tracking-tight text-ink">
               {job.title}
             </h3>
-            <p className="mt-4 text-base leading-7 text-steel">{job.description}</p>
+            <p className="mt-4 text-base leading-7 text-ink/76">{job.description}</p>
 
             <dl className="mt-5 grid gap-3">
-              <div className="rounded-2xl border border-steel/15 bg-paper/80 p-4">
-                <dt className="text-xs uppercase tracking-[0.24em] text-steel">
+              <div className="rounded-2xl border border-steel/15 bg-paper/88 p-4">
+                <dt className="text-xs uppercase tracking-[0.24em] text-ink/72">
                   Anställningsform
                 </dt>
                 <dd className="mt-2 text-sm font-medium text-ink">{job.employmentType}</dd>
               </div>
-              <div className="rounded-2xl border border-steel/15 bg-paper/80 p-4">
-                <dt className="text-xs uppercase tracking-[0.24em] text-steel">
+              <div className="rounded-2xl border border-steel/15 bg-paper/88 p-4">
+                <dt className="text-xs uppercase tracking-[0.24em] text-ink/72">
                   Ersättningsmodell
                 </dt>
                 <dd className="mt-2 text-sm font-medium text-ink">{job.compensation}</dd>
               </div>
-              <div className="rounded-2xl border border-steel/15 bg-paper/80 p-4">
-                <dt className="text-xs uppercase tracking-[0.24em] text-steel">
+              <div className="rounded-2xl border border-steel/15 bg-paper/88 p-4">
+                <dt className="text-xs uppercase tracking-[0.24em] text-ink/72">
                   Bedömd rimlighet
                 </dt>
                 <dd className="mt-2 text-sm font-medium text-ink">
@@ -175,20 +175,20 @@ export function NormaltForekommandeArbetenPage() {
             </dl>
 
             <div className="mt-5 grid gap-4">
-              <div className="rounded-[1.25rem] border border-steel/15 bg-white/75 p-4">
-                <p className="text-xs uppercase tracking-[0.24em] text-steel">
+              <div className="rounded-[1.25rem] border border-steel/15 bg-white/88 p-4">
+                <p className="text-xs uppercase tracking-[0.24em] text-ink/72">
                   Arbetsuppgifter i urval
                 </p>
-                <ul className="mt-3 space-y-2 text-sm leading-6 text-steel">
+                <ul className="mt-3 space-y-2 text-sm leading-6 text-ink/76">
                   {job.duties.slice(0, 2).map((duty) => (
                     <li key={duty}>{duty}</li>
                   ))}
                 </ul>
               </div>
 
-              <div className="rounded-[1.25rem] border border-steel/15 bg-white/75 p-4">
-                <p className="text-xs uppercase tracking-[0.24em] text-steel">Grundkrav</p>
-                <ul className="mt-3 space-y-2 text-sm leading-6 text-steel">
+              <div className="rounded-[1.25rem] border border-steel/15 bg-white/88 p-4">
+                <p className="text-xs uppercase tracking-[0.24em] text-ink/72">Grundkrav</p>
+                <ul className="mt-3 space-y-2 text-sm leading-6 text-ink/76">
                   {job.requirements.slice(0, 2).map((requirement) => (
                     <li key={requirement}>{requirement}</li>
                   ))}
@@ -202,13 +202,13 @@ export function NormaltForekommandeArbetenPage() {
               className="mt-6 inline-flex flex-col items-center justify-center rounded-full bg-ink px-6 py-3 text-sm font-medium text-paper transition hover:bg-seal"
             >
               <span>Anmäl intresse</span>
-              <span className="text-xs font-normal text-paper/70">
+              <span className="text-xs font-normal text-paper/84">
                 Verklighet konverteras till matchning
               </span>
             </button>
 
-            <div className="mt-4 min-h-20 rounded-[1.25rem] border border-dashed border-steel/20 bg-white/70 p-4">
-              <p className="text-xs uppercase tracking-[0.24em] text-steel">Utfall</p>
+            <div className="mt-4 min-h-20 rounded-[1.25rem] border border-dashed border-steel/20 bg-white/84 p-4">
+              <p className="text-xs uppercase tracking-[0.24em] text-ink/72">Utfall</p>
               <p className="mt-2 text-sm leading-7 text-ink">
                 {outcomesById[job.id] ??
                   "Ingen ansökan registrerad ännu. Tjänsten hålls tills vidare öppen i teorin och stängd i praktiken."}

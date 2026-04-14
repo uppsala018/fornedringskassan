@@ -12,7 +12,7 @@ const config: Config = {
         paper: "#f6f3ec",
         ink: "#1d2a2d",
         mist: "#d5d9d1",
-        steel: "#617377",
+        steel: "#4e6165",
         stamp: "#9e5440",
         ledger: "#cad2c5",
         fog: "#e8e5dd",

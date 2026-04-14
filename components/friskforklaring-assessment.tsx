@@ -169,29 +169,29 @@ export function FriskforklaringAssessment() {
                 Självskattning av misstänkt funktion
               </h2>
             </div>
-            <p className="max-w-sm text-sm leading-6 text-steel">
+            <p className="max-w-sm text-sm leading-6 text-ink/78">
               Satirisk formulärmodul. Inga verkliga beslut fattas, även om tonen antyder
               annat.
             </p>
           </div>
 
           <div className="mt-5 rounded-[1.25rem] border border-stamp/20 bg-stamp/10 p-4">
-            <p className="text-sm leading-6 text-steel">{statusMicrocopy.helperDecision}</p>
+            <p className="text-sm leading-6 text-ink/80">{statusMicrocopy.helperDecision}</p>
           </div>
 
           <div className="mt-6 space-y-5">
             {questions.map((question, index) => (
               <fieldset
                 key={question.key}
-                className="rounded-[1.35rem] border border-steel/15 bg-white/80 p-5 transition hover:border-steel/30"
+                className="rounded-[1.35rem] border border-steel/15 bg-white/86 p-5 transition hover:border-steel/30"
               >
-                <legend className="px-1 text-sm uppercase tracking-[0.28em] text-steel">
+                <legend className="px-1 text-sm uppercase tracking-[0.28em] text-ink/72">
                   Fråga {index + 1}
                 </legend>
                 <p className="mt-3 text-lg font-medium leading-7 text-ink">
                   {question.prompt}
                 </p>
-                <p className="mt-2 text-sm leading-6 text-steel">{question.hint}</p>
+                <p className="mt-2 text-sm leading-6 text-ink/76">{question.hint}</p>
                 <div className="mt-4 grid gap-2 sm:grid-cols-3">
                   {(["ja", "nej", "otydligt"] as const).map((value) => {
                     const checked = formState[question.key] === value;
@@ -203,7 +203,7 @@ export function FriskforklaringAssessment() {
                           "flex min-h-11 cursor-pointer items-center justify-between rounded-2xl border px-4 py-3 text-sm transition",
                           checked
                             ? "border-ink bg-ink text-paper shadow-slip"
-                            : "border-steel/20 bg-paper/80 text-ink hover:border-steel/45 hover:bg-white",
+                            : "border-steel/20 bg-paper/88 text-ink hover:border-steel/45 hover:bg-white",
                         ].join(" ")}
                       >
                         <span>{choiceLabel(value)}</span>
@@ -247,7 +247,7 @@ export function FriskforklaringAssessment() {
               className="inline-flex min-h-12 flex-col items-center justify-center rounded-full border border-steel/25 bg-paper px-6 py-3 text-sm font-medium text-ink transition hover:border-steel/50 hover:bg-white"
             >
               <span>Rensa egen uppfattning</span>
-              <span className="text-xs font-normal text-steel">
+              <span className="text-xs font-normal text-ink/72">
                 Underlaget återställs till administrativ nollpunkt
               </span>
             </button>
@@ -255,11 +255,11 @@ export function FriskforklaringAssessment() {
         </form>
 
         <aside className="bureaucratic-panel rise-fade rounded-dossier border border-steel/20 bg-[linear-gradient(180deg,rgba(240,235,228,0.92),rgba(250,248,244,0.92))] p-5 sm:p-6 shadow-slip">
-          <p className="text-xs uppercase tracking-[0.3em] text-steel">Tolkningsstöd</p>
+          <p className="text-xs uppercase tracking-[0.3em] text-ink/72">Tolkningsstöd</p>
           <h2 className="mt-2 text-balance font-display text-3xl font-semibold tracking-tight text-ink">
             Så här misstolkar vi underlaget
           </h2>
-          <ul className="mt-5 space-y-4 text-base leading-7 text-steel">
+          <ul className="mt-5 space-y-4 text-base leading-7 text-ink/78">
             <li>Läsförmåga kan uppfattas som förstadium till e-posthantering.</li>
             <li>
               Oro inför försörjning räknas inte som belastning, snarare som motivation med
@@ -274,9 +274,9 @@ export function FriskforklaringAssessment() {
               administrativ art.
             </li>
           </ul>
-          <div className="mt-6 rounded-[1.35rem] border border-steel/15 bg-white/80 p-5">
-            <p className="text-xs uppercase tracking-[0.28em] text-steel">Statusrad</p>
-            <p className="mt-3 text-sm leading-7 text-steel">
+          <div className="mt-6 rounded-[1.35rem] border border-steel/15 bg-white/86 p-5">
+            <p className="text-xs uppercase tracking-[0.28em] text-ink/72">Statusrad</p>
+            <p className="mt-3 text-sm leading-7 text-ink/76">
               Verklighet konverteras till underlag. Tydlighet sorteras efter administrativ
               användbarhet.
             </p>
@@ -295,7 +295,7 @@ export function FriskforklaringAssessment() {
                 <h2 className="text-balance font-display text-3xl font-semibold tracking-tight">
                   {decision.rubric}
                 </h2>
-                <p className="mt-2 max-w-2xl text-sm leading-6 text-paper/75">
+                <p className="mt-2 max-w-2xl text-sm leading-6 text-paper/84">
                   Fiktivt beslutsmeddelande i satirisk form. Inte ett riktigt intyg, trots
                   dokumenterad självsäkerhet.
                 </p>
@@ -309,16 +309,16 @@ export function FriskforklaringAssessment() {
 
           <div className="grid gap-8 px-5 py-7 sm:px-8 lg:grid-cols-[1.15fr_0.85fr]">
             <article>
-              <p className="text-xs uppercase tracking-[0.28em] text-steel">
+              <p className="text-xs uppercase tracking-[0.28em] text-ink/72">
                 Formellt ställningstagande
               </p>
               <h3 className="mt-3 text-balance font-display text-3xl font-semibold tracking-tight text-ink">
                 {decision.status}
               </h3>
-              <p className="mt-5 text-base leading-8 text-steel">{decision.body}</p>
+              <p className="mt-5 text-base leading-8 text-ink/78">{decision.body}</p>
 
               <div className="mt-6 rounded-[1.35rem] border border-stamp/20 bg-stamp/10 p-5">
-                <p className="text-xs uppercase tracking-[0.28em] text-steel">
+                <p className="text-xs uppercase tracking-[0.28em] text-ink/72">
                   Särskild motivering
                 </p>
                 <p className="mt-3 text-base leading-8 text-ink">{decision.motivation}</p>
@@ -332,7 +332,7 @@ export function FriskforklaringAssessment() {
                 >
                   <span>Begär omprövning</span>
                   <span className="text-xs font-normal text-paper/70">
-                    Ett oväntat förtydligande har inträffat
+                    Ett oväntat förtydligande har diarieförts
                   </span>
                 </button>
                 <Link
@@ -340,7 +340,7 @@ export function FriskforklaringAssessment() {
                   className="inline-flex min-h-12 flex-col items-center justify-center rounded-full border border-steel/25 bg-white px-6 py-3 text-sm font-medium text-ink transition hover:border-steel/50 hover:bg-paper"
                 >
                   <span>Se normalt förekommande arbeten</span>
-                  <span className="text-xs font-normal text-steel">
+                  <span className="text-xs font-normal text-ink/72">
                     Ärendet överförs till Arbetsförnedringen
                   </span>
                 </Link>
@@ -349,7 +349,7 @@ export function FriskforklaringAssessment() {
                   className="inline-flex min-h-12 flex-col items-center justify-center rounded-full border border-steel/25 bg-paper px-6 py-3 text-sm font-medium text-ink transition hover:border-steel/50 hover:bg-white"
                 >
                   <span>Aktivera nådeläge</span>
-                  <span className="text-xs font-normal text-steel">
+                  <span className="text-xs font-normal text-ink/72">
                     Tillfällig mänsklighet initieras
                   </span>
                 </Link>
@@ -357,28 +357,28 @@ export function FriskforklaringAssessment() {
             </article>
 
             <aside className="rounded-[1.5rem] border border-steel/15 bg-paper/90 p-5">
-              <p className="text-xs uppercase tracking-[0.28em] text-steel">
+              <p className="text-xs uppercase tracking-[0.28em] text-ink/72">
                 Sammanfattning av underlag
               </p>
               <dl className="mt-4 space-y-4">
                 {submittedAnswers.map((answer) => (
                   <div
                     key={answer.prompt}
-                    className="rounded-2xl border border-steel/15 bg-white/80 p-4"
+                    className="rounded-2xl border border-steel/15 bg-white/86 p-4"
                   >
-                    <dt className="text-sm leading-6 text-steel">{answer.prompt}</dt>
+                    <dt className="text-sm leading-6 text-ink/76">{answer.prompt}</dt>
                     <dd className="mt-2 text-base font-medium text-ink">{answer.value}</dd>
                   </div>
                 ))}
               </dl>
-              <p className="mt-5 text-sm leading-7 text-steel">{decision.reviewWindow}</p>
+              <p className="mt-5 text-sm leading-7 text-ink/76">{decision.reviewWindow}</p>
             </aside>
           </div>
         </section>
       ) : (
-        <section className="rise-fade rounded-dossier border border-dashed border-steel/25 bg-paper/80 p-6">
-          <p className="text-xs uppercase tracking-[0.28em] text-steel">Tomt beslutsläge</p>
-          <p className="mt-3 text-base leading-7 text-steel">
+        <section className="rise-fade rounded-dossier border border-dashed border-steel/25 bg-paper/88 p-6">
+          <p className="text-xs uppercase tracking-[0.28em] text-ink/72">Tomt beslutsläge</p>
+          <p className="mt-3 text-base leading-7 text-ink/76">
             {statusMicrocopy.emptyDecision}
           </p>
         </section>

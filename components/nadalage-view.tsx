@@ -69,17 +69,17 @@ export function NadalageView() {
       <div className="soften-in overflow-hidden rounded-[2rem] border border-[#d9ddd8] bg-[linear-gradient(180deg,rgba(255,255,255,0.94),rgba(241,245,241,0.96))] shadow-[0_20px_60px_rgba(49,67,70,0.08)]">
         <div className="grid gap-10 px-6 py-8 sm:px-8 lg:grid-cols-[1.15fr_0.85fr] lg:px-10 lg:py-10">
           <div>
-            <p className="text-sm uppercase tracking-[0.34em] text-[#6f7f78]">Nådeläge</p>
+            <p className="text-sm uppercase tracking-[0.34em] text-[#51656b]">Nådeläge</p>
             <h1 className="mt-4 max-w-3xl text-balance font-display text-5xl font-semibold tracking-tight text-[#203134] sm:text-6xl">
               En stilla paus utanför bedömningen.
             </h1>
-            <p className="mt-5 max-w-2xl text-lg leading-8 text-[#536561]">
+            <p className="mt-5 max-w-2xl text-lg leading-8 text-[#415258]">
               Här finns inga invändningar, inga processled och inga krav på att formulera
               dig rätt. Bara några korta ord som får vara mänskliga.
             </p>
 
-            <div className="mt-8 rounded-[1.75rem] border border-[#d7ddd7] bg-white/82 p-6 shadow-[0_10px_35px_rgba(49,67,70,0.05)]">
-              <p className="text-xs uppercase tracking-[0.3em] text-[#7b8b84]">
+            <div className="mt-8 rounded-[1.75rem] border border-[#d7ddd7] bg-white/88 p-6 shadow-[0_10px_35px_rgba(49,67,70,0.05)]">
+              <p className="text-xs uppercase tracking-[0.3em] text-[#5a6c69]">
                 {currentLine.category}
               </p>
               <p className="mt-4 max-w-2xl text-2xl leading-10 text-[#203134] sm:text-3xl sm:leading-[3rem]">
@@ -91,7 +91,7 @@ export function NadalageView() {
                 className="mt-6 inline-flex flex-col items-center justify-center rounded-full border border-[#c8d2cb] bg-[#eef4ef] px-6 py-3 text-sm font-medium text-[#203134] transition hover:bg-white"
               >
                 <span>Visa en ny rad</span>
-                <span className="text-xs font-normal text-[#6f7f78]">
+                <span className="text-xs font-normal text-[#50636a]">
                   En varsam omtolkning pågår
                 </span>
               </button>
@@ -99,17 +99,17 @@ export function NadalageView() {
           </div>
 
           <aside className="rounded-[1.75rem] border border-[#d7ddd7] bg-[linear-gradient(180deg,rgba(236,243,238,0.95),rgba(250,252,250,0.95))] p-6">
-            <p className="text-xs uppercase tracking-[0.3em] text-[#7b8b84]">
+            <p className="text-xs uppercase tracking-[0.3em] text-[#5a6c69]">
               Tillfälligt andrum
             </p>
             <div className="mt-5 space-y-4">
-              <p className="rounded-[1.25rem] bg-white/75 px-4 py-4 text-base leading-8 text-[#425551]">
+              <p className="rounded-[1.25rem] bg-white/85 px-4 py-4 text-base leading-8 text-[#314346]">
                 Du får finnas också när du inte fungerar som vanligt.
               </p>
-              <p className="rounded-[1.25rem] bg-white/75 px-4 py-4 text-base leading-8 text-[#425551]">
+              <p className="rounded-[1.25rem] bg-white/85 px-4 py-4 text-base leading-8 text-[#314346]">
                 Det som är svårt blir inte mindre verkligt för att någon beskriver det torrt.
               </p>
-              <p className="rounded-[1.25rem] bg-white/75 px-4 py-4 text-base leading-8 text-[#425551]">
+              <p className="rounded-[1.25rem] bg-white/85 px-4 py-4 text-base leading-8 text-[#314346]">
                 Om du behöver vila, får det vara skäl nog.
               </p>
             </div>
@@ -121,12 +121,12 @@ export function NadalageView() {
         {groupedLines.map((group) => (
           <article
             key={group.category}
-            className="soften-in rounded-[1.75rem] border border-[#d7ddd7] bg-white/75 p-6 shadow-[0_10px_35px_rgba(49,67,70,0.06)]"
+            className="soften-in rounded-[1.75rem] border border-[#d7ddd7] bg-white/84 p-6 shadow-[0_10px_35px_rgba(49,67,70,0.06)]"
           >
-            <p className="text-xs uppercase tracking-[0.3em] text-[#7b8b84]">
+            <p className="text-xs uppercase tracking-[0.3em] text-[#5a6c69]">
               {group.category}
             </p>
-            <p className="mt-3 text-base leading-7 text-[#536561]">{group.description}</p>
+            <p className="mt-3 text-base leading-7 text-[#415258]">{group.description}</p>
             <ul className="mt-5 space-y-3">
               {group.lines.map((line) => (
                 <li

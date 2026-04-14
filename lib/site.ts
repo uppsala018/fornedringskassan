@@ -4,7 +4,7 @@ export const siteDescription =
   "En fiktiv och satirisk myndighetsparodi om blanketter, väntetider och välpolerad hopplöshet.";
 
 export const disclaimer =
-  "Satirisk parodi. Inte en myndighet, inte officiell och inte kopplad till någon verklig aktör.";
+  "Satirisk parodi. Inte en myndighet. Inte officiell. Inte kopplad till någon verklig aktör.";
 
 export const navItems = [
   { href: "/", label: "Hem" },

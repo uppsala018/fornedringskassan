@@ -230,11 +230,11 @@ export function AvslagsbrevGenerator() {
       <section className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
         <form
           onSubmit={handleSubmit}
-          className="bureaucratic-panel rounded-dossier border border-steel/20 bg-white/80 p-5 sm:p-6 shadow-sm"
+          className="bureaucratic-panel rounded-dossier border border-steel/20 bg-white/86 p-5 sm:p-6 shadow-sm"
         >
           <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <p className="text-xs uppercase tracking-[0.3em] text-steel">Generator</p>
+              <p className="text-xs uppercase tracking-[0.3em] text-ink/72">Generator</p>
               <h2 className="mt-2 text-2xl font-semibold tracking-tight text-ink">
                 Bygg ditt avslag
               </h2>
@@ -243,7 +243,7 @@ export function AvslagsbrevGenerator() {
               Premiumavslag med medkänsla finns som tillval
             </p>
           </div>
-          <p className="mt-4 text-sm leading-6 text-steel">
+          <p className="mt-4 text-sm leading-6 text-ink/76">
             {statusMicrocopy.helperGenerator}
           </p>
 
@@ -258,7 +258,7 @@ export function AvslagsbrevGenerator() {
                 }
                 className="rounded-2xl border border-steel/20 bg-paper px-4 py-3 text-base text-ink outline-none transition focus:border-ink"
               />
-              <span className="text-sm leading-6 text-steel">
+              <span className="text-sm leading-6 text-ink/76">
                 Ange diagnos, stämningsläge eller valfritt administrativt bekymmer.
               </span>
               <datalist id="besvar-lista">
@@ -400,15 +400,15 @@ export function AvslagsbrevGenerator() {
               className="inline-flex min-h-12 flex-col items-center justify-center rounded-full border border-steel/25 bg-paper px-6 py-3 text-sm font-medium text-ink transition hover:border-steel/50 hover:bg-white"
             >
               <span>Randomisera</span>
-              <span className="text-xs font-normal text-steel">
+              <span className="text-xs font-normal text-ink/72">
                 Intern omtolkning pågår
               </span>
             </button>
           </div>
         </form>
 
-        <aside className="bureaucratic-panel rounded-dossier border border-steel/20 bg-paper p-5 sm:p-6 shadow-sm">
-          <p className="text-xs uppercase tracking-[0.3em] text-steel">Parametrar</p>
+        <aside className="bureaucratic-panel rounded-dossier border border-steel/20 bg-paper/92 p-5 sm:p-6 shadow-sm">
+          <p className="text-xs uppercase tracking-[0.3em] text-ink/72">Parametrar</p>
           <h2 className="mt-2 text-2xl font-semibold tracking-tight text-ink">
             Sammanställning av avsiktslös precision
           </h2>
@@ -416,14 +416,14 @@ export function AvslagsbrevGenerator() {
             {summary.map(([label, value]) => (
               <div
                 key={label}
-                className="rounded-2xl border border-steel/15 bg-white/80 p-4"
+                className="rounded-2xl border border-steel/15 bg-white/86 p-4"
               >
-                <dt className="text-sm leading-6 text-steel">{label}</dt>
+                <dt className="text-sm leading-6 text-ink/76">{label}</dt>
                 <dd className="mt-2 text-base font-medium text-ink">{value}</dd>
               </div>
             ))}
           </dl>
-          <p className="mt-5 text-sm leading-7 text-steel">
+          <p className="mt-5 text-sm leading-7 text-ink/76">
             Samtliga brev är satiriska och fiktiva. Likhet med verkliga bedömningar är en
             kulturell olycka, inte en funktion.
           </p>
@@ -439,7 +439,7 @@ export function AvslagsbrevGenerator() {
             <div className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
               <div>
                 <h2 className="text-3xl font-semibold tracking-tight">{letter.title}</h2>
-                <p className="mt-2 max-w-2xl text-sm leading-6 text-paper/75">
+                <p className="mt-2 max-w-2xl text-sm leading-6 text-paper/84">
                   Satirisk generator. Inte officiell, inte juridisk och inte lämplig som
                   faktisk kommunikation med någon myndighet.
                 </p>
@@ -459,11 +459,11 @@ export function AvslagsbrevGenerator() {
             </article>
 
             <aside className="space-y-4">
-              <div className="rounded-[1.5rem] border border-steel/20 bg-white p-5">
-                <p className="text-xs uppercase tracking-[0.28em] text-steel">
+              <div className="rounded-[1.5rem] border border-steel/20 bg-white/92 p-5">
+                <p className="text-xs uppercase tracking-[0.28em] text-ink/72">
                   Brevets delar
                 </p>
-                <ul className="mt-4 space-y-3 text-sm leading-7 text-steel">
+                <ul className="mt-4 space-y-3 text-sm leading-7 text-ink/76">
                   <li>Artig inledning: ingår alltid.</li>
                   <li>Hänvisning till underlag: varierar efter vald mängd och ton.</li>
                   <li>Samlad helhetsbedömning: konsekvent tvärsäker.</li>
@@ -483,8 +483,8 @@ export function AvslagsbrevGenerator() {
                   className="inline-flex min-h-12 flex-col items-center justify-center rounded-full bg-ink px-6 py-3 text-sm font-medium text-paper transition hover:bg-ink/90"
                 >
                   <span>{copyLabel}</span>
-                  <span className="text-xs font-normal text-paper/70">
-                    Din tydlighet har registrerats
+                  <span className="text-xs font-normal text-paper/84">
+                    Din tydlighet har diarieförts
                   </span>
                 </button>
                 <button
@@ -493,8 +493,8 @@ export function AvslagsbrevGenerator() {
                   className="inline-flex min-h-12 flex-col items-center justify-center rounded-full border border-steel/25 bg-paper px-6 py-3 text-sm font-medium text-ink transition hover:border-steel/50 hover:bg-white"
                 >
                   <span>Randomisera</span>
-                  <span className="text-xs font-normal text-steel">
-                    Ett oväntat förtydligande har inträffat
+                  <span className="text-xs font-normal text-ink/72">
+                    Ett oväntat förtydligande har diarieförts
                   </span>
                 </button>
                 <button
@@ -503,7 +503,7 @@ export function AvslagsbrevGenerator() {
                   className="inline-flex min-h-12 flex-col items-center justify-center rounded-full border border-steel/25 bg-paper px-6 py-3 text-sm font-medium text-ink transition hover:border-steel/50 hover:bg-white"
                 >
                   <span>Ladda ner som text</span>
-                  <span className="text-xs font-normal text-steel">
+                  <span className="text-xs font-normal text-ink/72">
                     Beslutet paketeras för extern missförståelse
                   </span>
                 </button>
@@ -512,9 +512,9 @@ export function AvslagsbrevGenerator() {
           </div>
         </section>
       ) : (
-        <section className="rounded-dossier border border-dashed border-steel/25 bg-paper/80 p-6">
-          <p className="text-xs uppercase tracking-[0.28em] text-steel">Tom brevkö</p>
-          <p className="mt-3 text-base leading-7 text-steel">{statusMicrocopy.emptyLetter}</p>
+        <section className="rounded-dossier border border-dashed border-steel/25 bg-paper/88 p-6">
+          <p className="text-xs uppercase tracking-[0.28em] text-ink/72">Tom brevkö</p>
+          <p className="mt-3 text-base leading-7 text-ink/76">{statusMicrocopy.emptyLetter}</p>
         </section>
       )}
     </PageShell>

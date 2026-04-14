@@ -76,14 +76,14 @@ export function LogoMark({
       </div>
 
       <div className="min-w-0">
-        <p className="text-xs uppercase tracking-[0.3em] text-steel">
+        <p className="text-xs uppercase tracking-[0.3em] text-ink/72">
           Fiktiv bedömningsinstans
         </p>
         <p className={`mt-1 font-display font-semibold tracking-tight text-ink ${titleSize}`}>
           Förnedringskassan
         </p>
         {showTagline ? (
-          <p className="mt-1 text-sm leading-6 text-steel">
+          <p className="mt-1 text-sm leading-6 text-ink/76">
             Professionell misstro sedan okänt datum
           </p>
         ) : null}

@@ -21,13 +21,13 @@ export function Hero({
     <section className="bureaucratic-panel overflow-hidden rounded-dossier border border-steel/20 bg-white/80 shadow-docket">
       <div className="grid gap-10 px-6 py-10 sm:px-8 lg:grid-cols-[1.4fr_0.8fr] lg:px-10 lg:py-12">
         <div>
-          <p className="text-sm uppercase tracking-[0.32em] text-steel">
+          <p className="text-sm uppercase tracking-[0.32em] text-ink/72">
             Systematiserad misstro sedan oklar tidpunkt
           </p>
           <h1 className="mt-4 max-w-3xl text-4xl font-semibold tracking-tight text-ink sm:text-5xl">
             {title}
           </h1>
-          <p className="mt-5 max-w-2xl text-lg leading-8 text-steel">
+          <p className="mt-5 max-w-2xl text-lg leading-8 text-ink/76">
             {intro}
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -46,7 +46,7 @@ export function Hero({
           </div>
         </div>
         <aside className="rounded-dossier border border-dashed border-steel/30 bg-paper p-6">
-          <p className="text-xs uppercase tracking-[0.3em] text-steel">
+          <p className="text-xs uppercase tracking-[0.3em] text-ink/72">
             Plats för satirisk logotyp
           </p>
           <div className="mt-5 grid min-h-52 place-items-center rounded-[1.25rem] border border-steel/20 bg-grid bg-[size:22px_22px] bg-center">
@@ -56,7 +56,7 @@ export function Hero({
               Symbol, stämpel eller sigill
             </div>
           </div>
-          <p className="mt-5 text-sm leading-7 text-steel">
+          <p className="mt-5 text-sm leading-7 text-ink/76">
             Visuell riktning: blankettbeige, granskningsgrått och en diskret stämpelton. Kliniskt, men inte trovärdigt nog för att misstas för en riktig institution.
           </p>
         </aside>

@@ -215,3 +215,37 @@ textarea:focus-visible {
 .paper-drift {
   animation: paper-drift 8s ease-in-out infinite;
 }
+
+@keyframes loading-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-spinner {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 9999px;
+  border: 4px solid rgba(78, 97, 101, 0.18);
+  border-top-color: rgba(158, 84, 64, 0.95);
+  animation: loading-spin 1s linear infinite;
+  box-shadow: 0 0 0 1px rgba(78, 97, 101, 0.08) inset;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .rise-fade,
+  .soften-in,
+  .stamp-drop,
+  .bubble-pop,
+  .paper-shuffle-hover:hover,
+  .typewriter-caret::after,
+  .paper-drift,
+  .loading-spinner,
+  [class*="animate-"] {
+    animation: none !important;
+  }
+}
