@@ -10,6 +10,7 @@ export const navItems = [
   { href: "/", label: "Hem" },
   { href: "/friskforklaring", label: "Friskförklaring" },
   { href: "/avslagsbrev", label: "Avslagsbrev" },
+  { href: "/overklaga-beslut", label: "Överklaga beslut" },
   { href: "/handlaggarkedja", label: "Handläggarkedja" },
   { href: "/normalt-forekommande-arbeten", label: "Normalt förekommande arbeten" },
   { href: "/nadalage", label: "Nådeläge" },

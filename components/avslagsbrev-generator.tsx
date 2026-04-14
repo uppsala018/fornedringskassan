@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { type FormEvent, useMemo, useState } from "react";
 
 import { PageShell } from "@/components/page-shell";
@@ -507,6 +508,15 @@ export function AvslagsbrevGenerator() {
                     Beslutet paketeras för extern missförståelse
                   </span>
                 </button>
+                <Link
+                  href="/overklaga-beslut"
+                  className="inline-flex min-h-12 flex-col items-center justify-center rounded-full border border-steel/25 bg-paper px-6 py-3 text-sm font-medium text-ink transition hover:border-steel/50 hover:bg-white"
+                >
+                  <span>Överklaga beslut</span>
+                  <span className="text-xs font-normal text-ink/72">
+                    Ärendet går vidare till nästa prövning
+                  </span>
+                </Link>
               </div>
             </aside>
           </div>
