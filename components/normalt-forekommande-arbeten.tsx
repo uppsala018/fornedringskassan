@@ -102,7 +102,7 @@ export function NormaltForekommandeArbetenPage() {
   return (
     <PageShell
       title="Normalt förekommande arbeten"
-      intro="Du har nu, efter samlad bedömning, överförts till Arbetsförnedringen för fortsatt matchning mot arbeten som anses rimliga i den mån rimlighet kan upprätthållas av tillräckligt många interna funktioner."
+      intro="Här sorteras arbeten som om arbetsmarknaden vore en intern anteckningslista med för många till synes rimliga rader."
     >
       <section className="grid gap-6 lg:grid-cols-[1.08fr_0.92fr]">
         <article className="bureaucratic-panel rise-fade overflow-hidden rounded-dossier border border-steel/20 bg-[linear-gradient(180deg,rgba(255,255,255,0.95),rgba(239,243,247,0.94))] p-6 shadow-slip">

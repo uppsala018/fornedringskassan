@@ -218,7 +218,7 @@ export function HandlaggarkedjaSimulator() {
   return (
     <PageShell
       title="Handläggarkedja"
-      intro="En interaktiv simulering av hur ansvar gradvis löses upp i artighet, process och hänvisningar till något större än människan framför dig."
+      intro="Det här är ärendets vandring genom kedjan där samma fråga passerar vidare tills ansvaret nästan blir ett verb."
     >
       <section className="grid gap-6 lg:grid-cols-[1.08fr_0.92fr] lg:gap-8">
         <article className="bureaucratic-panel rise-fade overflow-hidden rounded-dossier border border-steel/20 bg-[linear-gradient(180deg,rgba(255,255,255,0.94),rgba(239,242,241,0.94))] p-5 shadow-slip sm:p-6 lg:p-8">

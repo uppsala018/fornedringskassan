@@ -369,11 +369,11 @@ export function HomepageShowcase() {
                 Satirisk parodi. Inte en myndighet. Inte Försäkringskassan.
               </p>
               <h1 className="max-w-4xl text-balance font-display text-4xl font-semibold leading-tight tracking-tight text-ink sm:text-5xl lg:text-6xl">
-                Välkommen till Förnedringskassan – Din guide i byråkratins labyrint
+                Förnedringskassan
               </h1>
               <p className="max-w-2xl text-[13px] leading-6 text-ink/76 sm:text-[15px] sm:leading-7">
-                Förnedringskassan är ett fiktivt serviceorgan för dig som behöver ett beslut, ett avslag eller en ny
-                handläggare innan hoppet hinner återhämta sig.
+                Här börjar du i portalens väntrum: beslut, avslag och nästa knapp leder
+                vidare till olika former av ordnad obekvämlighet.
               </p>
               <div className="flex flex-wrap items-center justify-center gap-2">
                 <span className="inline-flex rounded-full border border-[#c8102e]/20 bg-[#c8102e]/8 px-2.5 py-1 text-[9px] uppercase tracking-[0.18em] text-stamp sm:px-3 sm:text-[10px]">

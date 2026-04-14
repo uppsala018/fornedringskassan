@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 
 import { FriskforklaringAssessment } from "@/components/friskforklaring-assessment";
 
-const title = "Friskförklaring | Förnedringskassan";
+const title = "Friskförklaring | satirisk prövning av arbetsförmåga";
 const description =
-  "Automatisk prövning av återhämtning och arbetsförmåga i satirisk form, för dig som riskerar att bedömas fungera i teori.";
+  "Svara på några kontrollerande frågor och låt ett fiktivt system avgöra om din återhämtning råkar se alltför funktionell ut.";
 
 export const metadata: Metadata = {
   title,

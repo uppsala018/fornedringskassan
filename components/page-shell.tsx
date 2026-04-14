@@ -24,8 +24,7 @@ export function PageShell({ title, intro, children }: PageShellProps) {
                 Institutionell notis
               </p>
               <p className="mt-3 break-words text-sm leading-7 text-ink/76">
-                Denna vy tillhör en fiktiv satirisk tjänst. Formulär, beslut och
-                överlämningar är påhittade, även när de låter välbekanta.
+                Den här sidan är fiktiv. Vissa formuleringar låter bekanta av en anledning.
               </p>
             </div>
           </div>

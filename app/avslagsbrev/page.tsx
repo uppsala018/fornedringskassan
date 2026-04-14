@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 
 import { AvslagsbrevGenerator } from "@/components/avslagsbrev-generator";
 
-const title = "Avslagsbrev | Förnedringskassan";
+const title = "Avslagsbrev | satirisk myndighetssvenska";
 const description =
-  "Generera ett satiriskt avslagsbrev i välpolerad byråkratisk svenska, med underlag, helhetsbedömning och formellt tonfall.";
+  "Generera ett fiktivt avslagsbrev på torr myndighetssvenska, med underlag, motivering och en lagom kall avslutning.";
 
 export const metadata: Metadata = {
   title,

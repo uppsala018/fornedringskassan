@@ -153,7 +153,7 @@ export function FriskforklaringAssessment() {
   return (
     <PageShell
       title="Friskförklaring"
-      intro="Automatisk bedömning av återhämtning och arbetsförmåga för dig som misstänker att systemet snart kommer att kalla din överlevnad för förbättrad funktion."
+      intro="Svara på fem frågor och se om beslutsstödet tycker att din återhämtning ser alltför fungerande ut."
     >
       <section className="grid gap-6 lg:grid-cols-[1.08fr_0.92fr]">
         <form

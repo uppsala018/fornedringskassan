@@ -225,7 +225,7 @@ export function AvslagsbrevGenerator() {
   return (
     <PageShell
       title="Avslagsbrev"
-      intro="Generera ett välpolerat avslagsbrev för situationer där verkliga besvär möter ett system som föredrar prydliga slutsatser framför rimlighet."
+      intro="Skriv fram ett nej med rätt tonläge, rätt underlag och precis lagom mycket omsorg."
     >
       <section className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
         <form

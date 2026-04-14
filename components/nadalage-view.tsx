@@ -74,8 +74,8 @@ export function NadalageView() {
               En stilla paus utanför bedömningen.
             </h1>
             <p className="mt-5 max-w-2xl text-lg leading-8 text-[#415258]">
-              Här finns inga invändningar, inga processled och inga krav på att formulera
-              dig rätt. Bara några korta ord som får vara mänskliga.
+              Här får ärendet stå stilla en stund. Inga invändningar, inga processled och
+              inga krav på att formulera sig rätt.
             </p>
 
             <div className="mt-8 rounded-[1.75rem] border border-[#d7ddd7] bg-white/88 p-6 shadow-[0_10px_35px_rgba(49,67,70,0.05)]">

@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 
 import { HomepageShowcase } from "@/components/homepage-showcase";
 
-const title = "Förnedringskassan";
+const title = "Förnedringskassan | satirisk myndighetsparodi";
 const description =
-  "En fiktiv satirisk parodi på byråkrati, beslut, handläggarkedjor och annan välpolerad administrativ nedkylning.";
+  "En fiktiv svensk myndighetsparodi om blanketter, väntetider, handläggarkedjor och beslut som låter rimliga tills man läser dem noga.";
 
 export const metadata: Metadata = {
   title,

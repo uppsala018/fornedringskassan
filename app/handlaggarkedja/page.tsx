@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 
 import { HandlaggarkedjaSimulator } from "@/components/handlaggarkedja-simulator";
 
-const title = "Handläggarkedja | Förnedringskassan";
+const title = "Handläggarkedja | interaktiv satir om ansvar";
 const description =
-  "En satirisk simulering av hur ansvar förskjuts mellan allt fler handläggare, funktioner och systemiska hänvisningar.";
+  "Följ ett ärende när ansvar flyttar mellan handläggare, funktioner och hänvisningar tills ingen längre äger svaret.";
 
 export const metadata: Metadata = {
   title,

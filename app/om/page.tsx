@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 
 import { PageShell } from "@/components/page-shell";
 
-const title = "Om projektet | Förnedringskassan";
+const title = "Om Förnedringskassan | satirisk myndighetsparodi";
 const description =
-  "Information om Förnedringskassan som satiriskt projekt, samhällskommentar och fiktiv institution utan koppling till någon myndighet.";
+  "Här förklaras vad Förnedringskassan är, vad den inte är och varför projektet driver med språk, process och ansvar.";
 
 export const metadata: Metadata = {
   title,
@@ -26,8 +26,8 @@ export const metadata: Metadata = {
 export default function OmPage() {
   return (
     <PageShell
-      title="Om projektet"
-      intro="Förnedringskassan är ett satiriskt projekt och en form av samhällskommentar om hur byråkratiska system kan upplevas när språk, process och ansvar glider bort från människan."
+      title="Om Förnedringskassan"
+      intro="Här finns fotnoten till resten av sajten: vad projektet är, vad det inte är och varför tonen låter så bekant."
     >
       <section className="rounded-dossier border border-stamp/20 bg-stamp/10 p-6">
         <p className="text-xs uppercase tracking-[0.34em] text-ink/72">
