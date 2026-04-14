@@ -201,10 +201,13 @@ export function HomepageShowcase() {
           <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div className="space-y-3">
               <div className="flex flex-wrap items-center gap-3">
-                <p className="text-[10px] uppercase tracking-[0.28em] text-stamp sm:text-xs">Satirisk parodi. Inte en myndighet. Inte Försäkringskassan.</p>
+                <p className="text-[10px] uppercase tracking-[0.28em] text-stamp sm:text-xs">Byråkratisk satir i digital form</p>
                 <span className="inline-flex rounded-full border border-[#c8102e]/20 bg-[#c8102e]/8 px-2.5 py-1 text-[9px] uppercase tracking-[0.18em] text-stamp sm:px-3 sm:text-[10px]">Fiktiv signal</span>
               </div>
-              <p className="max-w-3xl text-[12px] leading-5 text-steel sm:text-[13px] sm:leading-6">Förnedringskassan är ett fiktivt serviceorgan för dig som behöver ett beslut, ett avslag eller en ny handläggare innan hoppet hinner återhämta sig.</p>
+              <p className="max-w-3xl text-[12px] leading-5 text-steel sm:text-[13px] sm:leading-6">
+                En digital parodi på system, blanketter och den sortens lugna nedkylning som bara kan komma från
+                ordnade rutiner.
+              </p>
             </div>
             <button type="button" onClick={() => setStamp((v) => (v + 1) % stamps.length)} className="inline-flex min-h-10 items-center rounded-full border border-stamp/30 bg-stamp/10 px-3.5 py-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-stamp transition hover:-translate-y-0.5 hover:bg-stamp/15">Byt stämpel</button>
           </div>
@@ -223,27 +226,47 @@ export function HomepageShowcase() {
                 </div>
               ))}
             </div>
-            <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
-              <div className="relative mt-1 flex w-full flex-col items-center gap-4 sm:gap-5">
-                <button
-                  type="button"
-                  onClick={() => setStamp((v) => (v + 1) % stamps.length)}
-                  className="stamp-drop inline-flex rotate-[-8deg] rounded-[1.1rem] border-[4px] border-stamp/80 bg-[#c8102e] px-4 py-2.5 text-[10px] font-black uppercase tracking-[0.22em] text-white shadow-[0_18px_32px_rgba(200,16,46,0.24)] ring-1 ring-stamp/20 transition hover:scale-[1.02] active:scale-[0.99] sm:px-5 sm:py-3 sm:text-xs"
-                >
-                  {stamps[stamp]}
-                </button>
+          <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
+            <header className="relative mt-1 flex w-full flex-col items-center gap-4 sm:gap-5">
+              <p className="text-[10px] uppercase tracking-[0.28em] text-stamp sm:text-xs">
+                Satirisk parodi. Inte en myndighet. Inte Försäkringskassan.
+              </p>
+              <h1 className="max-w-4xl text-balance font-display text-4xl font-semibold leading-tight tracking-tight text-ink sm:text-5xl lg:text-6xl">
+                Välkommen till Förnedringskassan – Din guide i byråkratins labyrint
+              </h1>
+              <p className="max-w-2xl text-[13px] leading-6 text-steel sm:text-[15px] sm:leading-7">
+                Förnedringskassan är ett fiktivt serviceorgan för dig som behöver ett beslut, ett avslag eller en ny
+                handläggare innan hoppet hinner återhämta sig.
+              </p>
+              <div className="flex flex-wrap items-center justify-center gap-2">
+                <span className="inline-flex rounded-full border border-[#c8102e]/20 bg-[#c8102e]/8 px-2.5 py-1 text-[9px] uppercase tracking-[0.18em] text-stamp sm:px-3 sm:text-[10px]">
+                  Fiktiv signal
+                </span>
+                <span className="inline-flex rounded-full border border-steel/20 bg-paper/90 px-3 py-1 text-[9px] uppercase tracking-[0.18em] text-steel sm:text-[10px]">
+                  Administrativ labyrint
+                </span>
               </div>
-              <div className="mt-5 max-w-2xl rounded-[1.2rem] border border-stamp/20 bg-stamp/10 p-3 sm:p-4">
-                <div className="flex flex-wrap items-center justify-center gap-2.5">
-                  <p className="text-[9px] uppercase tracking-[0.18em] text-stamp sm:text-[10px]">Satirisk disclaimer</p>
-                  <span className="inline-flex rounded-full border border-[#ffcc00]/35 bg-[#ffcc00]/12 px-3 py-1 text-[10px] uppercase tracking-[0.22em] text-ink">Fiktiv signal</span>
-                </div>
-                <p className="mt-2.5 text-[12px] leading-5 text-ink sm:text-[13px] sm:leading-6">
+            </header>
+            <div className="mt-2">
+              <button
+                type="button"
+                onClick={() => setStamp((v) => (v + 1) % stamps.length)}
+                className="stamp-drop inline-flex rotate-[-8deg] rounded-[1.1rem] border-[4px] border-stamp/80 bg-[#c8102e] px-4 py-2.5 text-[10px] font-black uppercase tracking-[0.22em] text-white shadow-[0_18px_32px_rgba(200,16,46,0.24)] ring-1 ring-stamp/20 transition hover:scale-[1.02] active:scale-[0.99] sm:px-5 sm:py-3 sm:text-xs"
+              >
+                {stamps[stamp]}
+              </button>
+            </div>
+            <div className="mt-5 max-w-2xl rounded-[1.2rem] border border-stamp/20 bg-stamp/10 p-3 sm:p-4">
+              <div className="flex flex-wrap items-center justify-center gap-2.5">
+                <p className="text-[9px] uppercase tracking-[0.18em] text-stamp sm:text-[10px]">Satirisk disclaimer</p>
+                <span className="inline-flex rounded-full border border-[#ffcc00]/35 bg-[#ffcc00]/12 px-3 py-1 text-[10px] uppercase tracking-[0.22em] text-ink">Fiktiv signal</span>
+              </div>
+              <p className="mt-2.5 text-[12px] leading-5 text-ink sm:text-[13px] sm:leading-6">
                   Detta är en parodi och samhällskommentar. Ingen del är officiell, ingen del är juridisk eller medicinsk rådgivning, och inget här ska förväxlas med en verklig myndighet eller dess varumärke.
-                </p>
-              </div>
-              <div className="mt-6 flex w-full flex-col items-center gap-2.5 sm:flex-row sm:flex-wrap sm:justify-center">
-                <button onClick={start} className="inline-flex min-h-12 w-full items-center justify-center rounded-full border-2 border-[#c8102e] bg-[#c8102e] px-6 py-3 text-[13px] font-black uppercase tracking-[0.16em] text-white shadow-[0_16px_36px_rgba(200,16,46,0.18)] transition hover:-translate-y-0.5 hover:bg-[#ad0d27] sm:w-auto sm:px-7 sm:py-3.5 sm:text-sm">
+              </p>
+            </div>
+            <div className="mt-6 flex w-full flex-col items-center gap-2.5 sm:flex-row sm:flex-wrap sm:justify-center">
+              <button onClick={start} className="inline-flex min-h-12 w-full items-center justify-center rounded-full border-2 border-[#c8102e] bg-[#c8102e] px-6 py-3 text-[13px] font-black uppercase tracking-[0.16em] text-white shadow-[0_16px_36px_rgba(200,16,46,0.18)] transition hover:-translate-y-0.5 hover:bg-[#ad0d27] sm:w-auto sm:px-7 sm:py-3.5 sm:text-sm">
                   Starta mitt fiktiva ärende
                 </button>
                 <span className="inline-flex min-h-12 items-center justify-center rounded-full border border-steel/20 bg-paper px-4 py-3 text-center text-[13px] text-steel sm:px-5 sm:text-sm">
