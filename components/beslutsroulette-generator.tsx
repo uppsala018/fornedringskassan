@@ -346,8 +346,11 @@ export function BeslutsrouletteGenerator() {
                 setFormState((current) => ({ ...current, matter: event.target.value }))
               }
               className="rounded-2xl border border-steel/20 bg-paper px-4 py-3 text-base text-ink outline-none transition focus:border-ink"
-              placeholder="Kort beskrivning av saken"
+              placeholder="Till exempel: förlängd handläggning, avslag på ersättning eller återkrav"
             />
+            <span className="text-xs leading-6 text-ink/68">
+              Exempel: förlängd handläggning, avslag på ersättning eller återkrav.
+            </span>
           </label>
 
           <div className="grid gap-4 md:grid-cols-2">

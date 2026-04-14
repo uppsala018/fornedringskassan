@@ -141,6 +141,12 @@ export default function OmPage() {
             Normalt förekommande arbeten
           </Link>
           <Link
+            href="/handlaggarnytt"
+            className="rounded-full border border-steel/20 bg-white/90 px-4 py-2 text-sm text-ink transition hover:border-steel/45 hover:bg-white"
+          >
+            Handläggarnytt
+          </Link>
+          <Link
             href="/"
             className="rounded-full border border-steel/20 bg-white/90 px-4 py-2 text-sm text-ink transition hover:border-steel/45 hover:bg-white"
           >
