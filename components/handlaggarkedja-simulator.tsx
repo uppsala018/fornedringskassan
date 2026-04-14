@@ -178,7 +178,20 @@ export function HandlaggarkedjaSimulator() {
 
   const stage = stages[stageIndex];
   const response = lastAction ? stage.responseByAction[lastAction] : null;
-  const canAdvance = stageIndex < stages.length - 1;
+  const stageCount = stages.length;
+  const canAdvance = stageIndex < stageCount - 1;
+  const progress = (stageIndex + 1) / stageCount;
+  const progressSegments = stages.map((_, index) => {
+    if (index < stageIndex) {
+      return "bg-[#d44a24]";
+    }
+
+    if (index === stageIndex) {
+      return stageIndex === stageCount - 1 ? "bg-[#00cc66]" : "bg-[#c8102e]";
+    }
+
+    return "bg-white/16";
+  });
 
   const nextHint = useMemo(() => {
     if (!canAdvance) {
@@ -218,9 +231,24 @@ export function HandlaggarkedjaSimulator() {
                 {stage.title}
               </h2>
             </div>
-            <div className="rounded-2xl border border-steel/20 bg-paper/94 px-4 py-3 text-sm text-ink shadow-slip">
-              Handläggare {stageIndex + 1} av {stages.length}
+          </div>
+
+          <div className="mt-6 rounded-[1.35rem] border border-steel/15 bg-white/82 p-5">
+            <div className="flex items-center justify-between gap-3">
+              <p className="text-xs uppercase tracking-[0.28em] text-ink/72">Barometer</p>
+              <p className="text-xs uppercase tracking-[0.28em] text-ink/72">{Math.round(progress * 100)} %</p>
             </div>
+            <div className="mt-3 grid h-3 grid-cols-9 overflow-hidden rounded-full border border-steel/15 bg-white/72">
+              {progressSegments.map((segmentClass, index) => (
+                <div
+                  key={`${segmentClass}-${index}`}
+                  className={`transition-colors duration-300 ${segmentClass}`}
+                />
+              ))}
+            </div>
+            <p className="mt-3 text-sm leading-7 text-ink/76">
+              Rött i början, sedan mer orange, och grönt först när hela kedjan har passerat.
+            </p>
           </div>
 
           <div className="mt-6 grid gap-4 md:grid-cols-[0.82fr_1.18fr]">
