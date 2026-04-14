@@ -36,6 +36,25 @@ function pickOutcome(job: JobRecord) {
   return outcomePool[Math.floor(Math.random() * outcomePool.length)];
 }
 
+const wrappedJobTitles: Record<string, string> = {
+  "Vindparkeringsassistent": "Vindparkerings\nassistent",
+  "Symbolisk projektmedarbetare": "Symbolisk\nprojektmedarbetare",
+  "Existentiell lagerinventerare": "Existentiell\nlagerinventerare",
+  "Biträdande tomhetskonsult": "Biträdande\ntomhetskonsult",
+  "Dörröppnare med utökad serviceprofil": "Dörröppnare med\nutökad serviceprofil",
+  "Handväskebärare åt samhällsviktig person": "Handväskebärare åt\nsamhällsviktig person",
+  "Särskild handläggare för normalt förekommande arbete":
+    "Särskild handläggare\nför normalt förekommande arbete",
+  "Privat dörrknackningsföreträdare": "Privat\ndörrknackningsföreträdare",
+  "Förvarningsmottagare av obehagliga besked": "Förvarningsmottagare\nav obehagliga besked",
+  "Ansiktsuttrycksjusterare inför pressbild": "Ansiktsuttrycksjusterare\ninför pressbild",
+  "Personlig skobytarkoordinator": "Personlig\nskobytarkoordinator",
+};
+
+function formatJobTitle(title: string) {
+  return wrappedJobTitles[title] ?? title;
+}
+
 export function NormaltForekommandeArbetenPage() {
   const [category, setCategory] = useState<FilterCategory>("Alla");
   const [seed, setSeed] = useState(0);
@@ -147,28 +166,28 @@ export function NormaltForekommandeArbetenPage() {
             </div>
 
             <h3 className="mt-4 text-balance font-display text-2xl font-semibold tracking-tight text-ink">
-              {job.title}
+              <span className="whitespace-pre-line break-words">{formatJobTitle(job.title)}</span>
             </h3>
-            <p className="mt-4 text-base leading-7 text-ink/76">{job.description}</p>
+            <p className="mt-4 break-words text-base leading-7 text-ink/76">{job.description}</p>
 
             <dl className="mt-5 grid gap-3">
               <div className="rounded-2xl border border-steel/15 bg-paper/88 p-4">
                 <dt className="text-xs uppercase tracking-[0.24em] text-ink/72">
                   Anställningsform
                 </dt>
-                <dd className="mt-2 text-sm font-medium text-ink">{job.employmentType}</dd>
+                <dd className="mt-2 break-words text-sm font-medium text-ink">{job.employmentType}</dd>
               </div>
               <div className="rounded-2xl border border-steel/15 bg-paper/88 p-4">
                 <dt className="text-xs uppercase tracking-[0.24em] text-ink/72">
                   Ersättningsmodell
                 </dt>
-                <dd className="mt-2 text-sm font-medium text-ink">{job.compensation}</dd>
+                <dd className="mt-2 break-words text-sm font-medium text-ink">{job.compensation}</dd>
               </div>
               <div className="rounded-2xl border border-steel/15 bg-paper/88 p-4">
                 <dt className="text-xs uppercase tracking-[0.24em] text-ink/72">
                   Bedömd rimlighet
                 </dt>
-                <dd className="mt-2 text-sm font-medium text-ink">
+                <dd className="mt-2 break-words text-sm font-medium text-ink">
                   {absurdityLabel(job.absurdityLevel)} ({job.absurdityLevel}/10)
                 </dd>
               </div>
@@ -181,7 +200,9 @@ export function NormaltForekommandeArbetenPage() {
                 </p>
                 <ul className="mt-3 space-y-2 text-sm leading-6 text-ink/76">
                   {job.duties.slice(0, 2).map((duty) => (
-                    <li key={duty}>{duty}</li>
+                    <li key={duty} className="break-words">
+                      {duty}
+                    </li>
                   ))}
                 </ul>
               </div>
@@ -190,7 +211,9 @@ export function NormaltForekommandeArbetenPage() {
                 <p className="text-xs uppercase tracking-[0.24em] text-ink/72">Grundkrav</p>
                 <ul className="mt-3 space-y-2 text-sm leading-6 text-ink/76">
                   {job.requirements.slice(0, 2).map((requirement) => (
-                    <li key={requirement}>{requirement}</li>
+                    <li key={requirement} className="break-words">
+                      {requirement}
+                    </li>
                   ))}
                 </ul>
               </div>
