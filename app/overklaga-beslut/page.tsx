@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { PageShell } from "@/components/page-shell";
+import { OverklagaBeslutGenerator } from "@/components/overklaga-beslut-generator";
 
 const title = "Överklaga beslut | satirisk omprövning";
 const description =
@@ -52,9 +53,10 @@ export default function OverklagaBeslutPage() {
       title="Överklaga beslut"
       intro="Här kan ett beslut överklagas enligt samma ordning som beslutet först föll i, bara med fler led, längre väntan och något större hövlighet."
       eyebrow="Överklagande"
+      showInstitutionNote={false}
     >
       <section className="rounded-dossier border border-steel/20 bg-paper p-6 sm:p-8">
-        <p className="text-xs uppercase tracking-[0.32em] text-ink/72">Snabb översikt</p>
+        <p className="text-xs uppercase tracking-[0.32em] text-ink/72">Så går det till</p>
         <p className="mt-3 max-w-3xl text-base leading-8 text-ink/76">
           Ett överklagande kan lämnas, läsas och prövas igen. Det är formellt möjligt, praktiskt
           välbekant och i många fall en förlängning av samma beslut i ny kostym.
@@ -73,6 +75,8 @@ export default function OverklagaBeslutPage() {
           ))}
         </div>
       </section>
+
+      <OverklagaBeslutGenerator />
 
       <section className="grid gap-6 md:grid-cols-2">
         <article className="institution-card p-6">
