@@ -27,7 +27,7 @@ const diary = [
   ["10:02", "Ett tydligt ärende blev till tre interna tolkningar och en paus för kaffe."],
   ["13:27", "Beslutet såg människonära ut tills processen tog över rubriken."],
 ];
-const stamps = ["AVSLAG", "AVSLAG – men med känsla", "INTERN OMTOLKNING", "GODKÄNT (skämtar bara)"];
+const stamps = ["AVSLAG", "INTERN OMTOLKNING", "UNDER ÖVERSYN", "VIDAREBEFORDRAT"];
 const steps = [
   [3, "Administrativ förskjutning: 3 %", "Ärendet öppnas. Ingen behöver känna sig trygg ännu."],
   [12, "Administrativ förskjutning: 12 %", "Du har nu väntat längre än genomsnittet."],
@@ -85,6 +85,7 @@ export function HomepageShowcase() {
   const [typed, setTyped] = useState("");
   const [copied, setCopied] = useState(false);
   const [linkCopied, setLinkCopied] = useState(false);
+  const [stampNotice, setStampNotice] = useState("");
 
   useEffect(() => {
     const t1 = window.setInterval(() => setBubble((v) => (v + 1) % bubbles.length), 4200);
@@ -131,6 +132,12 @@ export function HomepageShowcase() {
     typeTimer.current && window.clearInterval(typeTimer.current);
   }, []);
 
+  useEffect(() => {
+    if (!stampNotice) return;
+    const timer = window.setTimeout(() => setStampNotice(""), 1600);
+    return () => window.clearTimeout(timer);
+  }, [stampNotice]);
+
   const start = () => {
     setOpen(true);
     setCopied(false);
@@ -141,6 +148,11 @@ export function HomepageShowcase() {
     setP(3);
     setPText("Administrativ förskjutning: 3 %");
     setStatus("Ärendet öppnas i ett lugnt men bestämt tempo.");
+  };
+
+  const advanceStamp = () => {
+    setStamp((v) => (v + 1) % stamps.length);
+    setStampNotice("Ny stämpel har registrerats.");
   };
 
   const submit = (e: FormEvent<HTMLFormElement>) => {
@@ -209,7 +221,7 @@ export function HomepageShowcase() {
                 ordnade rutiner.
               </p>
             </div>
-            <button type="button" onClick={() => setStamp((v) => (v + 1) % stamps.length)} className="inline-flex min-h-10 items-center rounded-full border border-stamp/30 bg-stamp/10 px-3.5 py-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-stamp transition hover:-translate-y-0.5 hover:bg-stamp/15">Byt stämpel</button>
+            <button type="button" onClick={advanceStamp} className="inline-flex min-h-10 items-center rounded-full border border-stamp/30 bg-stamp/10 px-3.5 py-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-stamp transition hover:-translate-y-0.5 hover:bg-stamp/15">Byt stämpel</button>
           </div>
         </div>
 
@@ -250,12 +262,17 @@ export function HomepageShowcase() {
             <div className="mt-2">
               <button
                 type="button"
-                onClick={() => setStamp((v) => (v + 1) % stamps.length)}
+                onClick={advanceStamp}
                 className="stamp-drop inline-flex rotate-[-8deg] rounded-[1.1rem] border-[4px] border-stamp/80 bg-[#c8102e] px-4 py-2.5 text-[10px] font-black uppercase tracking-[0.22em] text-white shadow-[0_18px_32px_rgba(200,16,46,0.24)] ring-1 ring-stamp/20 transition hover:scale-[1.02] active:scale-[0.99] sm:px-5 sm:py-3 sm:text-xs"
               >
                 {stamps[stamp]}
               </button>
             </div>
+            {stampNotice ? (
+              <p className="mt-2 text-[10px] uppercase tracking-[0.22em] text-stamp sm:text-xs">
+                {stampNotice}
+              </p>
+            ) : null}
             <div className="mt-5 max-w-2xl rounded-[1.2rem] border border-stamp/20 bg-stamp/10 p-3 sm:p-4">
               <div className="flex flex-wrap items-center justify-center gap-2.5">
                 <p className="text-[9px] uppercase tracking-[0.18em] text-stamp sm:text-[10px]">Satirisk disclaimer</p>
@@ -418,7 +435,7 @@ export function HomepageShowcase() {
                     <button type="button" onClick={copyUrl} className="inline-flex min-h-11 items-center justify-center rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-medium text-paper transition hover:bg-white/15">{linkCopied ? "Länk kopierad" : "Kopiera länk"}</button>
                   </div>
                   <div className="mt-4 inline-flex max-w-full rounded-full border border-[#ffcc00]/30 bg-[#ffcc00]/10 px-4 py-2 text-center text-[10px] uppercase tracking-[0.18em] text-paper/80 sm:text-xs sm:tracking-[0.24em]">{stamps[stamp]}</div>
-                  <button type="button" onClick={() => setStamp((v) => (v + 1) % stamps.length)} className="mt-4 inline-flex min-h-11 items-center rounded-full border border-[#ffcc00]/35 bg-[#ffcc00]/12 px-4 py-2 text-sm font-medium text-paper transition hover:bg-[#ffcc00]/18">Byt stämpeltext</button>
+                  <button type="button" onClick={advanceStamp} className="mt-4 inline-flex min-h-11 items-center rounded-full border border-[#ffcc00]/35 bg-[#ffcc00]/12 px-4 py-2 text-sm font-medium text-paper transition hover:bg-[#ffcc00]/18">Byt stämpeltext</button>
                 </div>
               </div>
             </div>
