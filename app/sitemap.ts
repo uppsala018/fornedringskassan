@@ -6,6 +6,7 @@ const routes = [
   "/avslagsbrev",
   "/handlaggarkedja",
   "/nadalage",
+  "/fragor-och-svar",
   "/normalt-forekommande-arbeten",
   "/om",
 ];

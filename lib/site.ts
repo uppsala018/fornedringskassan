@@ -13,5 +13,6 @@ export const navItems = [
   { href: "/handlaggarkedja", label: "Handläggarkedja" },
   { href: "/normalt-forekommande-arbeten", label: "Normalt förekommande arbeten" },
   { href: "/nadalage", label: "Nådeläge" },
+  { href: "/fragor-och-svar", label: "FAQ" },
   { href: "/om", label: "Om" },
 ];
