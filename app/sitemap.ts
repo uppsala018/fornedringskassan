@@ -18,7 +18,7 @@ const routes = [
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return routes.map((route) => ({
-    url: `https://fornedringskassan.lol${route}`,
+    url: `https://fornedringskassan.vercel.app${route}`,
     lastModified: new Date(),
     changeFrequency: route === "/" ? "weekly" : "monthly",
     priority: route === "/" ? 1 : 0.8,

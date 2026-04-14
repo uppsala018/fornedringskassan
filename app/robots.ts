@@ -8,7 +8,7 @@ export default function robots(): MetadataRoute.Robots {
         allow: "/",
       },
     ],
-    sitemap: "https://fornedringskassan.lol/sitemap.xml",
-    host: "https://fornedringskassan.lol",
+    sitemap: "https://fornedringskassan.vercel.app/sitemap.xml",
+    host: "https://fornedringskassan.vercel.app",
   };
 }

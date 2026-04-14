@@ -7,7 +7,7 @@ import { ReleaseShareButton } from "@/components/release-share-button";
 const title = "Förnedringskassan | Elektrisk Revy";
 const description =
   'Lyssna på "Förnedringskassan" av Elektrisk Revy direkt på sidan, med lokal uppspelning, HyperFollow och plats för fler lyssningslänkar.';
-const pageUrl = "https://fornedringskassan.lol/musik/fornedringskassan";
+const pageUrl = "https://fornedringskassan.vercel.app/musik/fornedringskassan";
 const hyperfollowUrl =
   "https://distrokid.com/hyperfollow/elektriskrevy/frnedringskassan";
 const audioSrc = "/audio/fornedringskassan.mp3";
@@ -33,13 +33,13 @@ export default function MusikFornedringskassanPage() {
   return (
     <PageShell
       title="Förnedringskassan"
-      intro="Elektrisk Revy · en singel om en myndighetston som låter ordnad även när den inte hjälper."
+      intro="Elektrisk Revy · en satirisk singel om myndighetsspråk, avslag och en offentlighet som låter ordnad även när den inte hjälper."
       eyebrow="Musik"
       showInstitutionNote={false}
     >
       <section className="grid gap-6 lg:grid-cols-[1.08fr_0.92fr]">
         <article className="rounded-dossier border border-steel/20 bg-paper p-6 sm:p-8">
-          <p className="text-xs uppercase tracking-[0.32em] text-ink/72">Releaseinformation</p>
+          <p className="text-xs uppercase tracking-[0.32em] text-ink/72">Om låten</p>
           <div className="mt-5 grid gap-4 sm:grid-cols-2">
             <div className="rounded-[1.25rem] border border-steel/15 bg-white/88 p-4">
               <p className="text-xs uppercase tracking-[0.28em] text-ink/68">Artist</p>
@@ -111,7 +111,7 @@ export default function MusikFornedringskassanPage() {
       </section>
 
       <section className="rounded-dossier border border-steel/20 bg-white/90 p-6 sm:p-8">
-        <p className="text-xs uppercase tracking-[0.32em] text-ink/72">Lyssna direkt på sidan</p>
+        <p className="text-xs uppercase tracking-[0.32em] text-ink/72">Lyssna direkt</p>
         <div className="mt-4 rounded-[1.35rem] border border-steel/15 bg-paper p-4 sm:p-5">
           <audio controls preload="metadata" className="w-full" aria-label="Spela Förnedringskassan av Elektrisk Revy">
             <source src={audioSrc} type="audio/mpeg" />
@@ -125,7 +125,7 @@ export default function MusikFornedringskassanPage() {
 
       <section className="grid gap-6 lg:grid-cols-[1.02fr_0.98fr]">
         <article className="institution-card p-6">
-          <p className="text-xs uppercase tracking-[0.3em] text-ink/72">Lyssna på fler plattformar</p>
+          <p className="text-xs uppercase tracking-[0.3em] text-ink/72">Lyssna och dela</p>
           <h2 className="mt-3 text-balance font-display text-2xl font-semibold tracking-tight text-ink">
             Samlade lyssningsvägar tills vidare
           </h2>
@@ -147,7 +147,7 @@ export default function MusikFornedringskassanPage() {
         </article>
 
         <article className="institution-card p-6">
-          <p className="text-xs uppercase tracking-[0.3em] text-ink/72">Framtida embeds</p>
+          <p className="text-xs uppercase tracking-[0.3em] text-ink/72">Vad den driver med</p>
           <h2 className="mt-3 text-balance font-display text-2xl font-semibold tracking-tight text-ink">
             Reserverad yta för streaming och extra länkar
           </h2>
@@ -175,7 +175,7 @@ export default function MusikFornedringskassanPage() {
       </section>
 
       <section className="rounded-dossier border border-steel/20 bg-paper p-6 sm:p-8">
-        <p className="text-sm uppercase tracking-[0.32em] text-ink/72">Om utgåvan</p>
+        <p className="text-sm uppercase tracking-[0.32em] text-ink/72">Om projektkopplingen</p>
         <h2 className="mt-3 text-balance font-display text-2xl font-semibold tracking-tight text-ink">
           En låt som hör till samma värld som resten av sajten
         </h2>

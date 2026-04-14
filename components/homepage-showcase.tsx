@@ -475,6 +475,45 @@ export function HomepageShowcase() {
         </div>
       </section>
 
+      <section className="mt-12 grid gap-6 lg:grid-cols-[1.08fr_0.92fr]">
+        <article className="bureaucratic-panel rounded-dossier border border-steel/20 bg-paper/94 p-7 shadow-slip">
+          <p className="text-xs uppercase tracking-[0.32em] text-ink/72">Musik</p>
+          <h2 className="mt-3 text-balance font-display text-3xl font-semibold tracking-tight text-ink">
+            Låten Förnedringskassan
+          </h2>
+          <p className="mt-4 max-w-2xl text-base leading-7 text-ink/76">
+            Elektrisk Revys satirlåt hör till samma universum som resten av sajten och går att
+            lyssna på direkt utan att lämna den administrativa stämningen.
+          </p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <Link
+              href="/musik/fornedringskassan"
+              className="inline-flex min-h-12 items-center rounded-full bg-ink px-6 py-3 text-sm font-medium text-paper transition hover:bg-seal"
+            >
+              Lyssna på satirlåten Förnedringskassan
+            </Link>
+            <Link
+              href="/musik/fornedringskassan"
+              className="inline-flex min-h-12 items-center rounded-full border border-steel/20 bg-white/90 px-6 py-3 text-sm font-medium text-ink transition hover:border-steel/45 hover:bg-white"
+            >
+              Musik: Förnedringskassan
+            </Link>
+          </div>
+        </article>
+
+        <aside className="bureaucratic-panel rounded-dossier border border-steel/20 bg-white/92 p-7 shadow-slip">
+          <p className="text-xs uppercase tracking-[0.32em] text-ink/72">Sammanhang</p>
+          <h3 className="mt-3 text-balance font-display text-2xl font-semibold tracking-tight text-ink">
+            En sida för lyssning, delning och fortsatt ordning
+          </h3>
+          <p className="mt-4 text-base leading-7 text-ink/76">
+            Musiksidan är byggd som en naturlig del av Förnedringskassan och får därför samma
+            torra ton, samma paneler och samma sätt att låta något helt rimligt bli lite för
+            administrativt.
+          </p>
+        </aside>
+      </section>
+
       <section className="mt-12 grid gap-6 lg:grid-cols-[1.04fr_0.96fr]">
         <article className="bureaucratic-panel rounded-dossier border border-steel/20 bg-white/90 p-7 shadow-slip">
           <p className="text-xs uppercase tracking-[0.3em] text-ink/72">Handläggarens dagbok</p>

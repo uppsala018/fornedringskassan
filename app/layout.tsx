@@ -7,7 +7,7 @@ import { siteDescription, siteName } from "@/lib/site";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://fornedringskassan.lol"),
+  metadataBase: new URL("https://fornedringskassan.vercel.app"),
   applicationName: siteName,
   title: siteName,
   description: siteDescription,

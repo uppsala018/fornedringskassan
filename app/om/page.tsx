@@ -106,8 +106,8 @@ export default function OmPage() {
         </h2>
         <p className="mt-4 max-w-3xl text-base leading-8 text-ink/76">
           Om du vill se hur satiren fungerar i olika delar av sajten kan du gå vidare till
-          handläggarkedjan, avslagsbrevet, friskförklaringen, nådeläget eller någon av de
-          andra interna funktionerna.
+          handläggarkedjan, avslagsbrevet, låten Förnedringskassan, friskförklaringen,
+          nådeläget eller någon av de andra interna funktionerna.
         </p>
         <div className="mt-6 flex flex-wrap gap-3">
           <Link
@@ -145,6 +145,12 @@ export default function OmPage() {
             className="rounded-full border border-steel/20 bg-white/90 px-4 py-2 text-sm text-ink transition hover:border-steel/45 hover:bg-white"
           >
             Handläggarnytt
+          </Link>
+          <Link
+            href="/musik/fornedringskassan"
+            className="rounded-full border border-steel/20 bg-white/90 px-4 py-2 text-sm text-ink transition hover:border-steel/45 hover:bg-white"
+          >
+            Musik: Förnedringskassan
           </Link>
           <Link
             href="/"

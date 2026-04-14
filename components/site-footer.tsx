@@ -39,6 +39,9 @@ export function SiteFooter() {
               <Link href="/nadalage" className="text-paper/90 transition hover:text-white">
                 Nådeläge
               </Link>
+              <Link href="/musik/fornedringskassan" className="text-paper/90 transition hover:text-white">
+                Musik: Förnedringskassan
+              </Link>
               <Link href="/om" className="text-paper/90 transition hover:text-white">
                 Om projektet
               </Link>
