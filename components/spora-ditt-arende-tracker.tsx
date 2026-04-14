@@ -22,16 +22,28 @@ const matterOptions: Array<{ value: MatterType; label: string }> = [
   { value: "ovrigt", label: "Övrigt" },
 ];
 
-const statuses = [
-  "Ärendet har mottagits",
-  "Ärendet är registrerat",
-  "Ärendet väntar på intern förflyttning",
-  "Ärendet har överlämnats till annan funktion",
-  "Ärendet inväntar tidigare underlag",
-  "Ärendet handläggs i utökad ordning",
-  "Ärendet har återförts för förnyad inledande bedömning",
-  "Ärendet är fortfarande under behandling utan avvikelse från tidigare riktning",
-];
+const statusVariants: Record<MatterType, string[]> = {
+  beslut: [
+    "Ärendet har registrerats och knutits till tidigare beslut",
+    "Ärendet väntar på intern förflyttning efter mottagning",
+    "Ärendet är fortfarande under behandling utan avvikelse från tidigare riktning",
+  ],
+  omprovning: [
+    "Ärendet har återförts för förnyad inledande bedömning",
+    "Ärendet handläggs i utökad ordning",
+    "Ärendet inväntar tidigare underlag",
+  ],
+  komplettering: [
+    "Ärendet inväntar kompletterande underlag",
+    "Ärendet har överlämnats till annan funktion",
+    "Ärendet är registrerat och väntar på fortsatt läsning",
+  ],
+  ovrigt: [
+    "Ärendet är registrerat",
+    "Ärendet väntar på intern förflyttning",
+    "Ärendet handläggs i utökad ordning",
+  ],
+};
 
 const notesByMatter: Record<MatterType, string[]> = {
   beslut: [
@@ -61,6 +73,8 @@ const nextSteps = [
   "Nästa synbara rörelse väntas bli ytterligare en läsning av redan läst material.",
   "Ärendet kan komma att byta funktion utan att byta innehåll.",
   "Vid fortsatt oförändrade förutsättningar förväntas ny väntan med uppdaterad rubrik.",
+  "En ny statusrad kan tillkomma utan att sakläget ändras.",
+  "Fortsatt behandling väntas i samma riktning, men med mer justerad ordalydelse.",
 ];
 
 function seedFromString(value: string) {
@@ -75,18 +89,35 @@ function buildResult(reference: string, matter: MatterType): TrackingResult {
   const normalized = reference.trim().toUpperCase() || "OKÄND";
   const seed = seedFromString(normalized) + matter.length * 13;
   const drift = Math.floor(Math.random() * 11);
-
-  const baseStatuses = [
-    pick(statuses, seed + drift),
-    pick(statuses, seed + 3 + drift),
-    pick(statuses, seed + 5 + drift),
+  const timelinePool = [
+    "Ärendet har mottagits i huvudflödet",
+    "Ärendet har registrerats och placerats i ordnad väntan",
+    "Ärendet har förts vidare till intern läsning",
+    "Ärendet har överlämnats till annan funktion",
+    "Ärendet inväntar tidigare underlag",
+    "Ärendet har återförts för ny inledande bedömning",
   ];
 
-  const timeline = Array.from(new Set(baseStatuses));
+  const timeline = Array.from(
+    new Set([
+      pick(timelinePool, seed + drift),
+      pick(timelinePool, seed + 2 + drift),
+      pick(timelinePool, seed + 4 + drift),
+    ]),
+  );
   const diaryNumber = `ÄRE-${String(seed % 9000).padStart(4, "0")}/${new Date().getFullYear()}`;
   const note = pick(notesByMatter[matter], seed + 1 + drift);
-  const status = pick(statuses, seed + 2 + drift);
+  const status = pick(statusVariants[matter], seed + 2 + drift);
   const nextStep = pick(nextSteps, seed + 4 + drift);
+  const currentPhase = pick(
+    [
+      "Aktuell status",
+      "Nuvarande läge",
+      "Status i systemet",
+      "Pågående ordning",
+    ],
+    seed + drift,
+  );
 
   return {
     diaryNumber,
@@ -94,7 +125,7 @@ function buildResult(reference: string, matter: MatterType): TrackingResult {
     note: `${note} Referens: ${normalized}.`,
     timeline,
     nextStep,
-    shareText: `${status}. ${note} ${nextStep}`,
+    shareText: `${currentPhase}: ${status}. ${note} ${nextStep}`,
   };
 }
 
@@ -120,9 +151,7 @@ export function SporaDittArendeTracker() {
   async function copyStatus() {
     if (!result) return;
 
-    await navigator.clipboard.writeText(
-      `${result.diaryNumber}\n${result.status}\n${result.note}\n${result.timeline.join("\n")}\n${result.nextStep}`,
-    );
+    await navigator.clipboard.writeText(result.shareText);
     setCopyLabel("Kopierat");
   }
 
@@ -134,7 +163,8 @@ export function SporaDittArendeTracker() {
       </h2>
       <p className="mt-4 max-w-3xl text-base leading-8 text-ink/76">
         Ange ett diarienummer eller referensnummer och välj vad ärendet gäller. Då visas en
-        spårning som ser aktiv ut, uppdateras som om den betydde något och förklarar väldigt lite.
+        spårning som ser aktiv ut, uppdateras som om den betydde något och förklarar ännu mindre än
+        den borde.
       </p>
 
       <div className="mt-6 grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
@@ -193,7 +223,7 @@ export function SporaDittArendeTracker() {
         </form>
 
         <aside className="rounded-[1.5rem] border border-steel/20 bg-paper/92 p-5">
-          <p className="text-xs uppercase tracking-[0.3em] text-ink/72">Uppgifter som läses</p>
+          <p className="text-xs uppercase tracking-[0.3em] text-ink/72">Ingångsuppgifter</p>
           <dl className="mt-4 space-y-3">
             {summary.map(([label, value]) => (
               <div key={label} className="rounded-2xl border border-steel/15 bg-white/88 p-4">
@@ -208,7 +238,7 @@ export function SporaDittArendeTracker() {
       <div className="mt-6 rounded-[1.5rem] border border-steel/20 bg-white/90 p-5">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <p className="text-xs uppercase tracking-[0.28em] text-ink/72">Spårningsresultat</p>
+            <p className="text-xs uppercase tracking-[0.28em] text-ink/72">Aktuell status</p>
             <p className="mt-2 text-sm leading-7 text-ink/76">
               {result ? "Ärendet följs i systemet med uppdaterad status." : "Inget ärende valt ännu."}
             </p>
@@ -220,7 +250,10 @@ export function SporaDittArendeTracker() {
 
         <div className="mt-5 rounded-[1.35rem] border border-steel/15 bg-paper p-5">
           <p className="text-xs uppercase tracking-[0.28em] text-ink/72">
-            {result ? result.status : "Väntar på referens"}
+            {result ? "Beslutat läge" : "Väntar på referens"}
+          </p>
+          <p className="mt-2 text-sm leading-6 text-ink/72">
+            {result ? result.status : "Status visas när ett ärende har angetts."}
           </p>
           <p className="mt-4 text-base leading-8 text-ink/76">
             {result
@@ -228,16 +261,26 @@ export function SporaDittArendeTracker() {
               : "Ange ett diarienummer för att se hur ärendet rör sig genom den administrativa ordningen."}
           </p>
           <div className="mt-5 grid gap-3 md:grid-cols-3">
-            {(result ? result.timeline : ["Ärendet har mottagits", "Ärendet är registrerat", "Ärendet väntar på intern förflyttning"]).map(
-              (item) => (
-                <div key={item} className="rounded-2xl border border-steel/15 bg-white/88 p-4">
-                  <p className="text-sm leading-7 text-ink">{item}</p>
-                </div>
-              ),
-            )}
+            {(result
+              ? result.timeline
+              : [
+                  "Ärendet har mottagits i huvudflödet",
+                  "Ärendet har registrerats och placerats i ordnad väntan",
+                  "Ärendet har förts vidare till intern läsning",
+                ]
+            ).map((item, index) => (
+              <div key={`${item}-${index}`} className="rounded-2xl border border-steel/15 bg-white/88 p-4">
+                <p className="text-[10px] uppercase tracking-[0.24em] text-ink/68">
+                  Intern rörelse {index + 1}
+                </p>
+                <p className="mt-2 text-sm leading-7 text-ink">{item}</p>
+              </div>
+            ))}
           </div>
           <p className="mt-5 text-sm leading-7 text-ink/76">
-            {result ? result.nextStep : "Nästa förväntade icke-steg visas när ärendet har lästs."}
+            {result
+              ? result.nextStep
+              : "Nästa förväntade icke-steg visas när ärendet har lästs och förts vidare."}
           </p>
         </div>
 

@@ -5,7 +5,7 @@ import { SporaDittArendeTracker } from "@/components/spora-ditt-arende-tracker";
 
 const title = "Spåra ditt ärende | fiktiv ärendestatus hos Förnedringskassan";
 const description =
-  "Spåra ett fiktivt ärende genom Förnedringskassans byråkrati. Statusen uppdateras, men klarheten gör det sällan.";
+  "Spåra ett fiktivt ärende genom Förnedringskassans byråkrati. Statusen rör sig, men klarheten gör det sällan.";
 
 export const metadata: Metadata = {
   title,
@@ -28,7 +28,7 @@ export default function SporaDittArendePage() {
   return (
     <PageShell
       title="Spåra ditt ärende"
-      intro="Ange ett diarienummer och följ ärendets väg genom Förnedringskassans system. Rörelsen är verklig nog att se aktiv ut, men inte nödvändigtvis hjälpsam."
+      intro="Ange ett diarienummer och följ ärendets väg genom Förnedringskassans system. Rörelsen ser aktiv ut, men hjälper sällan."
       eyebrow="Ärendespårning"
       showInstitutionNote={false}
     >
@@ -36,8 +36,8 @@ export default function SporaDittArendePage() {
         <p className="text-xs uppercase tracking-[0.32em] text-ink/72">Så fungerar spårningen</p>
         <p className="mt-3 max-w-3xl text-base leading-8 text-ink/76">
           Spårningen visar en löpande status, några interna förflyttningar och en nästa rörelse som
-          låter lovande tills man läser den noggrant. Resultatet är avsiktligt aktivt och samtidigt
-          begränsat i sin förmåga att förklara något avgörande.
+          låter lovande tills man läser den noggrant. Resultatet är aktivt nog att kännas pågående,
+          men begränsat nog att lämna samma fråga öppen.
         </p>
       </section>
 

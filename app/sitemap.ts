@@ -5,6 +5,7 @@ const routes = [
   "/friskforklaring",
   "/avslagsbrev",
   "/overklaga-beslut",
+  "/beslutsroulette",
   "/spora-ditt-arende",
   "/handlaggarkedja",
   "/nadalage",
