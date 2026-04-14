@@ -55,6 +55,29 @@ function formatJobTitle(title: string) {
   return wrappedJobTitles[title] ?? title;
 }
 
+function renderJobTitle(title: string) {
+  if (title === "Vindparkeringsassistent") {
+    return (
+      <>
+        <span className="block">Vindparkerings</span>
+        <span className="block">assistent</span>
+      </>
+    );
+  }
+
+  if (title === "Förvarningsmottagare av obehagliga besked") {
+    return (
+      <>
+        <span className="block">Förvarnings</span>
+        <span className="block">mottagare av</span>
+        <span className="block">obehagliga besked</span>
+      </>
+    );
+  }
+
+  return <span className="whitespace-pre-line break-words">{formatJobTitle(title)}</span>;
+}
+
 export function NormaltForekommandeArbetenPage() {
   const [category, setCategory] = useState<FilterCategory>("Alla");
   const [seed, setSeed] = useState(0);
@@ -165,8 +188,8 @@ export function NormaltForekommandeArbetenPage() {
               <span className="status-chip bg-paper/92 text-ink/76">{job.location}</span>
             </div>
 
-            <h3 className="mt-4 text-balance font-display text-2xl font-semibold tracking-tight text-ink">
-              <span className="whitespace-pre-line break-words">{formatJobTitle(job.title)}</span>
+            <h3 className="mt-4 max-w-full text-balance font-display text-[1.8rem] font-semibold leading-tight tracking-tight text-ink">
+              {renderJobTitle(job.title)}
             </h3>
             <p className="mt-4 break-words text-base leading-7 text-ink/76">{job.description}</p>
 
