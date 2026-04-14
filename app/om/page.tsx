@@ -46,7 +46,9 @@ export default function OmPage() {
 
       <section className="grid gap-6 md:grid-cols-2">
         <article className="institution-card p-6">
-          <h2 className="text-balance font-display text-2xl font-semibold text-ink">Vad detta är</h2>
+          <h2 className="text-balance font-display text-2xl font-semibold text-ink">
+            Vad detta är
+          </h2>
           <div className="mt-4 space-y-4 text-base leading-8 text-ink/76">
             <p>
               Webbplatsen är satir och social kommentar i form av en fiktiv myndighetsyta.
@@ -57,7 +59,9 @@ export default function OmPage() {
         </article>
 
         <article className="institution-card p-6">
-          <h2 className="text-balance font-display text-2xl font-semibold text-ink">Vad detta inte är</h2>
+          <h2 className="text-balance font-display text-2xl font-semibold text-ink">
+            Vad detta inte är
+          </h2>
           <div className="mt-4 space-y-4 text-base leading-8 text-ink/76">
             <p>
               Innehållet är inte juridisk rådgivning, inte medicinsk rådgivning och inte
@@ -85,7 +89,9 @@ export default function OmPage() {
       </section>
 
       <section className="rounded-dossier border border-steel/20 bg-paper p-8">
-        <h2 className="text-balance font-display text-2xl font-semibold text-ink">Vem satiren inte gäller</h2>
+        <h2 className="text-balance font-display text-2xl font-semibold text-ink">
+          Vem satiren inte gäller
+        </h2>
         <p className="mt-4 max-w-3xl text-base leading-8 text-ink/76">
           Satiren är riktad mot system, språkbruk och maktlös byråkratisk logik. Den är inte
           riktad mot sjuka personer, utsatta människor eller någon som befinner sig i en
@@ -100,23 +106,44 @@ export default function OmPage() {
         </h2>
         <p className="mt-4 max-w-3xl text-base leading-8 text-ink/76">
           Om du vill se hur satiren fungerar i olika delar av sajten kan du gå vidare till
-          handläggarkedjan, avslagsbrevet, friskförklaringen eller någon av de andra interna
-          funktionerna.
+          handläggarkedjan, avslagsbrevet, friskförklaringen, nådeläget eller någon av de
+          andra interna funktionerna.
         </p>
         <div className="mt-6 flex flex-wrap gap-3">
-          <Link href="/handlaggarkedja" className="rounded-full border border-steel/20 bg-white/90 px-4 py-2 text-sm text-ink transition hover:border-steel/45 hover:bg-white">
+          <Link
+            href="/handlaggarkedja"
+            className="rounded-full border border-steel/20 bg-white/90 px-4 py-2 text-sm text-ink transition hover:border-steel/45 hover:bg-white"
+          >
             Handläggarkedja
           </Link>
-          <Link href="/avslagsbrev" className="rounded-full border border-steel/20 bg-white/90 px-4 py-2 text-sm text-ink transition hover:border-steel/45 hover:bg-white">
+          <Link
+            href="/avslagsbrev"
+            className="rounded-full border border-steel/20 bg-white/90 px-4 py-2 text-sm text-ink transition hover:border-steel/45 hover:bg-white"
+          >
             Avslagsbrev
           </Link>
-          <Link href="/friskforklaring" className="rounded-full border border-steel/20 bg-white/90 px-4 py-2 text-sm text-ink transition hover:border-steel/45 hover:bg-white">
+          <Link
+            href="/friskforklaring"
+            className="rounded-full border border-steel/20 bg-white/90 px-4 py-2 text-sm text-ink transition hover:border-steel/45 hover:bg-white"
+          >
             Friskförklaring
           </Link>
-          <Link href="/normalt-forekommande-arbeten" className="rounded-full border border-steel/20 bg-white/90 px-4 py-2 text-sm text-ink transition hover:border-steel/45 hover:bg-white">
+          <Link
+            href="/nadalage"
+            className="rounded-full border border-steel/20 bg-white/90 px-4 py-2 text-sm text-ink transition hover:border-steel/45 hover:bg-white"
+          >
+            Nådeläge
+          </Link>
+          <Link
+            href="/normalt-forekommande-arbeten"
+            className="rounded-full border border-steel/20 bg-white/90 px-4 py-2 text-sm text-ink transition hover:border-steel/45 hover:bg-white"
+          >
             Normalt förekommande arbeten
           </Link>
-          <Link href="/" className="rounded-full border border-steel/20 bg-white/90 px-4 py-2 text-sm text-ink transition hover:border-steel/45 hover:bg-white">
+          <Link
+            href="/"
+            className="rounded-full border border-steel/20 bg-white/90 px-4 py-2 text-sm text-ink transition hover:border-steel/45 hover:bg-white"
+          >
             Till startsidan
           </Link>
         </div>

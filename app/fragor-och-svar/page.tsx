@@ -5,7 +5,7 @@ import { PageShell } from "@/components/page-shell";
 
 const title = "Frågor och svar | Förnedringskassan";
 const description =
-  "Vanliga frågor om Förnedringskassan, ett fiktivt satiriskt projekt om myndighetsspråk, administrativa processer och absurd institutionslogik.";
+  "Svar på vanliga frågor om Förnedringskassan, det fiktiva satiriska projektet om myndighetsspråk, processer och vad sidan är eller inte är.";
 
 export const metadata: Metadata = {
   title,
@@ -81,14 +81,14 @@ export default function FAQPage() {
   return (
     <PageShell
       title="Frågor och svar"
-      intro="Kort svar på de frågor som brukar uppstå när ett fiktivt myndighetsprojekt låter för bekant för sitt eget bästa."
+      intro="Svar på vanliga frågor om Förnedringskassan, projektets satir och vad sidan inte är."
+      eyebrow="Vanliga frågor"
+      showInstitutionNote={false}
     >
       <section className="institution-card p-6 sm:p-8">
-        <p className="text-xs uppercase tracking-[0.32em] text-ink/72">Översikt</p>
-        <p className="mt-3 max-w-3xl text-base leading-8 text-ink/76">
-          Den här sidan samlar praktiska svar om vad Förnedringskassan är, vad den inte är
-          och hur satiren fungerar. Den är till för läsare som vill förstå projektet utan att
-          behöva läsa om samma sak två gånger.
+        <p className="max-w-3xl text-base leading-8 text-ink/76">
+          Den här sidan samlar korta svar om projektet, dess fiktiva ram och den satiriska
+          logik som håller ihop resten av sajten.
         </p>
       </section>
 
@@ -114,19 +114,34 @@ export default function FAQPage() {
           funktionerna och startsidan.
         </p>
         <div className="mt-6 flex flex-wrap gap-3">
-          <Link href="/om" className="rounded-full border border-steel/20 bg-white/90 px-4 py-2 text-sm text-ink transition hover:border-steel/45 hover:bg-white">
+          <Link
+            href="/om"
+            className="rounded-full border border-steel/20 bg-white/90 px-4 py-2 text-sm text-ink transition hover:border-steel/45 hover:bg-white"
+          >
             Om projektet
           </Link>
-          <Link href="/handlaggarkedja" className="rounded-full border border-steel/20 bg-white/90 px-4 py-2 text-sm text-ink transition hover:border-steel/45 hover:bg-white">
+          <Link
+            href="/handlaggarkedja"
+            className="rounded-full border border-steel/20 bg-white/90 px-4 py-2 text-sm text-ink transition hover:border-steel/45 hover:bg-white"
+          >
             Handläggarkedja
           </Link>
-          <Link href="/avslagsbrev" className="rounded-full border border-steel/20 bg-white/90 px-4 py-2 text-sm text-ink transition hover:border-steel/45 hover:bg-white">
+          <Link
+            href="/avslagsbrev"
+            className="rounded-full border border-steel/20 bg-white/90 px-4 py-2 text-sm text-ink transition hover:border-steel/45 hover:bg-white"
+          >
             Avslagsbrev
           </Link>
-          <Link href="/friskforklaring" className="rounded-full border border-steel/20 bg-white/90 px-4 py-2 text-sm text-ink transition hover:border-steel/45 hover:bg-white">
+          <Link
+            href="/friskforklaring"
+            className="rounded-full border border-steel/20 bg-white/90 px-4 py-2 text-sm text-ink transition hover:border-steel/45 hover:bg-white"
+          >
             Friskförklaring
           </Link>
-          <Link href="/" className="rounded-full border border-steel/20 bg-white/90 px-4 py-2 text-sm text-ink transition hover:border-steel/45 hover:bg-white">
+          <Link
+            href="/"
+            className="rounded-full border border-steel/20 bg-white/90 px-4 py-2 text-sm text-ink transition hover:border-steel/45 hover:bg-white"
+          >
             Till startsidan
           </Link>
         </div>

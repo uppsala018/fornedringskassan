@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 
 import { NadalageView } from "@/components/nadalage-view";
 
-const title = "Nådeläge | stilla paus från myndighetstonen";
+const title = "Nådeläge | en stilla paus för vila och värdighet";
 const description =
-  "En kort, satirisk andningspaus med stillhet, tröst och värdighet för stunder då byråkratin behöver få tystna en stund.";
+  "En stilla paus för vila, tröst och värdighet, för stunder då du vill slippa bedömning och krav.";
 
 export const metadata: Metadata = {
   title,

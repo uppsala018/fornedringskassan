@@ -66,16 +66,22 @@ export function NadalageView() {
 
   return (
     <section className="mx-auto max-w-5xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
-      <div className="soften-in overflow-hidden rounded-[2rem] border border-[#d9ddd8] bg-[linear-gradient(180deg,rgba(255,255,255,0.94),rgba(241,245,241,0.96))] shadow-[0_20px_60px_rgba(49,67,70,0.08)]">
+      <section
+        aria-labelledby="nadalage-intro"
+        className="soften-in overflow-hidden rounded-[2rem] border border-[#d9ddd8] bg-[linear-gradient(180deg,rgba(255,255,255,0.94),rgba(241,245,241,0.96))] shadow-[0_20px_60px_rgba(49,67,70,0.08)]"
+      >
         <div className="grid gap-10 px-6 py-8 sm:px-8 lg:grid-cols-[1.15fr_0.85fr] lg:px-10 lg:py-10">
           <div>
             <p className="text-sm uppercase tracking-[0.34em] text-[#51656b]">Nådeläge</p>
-            <h1 className="mt-4 max-w-3xl text-balance font-display text-5xl font-semibold tracking-tight text-[#203134] sm:text-6xl">
-              En stilla paus utanför bedömningen.
+            <h1
+              id="nadalage-intro"
+              className="mt-4 max-w-3xl text-balance font-display text-5xl font-semibold tracking-tight text-[#203134] sm:text-6xl"
+            >
+              En stilla paus för vila och värdighet.
             </h1>
             <p className="mt-5 max-w-2xl text-lg leading-8 text-[#415258]">
-              Här får ärendet stå stilla en stund. Inga invändningar, inga processled och
-              inga krav på att formulera sig rätt.
+              Här får du vila en stund utan invändningar, utan krav och utan att behöva
+              formulera dig rätt.
             </p>
 
             <div className="mt-8 rounded-[1.75rem] border border-[#d7ddd7] bg-white/88 p-6 shadow-[0_10px_35px_rgba(49,67,70,0.05)]">
@@ -91,17 +97,13 @@ export function NadalageView() {
                 className="mt-6 inline-flex flex-col items-center justify-center rounded-full border border-[#c8d2cb] bg-[#eef4ef] px-6 py-3 text-sm font-medium text-[#203134] transition hover:bg-white"
               >
                 <span>Visa en ny rad</span>
-                <span className="text-xs font-normal text-[#50636a]">
-                  En varsam omtolkning pågår
-                </span>
+                <span className="text-xs font-normal text-[#50636a]">En ny rad när du vill</span>
               </button>
             </div>
           </div>
 
           <aside className="rounded-[1.75rem] border border-[#d7ddd7] bg-[linear-gradient(180deg,rgba(236,243,238,0.95),rgba(250,252,250,0.95))] p-6">
-            <p className="text-xs uppercase tracking-[0.3em] text-[#5a6c69]">
-              Tillfälligt andrum
-            </p>
+            <p className="text-xs uppercase tracking-[0.3em] text-[#5a6c69]">Stillhet</p>
             <div className="mt-5 space-y-4">
               <p className="rounded-[1.25rem] bg-white/85 px-4 py-4 text-base leading-8 text-[#314346]">
                 Du får finnas också när du inte fungerar som vanligt.
@@ -115,31 +117,44 @@ export function NadalageView() {
             </div>
           </aside>
         </div>
-      </div>
+      </section>
 
-      <div className="mt-8 grid gap-6 md:grid-cols-3">
-        {groupedLines.map((group) => (
-          <article
-            key={group.category}
-            className="soften-in rounded-[1.75rem] border border-[#d7ddd7] bg-white/84 p-6 shadow-[0_10px_35px_rgba(49,67,70,0.06)]"
+      <section aria-labelledby="nadalage-stillhet" className="mt-8">
+        <div className="mb-4 flex flex-col gap-2">
+          <p className="text-xs uppercase tracking-[0.32em] text-[#5a6c69]">
+            Tre sätt att läsa vilan
+          </p>
+          <h2
+            id="nadalage-stillhet"
+            className="text-balance font-display text-2xl font-semibold tracking-tight text-[#203134]"
           >
-            <p className="text-xs uppercase tracking-[0.3em] text-[#5a6c69]">
-              {group.category}
-            </p>
-            <p className="mt-3 text-base leading-7 text-[#415258]">{group.description}</p>
-            <ul className="mt-5 space-y-3">
-              {group.lines.map((line) => (
-                <li
-                  key={line.text}
-                  className="rounded-[1.25rem] border border-[#e1e7e1] bg-[#f6f9f6] px-4 py-4 text-sm leading-7 text-[#203134]"
-                >
-                  {line.text}
-                </li>
-              ))}
-            </ul>
-          </article>
-        ))}
-      </div>
+            Stillhet, tröst och värdighet
+          </h2>
+        </div>
+        <div className="grid gap-6 md:grid-cols-3">
+          {groupedLines.map((group) => (
+            <article
+              key={group.category}
+              className="soften-in rounded-[1.75rem] border border-[#d7ddd8] bg-white/84 p-6 shadow-[0_10px_35px_rgba(49,67,70,0.06)]"
+            >
+              <p className="text-xs uppercase tracking-[0.3em] text-[#5a6c69]">
+                {group.category}
+              </p>
+              <p className="mt-3 text-base leading-7 text-[#415258]">{group.description}</p>
+              <ul className="mt-5 space-y-3">
+                {group.lines.map((line) => (
+                  <li
+                    key={line.text}
+                    className="rounded-[1.25rem] border border-[#e1e7e1] bg-[#f6f9f6] px-4 py-4 text-sm leading-7 text-[#203134]"
+                  >
+                    {line.text}
+                  </li>
+                ))}
+              </ul>
+            </article>
+          ))}
+        </div>
+      </section>
     </section>
   );
 }
