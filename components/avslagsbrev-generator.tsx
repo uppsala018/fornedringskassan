@@ -268,7 +268,7 @@ export function AvslagsbrevGenerator() {
               </datalist>
             </label>
 
-            <div className="grid gap-5 md:grid-cols-2">
+            <div className="grid gap-5">
               <label className="grid gap-2">
                 <span className="text-sm font-medium text-ink">Mängd underlag</span>
                 <select
@@ -286,7 +286,7 @@ export function AvslagsbrevGenerator() {
                 </select>
               </label>
 
-              <label className="grid gap-2">
+              <label className="grid gap-2 md:max-w-sm md:justify-self-center md:w-full">
                 <span className="text-sm font-medium text-ink">Grad av utmattning</span>
                 <select
                   value={formState.utmattning}
@@ -309,7 +309,7 @@ export function AvslagsbrevGenerator() {
                 <legend className="px-1 text-sm font-medium text-ink">
                   Har läkare intygat tillståndet?
                 </legend>
-                <div className="mt-3 grid gap-3 sm:grid-cols-2">
+                <div className="mt-3 grid gap-3">
                   {[
                     ["ja", "Ja, intyg finns"],
                     ["nej", "Nej, endast upplevelse"],
@@ -320,7 +320,7 @@ export function AvslagsbrevGenerator() {
                       <label
                         key={value}
                         className={[
-                          "flex cursor-pointer items-center rounded-2xl border px-4 py-3 text-sm transition",
+                          "flex min-h-14 cursor-pointer items-center justify-center rounded-2xl border px-5 py-4 text-center text-sm leading-5 transition",
                           checked
                             ? "border-ink bg-ink text-paper"
                             : "border-steel/20 bg-white text-ink hover:border-steel/45",
