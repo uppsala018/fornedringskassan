@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 import { PageShell } from "@/components/page-shell";
@@ -11,6 +12,7 @@ const pageUrl = "https://fornedringskassan.vercel.app/musik/fornedringskassan";
 const hyperfollowUrl =
   "https://distrokid.com/hyperfollow/elektriskrevy/frnedringskassan";
 const audioSrc = "/audio/fornedringskassan.mp3";
+const coverSrc = "/images/fornedringskassan-cover.png";
 
 export const metadata: Metadata = {
   title,
@@ -77,7 +79,7 @@ export default function MusikFornedringskassanPage() {
           <div className="flex h-full min-h-[360px] flex-col justify-between rounded-[1.5rem] border border-steel/15 bg-white/78 p-5 shadow-[0_18px_40px_rgba(29,42,45,0.08)]">
             <div className="flex items-center justify-between gap-4">
               <div>
-                <p className="text-xs uppercase tracking-[0.3em] text-ink/68">Omslagsyta</p>
+                <p className="text-xs uppercase tracking-[0.3em] text-ink/68">Omslag</p>
                 <p className="mt-2 font-display text-2xl font-semibold tracking-tight text-ink">
                   Elektrisk Revy
                 </p>
@@ -87,24 +89,22 @@ export default function MusikFornedringskassanPage() {
               </div>
             </div>
 
-            <div className="relative my-6 flex flex-1 items-center justify-center overflow-hidden rounded-[1.25rem] border border-steel/15 bg-[radial-gradient(circle_at_top,#faf7f0_0%,#e8ece8_100%)]">
-              <div className="absolute inset-x-6 top-8 h-px bg-[#d8caa4]/70" />
-              <div className="absolute inset-x-10 top-16 h-px bg-[#d8caa4]/50" />
-              <div className="absolute inset-x-12 bottom-20 h-1 rounded-full bg-[#617377]/45" />
-              <div className="absolute inset-x-14 bottom-14 h-1 rounded-full bg-[#617377]/30" />
-              <div className="absolute bottom-10 right-10 h-20 w-20 rounded-full bg-[#1d2a2d] shadow-[0_10px_24px_rgba(29,42,45,0.25)]" />
-              <div className="absolute bottom-16 right-18 h-4 w-4 rounded-full bg-[#f7f4ee]" />
-              <div className="text-center">
-                <p className="text-xs uppercase tracking-[0.34em] text-ink/68">Förnedringskassan</p>
-                <p className="mt-3 text-balance font-display text-4xl font-semibold tracking-tight text-ink">
-                  Elektrisk Revy
-                </p>
+            <div className="relative my-6 flex flex-1 items-center justify-center overflow-hidden rounded-[1.5rem] border border-steel/15 bg-[linear-gradient(180deg,#f6f1e8_0%,#e8ece8_100%)] p-4">
+              <div className="relative aspect-square w-full max-w-[440px] overflow-hidden rounded-[1.4rem] border border-steel/15 bg-white shadow-[0_12px_30px_rgba(29,42,45,0.12)]">
+                <Image
+                  src={coverSrc}
+                  alt="Omslag för Förnedringskassan av Elektrisk Revy"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 440px"
+                  className="object-cover"
+                  priority
+                />
               </div>
             </div>
 
             <p className="text-sm leading-7 text-ink/72">
-              En ren plats för omslag eller Spotify-embed när nästa version av releasen ska
-              presenteras här.
+              Omslaget används här som del av releasepresentationen och kan återanvändas på fler
+              plattformar senare.
             </p>
           </div>
         </aside>
