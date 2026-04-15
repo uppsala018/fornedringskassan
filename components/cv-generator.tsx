@@ -83,6 +83,185 @@ function formatSwedishDate(date: Date) {
   }).format(date);
 }
 
+function escapeXml(value: string) {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&apos;");
+}
+
+function wrapText(text: string, maxLength: number) {
+  const words = text.trim().split(/\s+/).filter(Boolean);
+  const lines: string[] = [];
+  let current = "";
+
+  words.forEach((word) => {
+    if (!current) {
+      current = word;
+      return;
+    }
+
+    if ((current + " " + word).length <= maxLength) {
+      current += ` ${word}`;
+      return;
+    }
+
+    lines.push(current);
+    current = word;
+  });
+
+  if (current) {
+    lines.push(current);
+  }
+
+  return lines.length > 0 ? lines : [text.trim()];
+}
+
+function buildCvExportSvg(generated: GeneratedCv) {
+  const width = 1400;
+  const contentWidth = width - 144;
+  const sectionWidth = contentWidth;
+  const profileLines = wrapText(generated.profile, 78);
+  const practicalLines = wrapText(generated.practical, 78);
+  const conditionsLines = generated.conditions.flatMap((item) => wrapText(`• ${item}`, 74));
+  const competencyLines = generated.competencies.flatMap((item) => wrapText(`• ${item}`, 74));
+  const recommendedLines = generated.recommendedAreas.flatMap((item) => wrapText(`• ${item}`, 74));
+  const summaryLines = wrapText(generated.summary, 78);
+
+  let y = 72;
+  const parts: string[] = [];
+  const line = (x: number, yPosition: number, text: string, size: number, weight = 400, fill = "#203134") =>
+    `<text x="${x}" y="${yPosition}" fill="${fill}" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif" font-size="${size}" font-weight="${weight}">${escapeXml(text)}</text>`;
+
+  const section = (title: string, linesContent: string[], heightHint?: number, dark = false) => {
+    const lineHeight = dark ? 30 : 28;
+    const topPadding = 28;
+    const titleGap = 34;
+    const blockHeight = heightHint ?? topPadding + titleGap + linesContent.length * lineHeight + 24;
+    const background = dark ? "#101010" : "#f7f3ea";
+    const border = dark ? "rgba(255,255,255,0.12)" : "rgba(115,128,131,0.18)";
+    const bodyFill = dark ? "#f7f1e6" : "#203134";
+    const mutedFill = dark ? "rgba(247,241,230,0.72)" : "#5c6d71";
+    parts.push(
+      `<g transform="translate(72,${y})">
+        <rect width="${sectionWidth}" height="${blockHeight}" rx="26" fill="${background}" stroke="${border}" />
+        ${line(28, 36, title, 18, 700, mutedFill)}
+        ${linesContent
+          .map((text, index) => line(28, 72 + index * lineHeight, text, 26, 400, bodyFill))
+          .join("")}
+      </g>`,
+    );
+    y += blockHeight + 24;
+  };
+
+  const infoLines = [
+    `Dokumenttyp: Fiktiv arbetsprofil`,
+    `Namn: ${generated.name}`,
+    `Uppdrag: ${generated.work}`,
+    `Tonläge: ${generated.toneLabel}`,
+    `Anpassning: ${generated.adaptationLabel}`,
+    `Ref: ${generated.referenceNumber}`,
+    `Upprättad: ${generated.generatedOn}`,
+  ];
+
+  parts.push(
+    `<rect width="${width}" height="1" fill="transparent" />`,
+    `<rect x="0" y="0" width="${width}" height="100%" fill="#f5f0e7" />`,
+    `<g transform="translate(72,72)">
+      <text x="0" y="20" fill="#5a6c69" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3">CV-GENERATOR | FIKTIV ARBETSPROFIL</text>
+      <text x="0" y="78" fill="#203134" font-family="Georgia, 'Times New Roman', serif" font-size="58" font-weight="700">${escapeXml(generated.name)}</text>
+      <text x="0" y="120" fill="#415258" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif" font-size="26">${escapeXml(`Uppdrag: ${generated.work} · Tonläge: ${generated.toneLabel} · Anpassning: ${generated.adaptationLabel}`)}</text>
+      <g transform="translate(0,150)">
+        ${infoLines
+          .map(
+            (text, index) =>
+              `<g transform="translate(${index % 2 === 0 ? 0 : 430},${Math.floor(index / 2) * 52})">
+                <rect width="390" height="40" rx="20" fill="#ffffff" stroke="rgba(115,128,131,0.18)" />
+                <text x="18" y="26" fill="#203134" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600">${escapeXml(text)}</text>
+              </g>`,
+          )
+          .join("")}
+      </g>
+    </g>`,
+  );
+
+  y = 320;
+
+  section("Profil", profileLines);
+  section("Kompetenser", competencyLines);
+  section("Arbetsförmåga i praktiken", practicalLines);
+  section("Särskilda förutsättningar", conditionsLines);
+  section("Rekommenderade arbetsområden", recommendedLines);
+  section("Sammanfattande bedömning", summaryLines, undefined, true);
+
+  const footerY = y + 12;
+  parts.push(
+    `<g transform="translate(72,${footerY})">
+      <text x="0" y="0" fill="#5a6c69" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif" font-size="14" font-weight="600" letter-spacing="2.8">FIKTIV ARBETSPROFIL</text>
+      <text x="${sectionWidth}" y="0" text-anchor="end" fill="#5a6c69" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif" font-size="14" font-weight="500">Skapad för delning och intern ordning</text>
+    </g>`,
+  );
+
+  const height = footerY + 52 + 72;
+  const svg = `<?xml version="1.0" encoding="UTF-8"?>
+  <svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-label="Fiktiv arbetsprofil från CV-generatorn">
+    ${parts.join("")}
+  </svg>`;
+
+  return { svg, width, height };
+}
+
+function downloadBlob(blob: Blob, filename: string) {
+  const link = document.createElement("a");
+  const url = URL.createObjectURL(blob);
+  link.href = url;
+  link.download = filename;
+  link.click();
+  window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+async function exportCvAsPng(generated: GeneratedCv) {
+  const { svg, width, height } = buildCvExportSvg(generated);
+  const safeReference = generated.referenceNumber.replaceAll("/", "-");
+  const svgBlob = new Blob([svg], { type: "image/svg+xml;charset=utf-8" });
+  const svgUrl = URL.createObjectURL(svgBlob);
+
+  try {
+    const image = new Image();
+    image.decoding = "async";
+    image.src = svgUrl;
+    await image.decode();
+
+    const canvas = document.createElement("canvas");
+    canvas.width = width;
+    canvas.height = height;
+
+    const context = canvas.getContext("2d");
+    if (!context) {
+      throw new Error("Canvas context saknas.");
+    }
+
+    context.fillStyle = "#f5f0e7";
+    context.fillRect(0, 0, width, height);
+    context.drawImage(image, 0, 0, width, height);
+
+    const pngBlob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, "image/png"));
+
+    if (!pngBlob) {
+      throw new Error("PNG-export misslyckades.");
+    }
+
+    downloadBlob(pngBlob, `cv-generator-${safeReference}.png`);
+  } catch {
+    const fallbackBlob = new Blob([svg], { type: "image/svg+xml;charset=utf-8" });
+    downloadBlob(fallbackBlob, `cv-generator-${safeReference}.svg`);
+  } finally {
+    URL.revokeObjectURL(svgUrl);
+  }
+}
+
 function buildCv(formState: FormState): GeneratedCv {
   const name = cleanText(formState.name, "Ej angivet");
   const work = cleanText(formState.work, "okänt arbete");
@@ -192,6 +371,7 @@ function buildCv(formState: FormState): GeneratedCv {
 
   const copyText = [
     "CV-GENERATOR | FIKTIV ARBETSPROFIL",
+    "Dokumenttyp: Fiktiv arbetsprofil",
     `Namn: ${name}`,
     `Arbete: ${work}`,
     `Tonläge: ${selectedTone}`,
@@ -239,6 +419,7 @@ export function CvGenerator() {
   const [formState, setFormState] = useState<FormState>(initialState);
   const [generated, setGenerated] = useState<GeneratedCv | null>(null);
   const [copyLabel, setCopyLabel] = useState("Kopiera CV");
+  const [exportLabel, setExportLabel] = useState("Exportera som bild");
 
   const preview = useMemo(
     () => [
@@ -267,6 +448,21 @@ export function CvGenerator() {
       window.setTimeout(() => setCopyLabel("Kopiera CV"), 1800);
     } catch {
       window.prompt("Kopiera CV-texten", generated.copyText);
+    }
+  }
+
+  async function exportGenerated() {
+    if (!generated) return;
+
+    setExportLabel("Exporterar...");
+
+    try {
+      await exportCvAsPng(generated);
+      setExportLabel("Bild sparad");
+    } catch {
+      setExportLabel("Export misslyckades");
+    } finally {
+      window.setTimeout(() => setExportLabel("Exportera som bild"), 1800);
     }
   }
 
@@ -386,10 +582,10 @@ export function CvGenerator() {
               </label>
             </div>
 
-            <div className="flex flex-wrap gap-3 pt-2">
-              <button
-                type="submit"
-                className="inline-flex min-h-12 items-center rounded-full bg-ink px-6 py-3 text-sm font-medium text-paper transition hover:bg-seal"
+          <div className="flex flex-wrap gap-3 pt-2">
+            <button
+              type="submit"
+              className="inline-flex min-h-12 items-center rounded-full bg-ink px-6 py-3 text-sm font-medium text-paper transition hover:bg-seal"
               >
                 Generera CV
               </button>
@@ -400,11 +596,11 @@ export function CvGenerator() {
                   setGenerated(null);
                   setCopyLabel("Kopiera CV");
                 }}
-                className="inline-flex min-h-12 items-center rounded-full border border-steel/25 bg-white/92 px-6 py-3 text-sm font-medium text-ink transition hover:border-steel/45 hover:bg-white"
-              >
-                Rensa formulär
-              </button>
-            </div>
+              className="inline-flex min-h-12 items-center rounded-full border border-steel/25 bg-white/92 px-6 py-3 text-sm font-medium text-ink transition hover:border-steel/45 hover:bg-white"
+            >
+              Rensa formulär
+            </button>
+          </div>
           </form>
 
           <aside className="rounded-[1.5rem] border border-steel/20 bg-white/88 p-5">
@@ -441,22 +637,33 @@ export function CvGenerator() {
             >
               {copyLabel}
             </button>
+            <button
+              type="button"
+              onClick={exportGenerated}
+              disabled={!generated}
+              className="inline-flex min-h-12 items-center rounded-full border border-steel/25 bg-paper px-6 py-3 text-sm font-medium text-ink transition hover:border-steel/45 hover:bg-white disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              {exportLabel}
+            </button>
           </div>
         </div>
 
         {generated ? (
           <div className="mt-6 space-y-5">
             <article className="rounded-[1.35rem] border border-steel/15 bg-ink px-5 py-4 text-paper">
-              <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-                <div>
-                  <p className="text-[0.7rem] uppercase tracking-[0.32em] text-paper/65">Dokumentinformation</p>
-                  <h3 className="mt-2 font-display text-2xl font-semibold tracking-tight text-paper">
-                    Fiktiv arbetsprofil
-                  </h3>
-                </div>
-                <div className="flex flex-wrap gap-2 text-xs uppercase tracking-[0.2em] text-paper/78">
-                  <span className="rounded-full border border-paper/15 bg-paper/8 px-3 py-1.5">
-                    Ref: {generated.referenceNumber}
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+                  <div>
+                    <p className="text-[0.7rem] uppercase tracking-[0.32em] text-paper/65">Dokumentinformation</p>
+                    <h3 className="mt-2 font-display text-2xl font-semibold tracking-tight text-paper">
+                      Fiktiv arbetsprofil
+                    </h3>
+                    <p className="mt-2 text-sm leading-6 text-paper/78">
+                      Dokumenttyp: Fiktiv arbetsprofil
+                    </p>
+                  </div>
+                  <div className="flex flex-wrap gap-2 text-xs uppercase tracking-[0.2em] text-paper/78">
+                    <span className="rounded-full border border-paper/15 bg-paper/8 px-3 py-1.5">
+                      Ref: {generated.referenceNumber}
                   </span>
                   <span className="rounded-full border border-paper/15 bg-paper/8 px-3 py-1.5">
                     Upprättad: {generated.generatedOn}
@@ -534,6 +741,11 @@ export function CvGenerator() {
               <p className="text-xs uppercase tracking-[0.28em] text-paper/65">Sammanfattande bedömning</p>
               <p className="mt-3 text-base leading-8 text-paper/90">{generated.summary}</p>
             </article>
+
+            <div className="flex flex-wrap items-center justify-between gap-3 border-t border-steel/15 pt-2 text-xs uppercase tracking-[0.22em] text-ink/65">
+              <span>Fiktiv arbetsprofil</span>
+              <span>Skapad för delning och intern ordning</span>
+            </div>
           </div>
         ) : (
           <div className="mt-6 rounded-[1.35rem] border border-dashed border-steel/25 bg-paper/85 p-5 text-base leading-8 text-ink/72">
