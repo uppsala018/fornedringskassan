@@ -42,16 +42,16 @@ export default function MusikFornedringskassanPage() {
       <section className="grid gap-6 lg:grid-cols-[1.08fr_0.92fr]">
         <article className="rounded-dossier border border-steel/20 bg-paper p-6 sm:p-8">
           <p className="text-xs uppercase tracking-[0.32em] text-ink/72">Om låten</p>
-          <div className="mt-5 grid gap-4 sm:grid-cols-2">
-            <div className="rounded-[1.25rem] border border-steel/15 bg-white/88 p-4">
+          <div className="mt-5 space-y-4">
+            <div className="rounded-[1.25rem] border border-steel/15 bg-white/88 p-4 sm:p-5">
               <p className="text-xs uppercase tracking-[0.28em] text-ink/68">Artist</p>
-              <p className="mt-2 font-display text-2xl font-semibold tracking-tight text-ink">
+              <p className="mt-2 whitespace-nowrap font-display text-xl font-semibold tracking-tight text-ink sm:text-2xl">
                 Elektrisk Revy
               </p>
             </div>
-            <div className="rounded-[1.25rem] border border-steel/15 bg-white/88 p-4">
+            <div className="rounded-[1.25rem] border border-steel/15 bg-white/88 p-4 sm:p-5">
               <p className="text-xs uppercase tracking-[0.28em] text-ink/68">Titel</p>
-              <p className="mt-2 font-display text-2xl font-semibold tracking-tight text-ink">
+              <p className="mt-2 whitespace-nowrap font-display text-xl font-semibold tracking-tight text-ink sm:text-2xl">
                 Förnedringskassan
               </p>
             </div>
