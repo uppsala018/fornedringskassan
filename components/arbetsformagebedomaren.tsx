@@ -115,6 +115,185 @@ function formatSwedishDate(date: Date) {
   }).format(date);
 }
 
+function escapeXml(value: string) {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&apos;");
+}
+
+function wrapText(text: string, maxLength: number) {
+  const words = text.trim().split(/\s+/).filter(Boolean);
+  const lines: string[] = [];
+  let current = "";
+
+  words.forEach((word) => {
+    if (!current) {
+      current = word;
+      return;
+    }
+
+    if ((current + " " + word).length <= maxLength) {
+      current += ` ${word}`;
+      return;
+    }
+
+    lines.push(current);
+    current = word;
+  });
+
+  if (current) {
+    lines.push(current);
+  }
+
+  return lines.length > 0 ? lines : [text.trim()];
+}
+
+function downloadBlob(blob: Blob, filename: string) {
+  const link = document.createElement("a");
+  const url = URL.createObjectURL(blob);
+  link.href = url;
+  link.download = filename;
+  link.click();
+  window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+function buildAssessmentExportSvg(generated: GeneratedAssessment) {
+  const width = 1400;
+  const contentWidth = width - 144;
+  const sectionWidth = contentWidth;
+  const underlagLines = wrapText(generated.bedomningsunderlag, 76);
+  const observeradLines = generated.observeradFormaga.flatMap((item) => wrapText(`• ${item}`, 72));
+  const begransningLines = generated.begransningar.flatMap((item) => wrapText(`• ${item}`, 72));
+  const normallyPossibleLines = generated.normallyPossible.flatMap((item) => wrapText(`• ${item}`, 72));
+  const currentOrderLines = wrapText(generated.currentOrder, 76);
+  const summaryLines = wrapText(generated.summary, 76);
+
+  let y = 72;
+  const parts: string[] = [];
+  const line = (x: number, yPosition: number, text: string, size: number, weight = 400, fill = "#203134") =>
+    `<text x="${x}" y="${yPosition}" fill="${fill}" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif" font-size="${size}" font-weight="${weight}">${escapeXml(text)}</text>`;
+
+  const section = (title: string, linesContent: string[], heightHint?: number, dark = false) => {
+    const lineHeight = dark ? 30 : 28;
+    const topPadding = 28;
+    const titleGap = 34;
+    const blockHeight = heightHint ?? topPadding + titleGap + linesContent.length * lineHeight + 24;
+    const background = dark ? "#101010" : "#f7f3ea";
+    const border = dark ? "rgba(255,255,255,0.12)" : "rgba(115,128,131,0.18)";
+    const bodyFill = dark ? "#f7f1e6" : "#203134";
+    const mutedFill = dark ? "rgba(247,241,230,0.72)" : "#5c6d71";
+    parts.push(
+      `<g transform="translate(72,${y})">
+        <rect width="${sectionWidth}" height="${blockHeight}" rx="26" fill="${background}" stroke="${border}" />
+        ${line(28, 36, title, 18, 700, mutedFill)}
+        ${linesContent
+          .map((text, index) => line(28, 72 + index * lineHeight, text, 26, 400, bodyFill))
+          .join("")}
+      </g>`,
+    );
+    y += blockHeight + 24;
+  };
+
+  parts.push(
+    `<rect x="0" y="0" width="${width}" height="100%" fill="#f5f0e7" />`,
+    `<g transform="translate(72,72)">
+      <text x="0" y="20" fill="#5a6c69" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3">ARBETSFÖRMÅGEBEDÖMAREN | FIKTIV BEDÖMNING</text>
+      <text x="0" y="78" fill="#203134" font-family="Georgia, 'Times New Roman', serif" font-size="58" font-weight="700">${escapeXml(generated.scenarioLabel)}</text>
+      <text x="0" y="120" fill="#415258" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif" font-size="26">${escapeXml(`Referens: ${generated.referenceNumber} · Tonläge: ${generated.toneLabel} · Modus: ${generated.modeLabel}`)}</text>
+      <g transform="translate(0,150)">
+        <g transform="translate(0,0)">
+          <rect width="390" height="40" rx="20" fill="#ffffff" stroke="rgba(115,128,131,0.18)" />
+          ${line(18, 26, "Dokumenttyp", 16, 700, "#5a6c69")}
+          ${line(160, 26, "Fiktiv arbetsförmågebedömning", 16, 400, "#203134")}
+        </g>
+        <g transform="translate(430,0)">
+          <rect width="390" height="40" rx="20" fill="#ffffff" stroke="rgba(115,128,131,0.18)" />
+          ${line(18, 26, "Upprättad", 16, 700, "#5a6c69")}
+          ${line(118, 26, generated.generatedOn, 16, 400, "#203134")}
+        </g>
+        <g transform="translate(0,52)">
+          <rect width="390" height="40" rx="20" fill="#ffffff" stroke="rgba(115,128,131,0.18)" />
+          ${line(18, 26, "Anpassning", 16, 700, "#5a6c69")}
+          ${line(150, 26, generated.modeLabel, 16, 400, "#203134")}
+        </g>
+        <g transform="translate(430,52)">
+          <rect width="390" height="40" rx="20" fill="#ffffff" stroke="rgba(115,128,131,0.18)" />
+          ${line(18, 26, "Ref", 16, 700, "#5a6c69")}
+          ${line(80, 26, generated.referenceNumber, 16, 400, "#203134")}
+        </g>
+      </g>
+    </g>`,
+  );
+
+  y = 320;
+
+  section("Bedömningsunderlag", underlagLines);
+  section("Observerad förmåga", observeradLines);
+  section("Begränsningar", begransningLines);
+  section("Arbetsförmåga i nuvarande ordning", currentOrderLines);
+  section("Normalt förekommande möjligheter", normallyPossibleLines);
+  section("Sammanfattande bedömning", summaryLines, undefined, true);
+
+  const footerY = y + 12;
+  parts.push(
+    `<g transform="translate(72,${footerY})">
+      <text x="0" y="0" fill="#5a6c69" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif" font-size="14" font-weight="600" letter-spacing="2.8">FIKTIV ARBETSFÖRMÅGEBEDÖMNING</text>
+      <text x="${sectionWidth}" y="0" text-anchor="end" fill="#5a6c69" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif" font-size="14" font-weight="500">Skapad för delning och intern ordning</text>
+    </g>`,
+  );
+
+  const height = footerY + 52 + 72;
+  const svg = `<?xml version="1.0" encoding="UTF-8"?>
+  <svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-label="Fiktiv arbetsförmågebedömning">
+    ${parts.join("")}
+  </svg>`;
+
+  return { svg, width, height };
+}
+
+async function exportAssessmentAsPng(generated: GeneratedAssessment) {
+  const { svg, width, height } = buildAssessmentExportSvg(generated);
+  const safeReference = generated.referenceNumber.replaceAll("/", "-");
+  const svgBlob = new Blob([svg], { type: "image/svg+xml;charset=utf-8" });
+  const svgUrl = URL.createObjectURL(svgBlob);
+
+  try {
+    const image = new Image();
+    image.decoding = "async";
+    image.src = svgUrl;
+    await image.decode();
+
+    const canvas = document.createElement("canvas");
+    canvas.width = width;
+    canvas.height = height;
+
+    const context = canvas.getContext("2d");
+    if (!context) {
+      throw new Error("Canvas context saknas.");
+    }
+
+    context.fillStyle = "#f5f0e7";
+    context.fillRect(0, 0, width, height);
+    context.drawImage(image, 0, 0, width, height);
+
+    const pngBlob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, "image/png"));
+
+    if (!pngBlob) {
+      throw new Error("PNG-export misslyckades.");
+    }
+
+    downloadBlob(pngBlob, `arbetsformagebedomaren-${safeReference}.png`);
+  } catch {
+    const fallbackBlob = new Blob([svg], { type: "image/svg+xml;charset=utf-8" });
+    downloadBlob(fallbackBlob, `arbetsformagebedomaren-${safeReference}.svg`);
+  } finally {
+    URL.revokeObjectURL(svgUrl);
+  }
+}
+
 function buildAssessment(input: {
   mode: Mode;
   scenario: ExampleScenario;
@@ -237,6 +416,7 @@ function buildAssessment(input: {
 
   const copyText = [
     "ARBETSFÖRMÅGEBEDÖMARE | FIKTIV BEDÖMNING",
+    "Dokumenttyp: Fiktiv arbetsförmågebedömning",
     `Referens: ${referenceNumber}`,
     `Upprättad: ${generatedOn}`,
     `Modus: ${input.mode === "examples" ? "Exempelbaserat" : "Eget underlag"}`,
@@ -260,6 +440,9 @@ function buildAssessment(input: {
     "",
     "Sammanfattande bedömning",
     summary,
+    "",
+    "Fiktiv arbetsförmågebedömning",
+    "Skapad för delning och intern ordning",
   ].join("\n");
 
   return {
@@ -285,6 +468,7 @@ export function Arbetsformagebedomaren() {
   const [tone, setTone] = useState<Tone>("neutral");
   const [generated, setGenerated] = useState<GeneratedAssessment | null>(null);
   const [copyLabel, setCopyLabel] = useState("Kopiera bedömning");
+  const [exportLabel, setExportLabel] = useState("Exportera som bild");
 
   const selectedExample = exampleScenarios.find((item) => item.id === selectedExampleId) ?? exampleScenarios[0];
 
@@ -332,6 +516,21 @@ export function Arbetsformagebedomaren() {
       window.setTimeout(() => setCopyLabel("Kopiera bedömning"), 1800);
     } catch {
       window.prompt("Kopiera bedömningstexten", generated.copyText);
+    }
+  }
+
+  async function exportGenerated() {
+    if (!generated) return;
+
+    setExportLabel("Exporterar...");
+
+    try {
+      await exportAssessmentAsPng(generated);
+      setExportLabel("Bild sparad");
+    } catch {
+      setExportLabel("Export misslyckades");
+    } finally {
+      window.setTimeout(() => setExportLabel("Exportera som bild"), 1800);
     }
   }
 
@@ -587,6 +786,14 @@ export function Arbetsformagebedomaren() {
             >
               {copyLabel}
             </button>
+            <button
+              type="button"
+              onClick={exportGenerated}
+              disabled={!generated}
+              className="inline-flex min-h-12 items-center rounded-full border border-steel/25 bg-paper px-6 py-3 text-sm font-medium text-ink transition hover:border-steel/45 hover:bg-white disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              {exportLabel}
+            </button>
           </div>
         </div>
 
@@ -599,6 +806,9 @@ export function Arbetsformagebedomaren() {
                   <h3 className="mt-2 font-display text-2xl font-semibold tracking-tight text-paper">
                     Arbetsförmågebedömaren
                   </h3>
+                  <p className="mt-2 text-sm leading-6 text-paper/78">
+                    Dokumenttyp: Fiktiv arbetsförmågebedömning
+                  </p>
                 </div>
                 <div className="flex flex-wrap gap-2 text-xs uppercase tracking-[0.2em] text-paper/78">
                   <span className="rounded-full border border-paper/15 bg-paper/8 px-3 py-1.5">
@@ -674,6 +884,11 @@ export function Arbetsformagebedomaren() {
               >
                 Till CV-generator
               </Link>
+            </div>
+
+            <div className="flex flex-wrap items-center justify-between gap-4 border-t border-steel/15 pt-2 text-xs uppercase tracking-[0.22em] text-ink/65">
+              <span>Fiktiv arbetsförmågebedömning</span>
+              <span>Skapad för delning och intern ordning</span>
             </div>
           </div>
         ) : (
