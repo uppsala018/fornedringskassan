@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { PageShell } from "@/components/page-shell";
+import { PunchlineStrip } from "@/components/punchline-strip";
 
 const title = "Frågor och svar | Förnedringskassan";
 const description =
@@ -85,6 +86,11 @@ export default function FAQPage() {
       eyebrow="Vanliga frågor"
       showInstitutionNote={false}
     >
+      <PunchlineStrip
+        eyebrow="FAQ"
+        punchline="Standardiserade svar på redan ordnade frågor"
+      />
+
       <section className="institution-card p-6 sm:p-8">
         <p className="max-w-3xl text-base leading-8 text-ink/76">
           Den här sidan samlar korta svar om projektets fiktiva ram och den institutionella

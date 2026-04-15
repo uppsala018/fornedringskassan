@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { PageShell } from "@/components/page-shell";
+import { PunchlineStrip } from "@/components/punchline-strip";
 import { handlaggarnyttPosts } from "./posts";
 
 const title = "Handläggarnytt | officiella notiser från Förnedringskassan";
@@ -35,6 +36,11 @@ export default function HandlaggarnyttPage() {
       eyebrow="Intern bulletin"
       showInstitutionNote={false}
     >
+      <PunchlineStrip
+        eyebrow="Handläggarnytt"
+        punchline="Interna rörelser i ordnad stillhet"
+      />
+
       <section className="rounded-dossier border border-steel/20 bg-paper p-6 sm:p-8">
         <p className="text-xs uppercase tracking-[0.32em] text-ink/72">Systemets egen bulletin</p>
         <p className="mt-3 max-w-3xl text-base leading-8 text-ink/76">

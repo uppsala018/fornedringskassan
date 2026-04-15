@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { PageShell } from "@/components/page-shell";
+import { PunchlineStrip } from "@/components/punchline-strip";
 
 const title = "Om Förnedringskassan | satirisk parodi på myndighetsspråk";
 const description =
@@ -30,6 +31,11 @@ export default function OmPage() {
       title="Om Förnedringskassan"
       intro="Förnedringskassan är ett satiriskt projekt om myndighetsspråk som gör process viktigare än innehåll och människor till ärenden."
     >
+      <PunchlineStrip
+        eyebrow="Om projektet"
+        punchline="En institutionell ton för sådant som inte borde låta så här"
+      />
+
       <section className="rounded-dossier border border-stamp/20 bg-stamp/10 p-6">
         <p className="text-xs uppercase tracking-[0.34em] text-ink/72">
           Tydlig disclaimer

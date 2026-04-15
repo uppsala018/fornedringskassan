@@ -4,6 +4,7 @@ import Link from "next/link";
 
 import { PageShell } from "@/components/page-shell";
 import { ReleaseShareButton } from "@/components/release-share-button";
+import { PunchlineStrip } from "@/components/punchline-strip";
 
 const title = "Förnedringskassan | Elektrisk Revy";
 const description =
@@ -39,6 +40,11 @@ export default function MusikFornedringskassanPage() {
       eyebrow="Musik"
       showInstitutionNote={false}
     >
+      <PunchlineStrip
+        eyebrow="Lyssning"
+        punchline="En satirlåt i institutionell förpackning"
+      />
+
       <section className="grid gap-6 lg:grid-cols-[1.08fr_0.92fr]">
         <article className="rounded-dossier border border-steel/20 bg-paper p-6 sm:p-8">
           <p className="text-xs uppercase tracking-[0.32em] text-ink/72">Om låten</p>

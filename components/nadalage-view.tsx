@@ -2,6 +2,8 @@
 
 import { useMemo, useState } from "react";
 
+import { PunchlineStrip } from "@/components/punchline-strip";
+
 type SupportCategory = "Stillhet" | "Tröst" | "Värdighet";
 
 type SupportLine = {
@@ -66,9 +68,14 @@ export function NadalageView() {
 
   return (
     <section className="mx-auto max-w-5xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+      <PunchlineStrip
+        eyebrow="Nådeläge"
+        punchline="Tillfälligt undantag från ordinarie tonläge"
+      />
+
       <section
         aria-labelledby="nadalage-intro"
-        className="soften-in overflow-hidden rounded-[2rem] border border-[#d9ddd8] bg-[linear-gradient(180deg,rgba(255,255,255,0.94),rgba(241,245,241,0.96))] shadow-[0_20px_60px_rgba(49,67,70,0.08)]"
+        className="soften-in mt-8 overflow-hidden rounded-[2rem] border border-[#d9ddd8] bg-[linear-gradient(180deg,rgba(255,255,255,0.94),rgba(241,245,241,0.96))] shadow-[0_20px_60px_rgba(49,67,70,0.08)]"
       >
         <div className="grid gap-10 px-6 py-8 sm:px-8 lg:grid-cols-[1.15fr_0.85fr] lg:px-10 lg:py-10">
           <div>

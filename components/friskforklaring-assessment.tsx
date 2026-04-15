@@ -4,6 +4,7 @@ import Link from "next/link";
 import { type FormEvent, useMemo, useState } from "react";
 
 import { PageShell } from "@/components/page-shell";
+import { PunchlineStrip } from "@/components/punchline-strip";
 import { statusMicrocopy } from "@/lib/microcopy";
 
 type AnswerValue = "ja" | "nej" | "otydligt";
@@ -155,6 +156,11 @@ export function FriskforklaringAssessment() {
       title="Friskförklaring"
       intro="Svara på fem frågor och se om beslutsstödet tycker att din återhämtning ser alltför fungerande ut."
     >
+      <PunchlineStrip
+        eyebrow="Friskförklaring"
+        punchline="Återhämtning registrerad som avvikelse"
+      />
+
       <section className="grid gap-6 lg:grid-cols-[1.08fr_0.92fr]">
         <form
           onSubmit={handleSubmit}

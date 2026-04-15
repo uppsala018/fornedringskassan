@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import type { CSSProperties, FormEvent } from "react";
 
 import { LogoMark } from "@/components/logo-mark";
+import { PunchlineStrip } from "@/components/punchline-strip";
 
 const actions = [
   ["/friskforklaring", "Bli friskförklarad", "Primär prövning", "Verklighet konverteras till underlag"],
@@ -441,6 +442,13 @@ export function HomepageShowcase() {
             </div>
           </div>
         </div>
+      </section>
+
+      <section className="mt-8">
+        <PunchlineStrip
+          eyebrow="Startsida"
+          punchline="Formellt mottagande av vardaglig orimlighet"
+        />
       </section>
 
       <section className="mt-12">
