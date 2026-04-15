@@ -4,14 +4,12 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { LogoMark } from "@/components/logo-mark";
-import { SatireBadge } from "@/components/satire-badge";
 import { navItems } from "@/lib/site";
 
 type HeaderFrame = {
   eyebrow: string;
   subtitle: string;
   helper: string;
-  showBadge: boolean;
 };
 
 const headerFrames: Record<string, HeaderFrame> = {
@@ -19,91 +17,71 @@ const headerFrames: Record<string, HeaderFrame> = {
     eyebrow: "Nådeläge",
     subtitle: "En stilla paus för vila och värdighet",
     helper: "En lugn väg bort från bedömning",
-    showBadge: false,
   },
   "/arbetsformagebedomaren": {
     eyebrow: "Arbetsförmåga",
     subtitle: "Kvarvarande funktion",
     helper: "Fiktiv bedömning i egen ordning",
-    showBadge: false,
   },
   "/cv-generator": {
     eyebrow: "Arbetsprofil",
     subtitle: "Omformad arbetsbarhet",
     helper: "Satirisk CV-yta",
-    showBadge: false,
   },
   "/overklaga-beslut": {
     eyebrow: "Överklagande",
     subtitle: "Samma beslut, ny läsning",
     helper: "Prövning i ny ordning",
-    showBadge: false,
   },
   "/spora-ditt-arende": {
     eyebrow: "Ärendespårning",
     subtitle: "Rörelse utan besked",
     helper: "Aktiv status utan slutpunkt",
-    showBadge: false,
   },
   "/handlaggarnytt": {
     eyebrow: "Intern bulletin",
     subtitle: "Systemets egen bulletin",
     helper: "Arkiv för rutin som förklarar sig själv",
-    showBadge: false,
   },
   "/musik/fornedringskassan": {
     eyebrow: "Musik",
     subtitle: "Förnedringskassan · Elektrisk Revy",
     helper: "En publicerad utgåva",
-    showBadge: false,
   },
 };
 
 export function SiteHeader() {
   const pathname = usePathname();
   const frame = headerFrames[pathname ?? ""];
-  const isSpecialFrame = Boolean(frame);
 
   return (
     <header className="border-b border-steel/20 bg-[linear-gradient(180deg,rgba(245,240,231,0.98),rgba(239,234,224,0.94))] backdrop-blur">
       <div className="mx-auto max-w-6xl px-3 py-3 sm:px-5 lg:px-8 lg:py-4">
         <div className="flex flex-col gap-2.5">
-          <div className="rounded-[1.25rem] border border-stamp/20 bg-[linear-gradient(90deg,rgba(255,255,255,0.9),rgba(244,238,229,0.95))] px-4 py-2.5 shadow-slip">
-            <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
-              <div className="flex flex-wrap items-center gap-3">
-                {frame ? (
-                  <>
-                    <p className="text-[11px] uppercase tracking-[0.3em] text-ink/75">
-                      {frame.eyebrow}
-                    </p>
-                    <span className="text-[11px] uppercase tracking-[0.22em] text-ink/65">
-                      {frame.subtitle}
-                    </span>
-                  </>
-                ) : (
-                  <>
-                    <p className="text-[11px] uppercase tracking-[0.3em] text-ink/75">
-                      Satirisk parodi, inte myndighet
-                    </p>
-                    <span className="inline-flex rounded-full border border-[#ffcc00]/35 bg-[#ffcc00]/12 px-3 py-1 text-[10px] uppercase tracking-[0.22em] text-ink">
-                      Intern omtolkning pågår
-                    </span>
-                  </>
-                )}
+          {frame ? (
+            <div className="rounded-[1.25rem] border border-stamp/20 bg-[linear-gradient(90deg,rgba(255,255,255,0.9),rgba(244,238,229,0.95))] px-4 py-2.5 shadow-slip">
+              <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+                <div className="flex flex-wrap items-center gap-3">
+                  <p className="text-[11px] uppercase tracking-[0.3em] text-ink/75">
+                    {frame.eyebrow}
+                  </p>
+                  <span className="text-[11px] uppercase tracking-[0.22em] text-ink/65">
+                    {frame.subtitle}
+                  </span>
+                </div>
               </div>
-              {isSpecialFrame ? null : <SatireBadge />}
             </div>
-          </div>
+          ) : null}
 
           <div className="flex flex-col gap-2.5 lg:flex-row lg:items-center lg:justify-between">
             <Link href="/" aria-label="Gå till startsidan" className="min-w-0">
               <LogoMark compact showTagline={false} />
             </Link>
-            <div className="hidden lg:block">
-              <p className="text-[11px] uppercase tracking-[0.26em] text-ink/68">
-                {frame ? frame.helper : "Fiktiv institutionell yta"}
-              </p>
-            </div>
+            {frame ? (
+              <div className="hidden lg:block">
+                <p className="text-[11px] uppercase tracking-[0.26em] text-ink/68">{frame.helper}</p>
+              </div>
+            ) : null}
           </div>
 
           <nav aria-label="Huvudnavigering" className="pb-1">

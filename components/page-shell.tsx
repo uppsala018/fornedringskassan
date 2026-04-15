@@ -13,13 +13,18 @@ export function PageShell({
   intro,
   children,
   eyebrow = "Ärendetyp",
-  showInstitutionNote = true,
+  showInstitutionNote = false,
 }: PageShellProps) {
   return (
     <section className="mx-auto max-w-5xl px-3 py-9 sm:px-6 lg:px-8 lg:py-16">
       <div className="bureaucratic-panel overflow-hidden rounded-dossier border border-steel/20 bg-white/88 shadow-docket">
         <div className="border-b border-steel/15 bg-[linear-gradient(180deg,rgba(255,255,255,0.75),rgba(246,243,236,0.9))] px-5 py-6 sm:px-8 sm:py-8 lg:px-12">
-          <div className="grid gap-5 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
+          <div
+            className={[
+              "grid gap-5",
+              showInstitutionNote ? "lg:grid-cols-[1.15fr_0.85fr] lg:items-end" : "lg:grid-cols-1",
+            ].join(" ")}
+          >
             <div>
               <p className="text-sm uppercase tracking-[0.34em] text-ink/72">{eyebrow}</p>
               <h1 className="mt-4 break-words text-balance font-display text-4xl font-semibold leading-tight tracking-tight text-ink sm:text-5xl">

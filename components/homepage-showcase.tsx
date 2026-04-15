@@ -338,7 +338,6 @@ export function HomepageShowcase() {
           <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div className="space-y-3">
               <div className="flex flex-wrap items-center gap-3">
-                <p className="text-[10px] uppercase tracking-[0.28em] text-stamp sm:text-xs">Byråkratisk satir i digital form</p>
                 <span className="inline-flex rounded-full border border-[#c8102e]/20 bg-[#c8102e]/8 px-2.5 py-1 text-[9px] uppercase tracking-[0.18em] text-stamp sm:px-3 sm:text-[10px]">Fiktiv signal</span>
               </div>
               <p className="max-w-3xl text-[12px] leading-5 text-ink/76 sm:text-[13px] sm:leading-6">
@@ -365,9 +364,6 @@ export function HomepageShowcase() {
             </div>
           <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
             <header className="relative mt-1 flex w-full flex-col items-center gap-4 sm:gap-5">
-              <p className="text-[10px] uppercase tracking-[0.28em] text-stamp sm:text-xs">
-                Satirisk parodi. Inte en myndighet. Inte Försäkringskassan.
-              </p>
               <h1 className="max-w-4xl text-balance font-display text-4xl font-semibold leading-tight tracking-tight text-ink sm:text-5xl lg:text-6xl">
                 Förnedringskassan
               </h1>
@@ -392,15 +388,6 @@ export function HomepageShowcase() {
               >
                 {stamps[stamp]}
               </button>
-            </div>
-            <div className="mt-5 max-w-2xl rounded-[1.2rem] border border-stamp/20 bg-stamp/10 p-3 sm:p-4">
-              <div className="flex flex-wrap items-center justify-center gap-2.5">
-                <p className="text-[9px] uppercase tracking-[0.18em] text-stamp sm:text-[10px]">Satirisk disclaimer</p>
-                <span className="inline-flex rounded-full border border-[#ffcc00]/35 bg-[#ffcc00]/12 px-3 py-1 text-[10px] uppercase tracking-[0.22em] text-ink">Fiktiv signal</span>
-              </div>
-              <p className="mt-2.5 text-[12px] leading-5 text-ink sm:text-[13px] sm:leading-6">
-                  Detta är en parodi och samhällskommentar. Ingen del är officiell, ingen del är juridisk eller medicinsk rådgivning, och inget här ska förväxlas med en verklig myndighet eller dess varumärke.
-              </p>
             </div>
             <div className="mt-6 flex w-full flex-col items-center gap-2.5 sm:flex-row sm:flex-wrap sm:justify-center">
               <button onClick={start} className="inline-flex min-h-12 w-full items-center justify-center rounded-full border-2 border-[#c8102e] bg-[#c8102e] px-6 py-3 text-[13px] font-black uppercase tracking-[0.16em] text-white shadow-[0_16px_36px_rgba(200,16,46,0.18)] transition hover:-translate-y-0.5 hover:bg-[#ad0d27] sm:w-auto sm:px-7 sm:py-3.5 sm:text-sm">
