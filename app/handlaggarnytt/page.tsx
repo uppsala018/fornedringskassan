@@ -29,7 +29,7 @@ export default function HandlaggarnyttPage() {
   return (
     <PageShell
       title="Handläggarnytt"
-      intro="Korta notiser där systemet förklarar sina egna justeringar som rutin."
+      intro="Korta notiser där systemet förklarar sina egna justeringar som rutin och ordning."
       eyebrow="Intern bulletin"
       showInstitutionNote={false}
     >
@@ -38,8 +38,8 @@ export default function HandlaggarnyttPage() {
         <p className="mt-3 max-w-3xl text-base leading-8 text-ink/76">
           Här samlas korta meddelanden om sådant som förändras precis lagom mycket för att kunna
           beskrivas som rutin. Varje notis visar hur systemet kan skriva om sina egna rörelser till
-          ordning, och kommer att uppdateras i samma ordning som resten av sajten gärna pratar om
-          ordning.
+          ordnad rutin, och kommer att uppdateras i samma ordning som resten av sajten gärna pratar
+          om ordning.
         </p>
       </section>
 

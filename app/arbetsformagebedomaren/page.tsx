@@ -29,7 +29,7 @@ export default function ArbetsformagebedomarenPage() {
   return (
     <PageShell
       title="Arbetsförmågebedömaren"
-      intro="Här visas hur små rester av funktion kan räknas upp till kvarvarande arbetsförmåga."
+      intro="Här visas hur små rester av funktion görs om till kvarvarande arbetsförmåga."
       eyebrow="Arbetsförmåga"
       showInstitutionNote={false}
     >
@@ -38,7 +38,7 @@ export default function ArbetsformagebedomarenPage() {
       <section className="rounded-dossier border border-steel/20 bg-white/90 p-8">
         <p className="text-sm uppercase tracking-[0.32em] text-ink/72">Vidare hänvisning</p>
         <h2 className="mt-3 text-balance font-display text-2xl font-semibold tracking-tight text-ink">
-          När restvärdet får ny rubrik
+          När restvärdet blir arbetsförmåga
         </h2>
         <p className="mt-4 max-w-3xl text-base leading-8 text-ink/76">
           Om bedömningen ändå behöver formuleras som något som låter mer anställningsbart kan

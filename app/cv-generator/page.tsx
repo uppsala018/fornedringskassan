@@ -38,7 +38,7 @@ export default function CvGeneratorPage() {
       <section className="rounded-dossier border border-steel/20 bg-white/90 p-8">
         <p className="text-sm uppercase tracking-[0.32em] text-ink/72">Vidare hänvisning</p>
         <h2 className="mt-3 text-balance font-display text-2xl font-semibold tracking-tight text-ink">
-          När profilen behöver prövas i en annan ordning
+          När profilen behöver prövas i nästa ordning
         </h2>
         <p className="mt-4 max-w-3xl text-base leading-8 text-ink/76">
           När en arbetsprofil ändå ska få ett formellt efterspel kan den fortsätta till ett

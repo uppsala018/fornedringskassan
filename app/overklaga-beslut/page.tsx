@@ -52,7 +52,7 @@ export default function OverklagaBeslutPage() {
   return (
     <PageShell
       title="Överklaga beslut"
-      intro="Här prövas samma beslut igen, med fler led, längre väntan och i praktiken samma risk för oförändrat resultat."
+      intro="Här prövas samma beslut igen, med fler led, längre väntan och samma risk för oförändrat resultat."
       eyebrow="Överklagande"
       showInstitutionNote={false}
     >
@@ -169,7 +169,7 @@ export default function OverklagaBeslutPage() {
       <section className="rounded-dossier border border-steel/20 bg-white/90 p-8">
         <p className="text-sm uppercase tracking-[0.32em] text-ink/72">Vidare hänvisning</p>
         <h2 className="mt-3 text-balance font-display text-2xl font-semibold tracking-tight text-ink">
-          När samma beslut vill ha sällskap
+          När samma beslut vill ha nästa läsning
         </h2>
         <p className="mt-4 max-w-3xl text-base leading-8 text-ink/76">
           Om du vill se hur överklagandet leder vidare finns här de närmaste funktionerna och

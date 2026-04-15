@@ -29,7 +29,7 @@ export default function SporaDittArendePage() {
   return (
     <PageShell
       title="Spåra ditt ärende"
-      intro="Ange ett diarienummer och följ ett ärende som rör sig tydligt utan att bli klarare."
+      intro="Ange ett diarienummer och följ ett ärende som rör sig utan att bli klarare."
       eyebrow="Ärendespårning"
       showInstitutionNote={false}
     >
@@ -37,7 +37,7 @@ export default function SporaDittArendePage() {
         <p className="text-xs uppercase tracking-[0.32em] text-ink/72">Rörelse utan besked</p>
         <p className="mt-3 max-w-3xl text-base leading-8 text-ink/76">
           Spårningen visar en löpande status, några interna förflyttningar och ett nästa icke-steg
-          som låter lovande tills man läser det noggrant. Resultatet är aktivt nog att kännas
+          som låter lovande tills man ser närmare på det. Resultatet är aktivt nog att kännas
           pågående, men begränsat nog att lämna samma fråga öppen.
         </p>
       </section>
