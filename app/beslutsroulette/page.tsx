@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { BeslutsrouletteGenerator } from "@/components/beslutsroulette-generator";
 import { PageShell } from "@/components/page-shell";
+import { Beslutsroulette } from "@/components/beslutsroulette99";
 
-const title = "Beslutsroulette | fiktiv beslutsmotor hos Förnedringskassan";
+const title = "Beslutsroulette | ordnad slump i myndighetston";
 const description =
-  "Generera ett fiktivt beslut i Förnedringskassans byråkrati. Utfallet låter formellt, men lämnar sällan större klarhet.";
+  "Snurra ett fiktivt beslutshjul där 0 ger tillfälligt bifall i 7 dagar och 1–99 ger ej godkänd. En satirisk snabbprövning hos Förnedringskassan.";
 
 export const metadata: Metadata = {
   title,
@@ -28,17 +28,17 @@ export const metadata: Metadata = {
 const relatedLinks = [
   { href: "/overklaga-beslut", label: "Överklaga beslut" },
   { href: "/spora-ditt-arende", label: "Spåra ditt ärende" },
-  { href: "/beslutsroulette-99", label: "Beslutsroulette 99" },
   { href: "/avslagsbrev", label: "Avslagsbrev" },
   { href: "/fragor-och-svar", label: "Frågor och svar" },
   { href: "/om", label: "Om projektet" },
+  { href: "/nadalage", label: "Nådeläge" },
 ] as const;
 
 export default function BeslutsroulettePage() {
   return (
     <PageShell
       title="Beslutsroulette"
-      intro="Välj vad ärendet gäller och låt systemet meddela ett beslut som låter formellt medan logiken förblir ogenomskinlig."
+      intro="Om en full granskning inte hinns med kan ärendet avgöras i ordnad slump. 0 betyder godkänd i 7 dagar. 1–99 betyder ej godkänd."
       eyebrow="Beslutsfunktion"
       showInstitutionNote={false}
     >
@@ -51,7 +51,7 @@ export default function BeslutsroulettePage() {
         </p>
       </section>
 
-      <BeslutsrouletteGenerator />
+      <Beslutsroulette />
 
       <section className="rounded-dossier border border-steel/20 bg-white/90 p-8">
         <p className="text-sm uppercase tracking-[0.32em] text-ink/72">Vidare hänvisning</p>

@@ -6,7 +6,6 @@ const routes = [
   "/avslagsbrev",
   "/overklaga-beslut",
   "/beslutsroulette",
-  "/beslutsroulette-99",
   "/cv-generator",
   "/arbetsformagebedomaren",
   "/handlaggarnytt",
@@ -17,7 +16,7 @@ const routes = [
   "/fragor-och-svar",
   "/normalt-forekommande-arbeten",
   "/om",
-];
+] as const;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return routes.map((route) => ({

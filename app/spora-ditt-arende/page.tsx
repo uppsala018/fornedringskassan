@@ -96,15 +96,15 @@ export default function SporaDittArendePage() {
           Om nästa rörelse vill avgöras snabbare
         </h2>
         <p className="mt-4 max-w-3xl text-base leading-8 text-ink/76">
-          Om ärendet redan ser färdigt ut att föras vidare kan snabbförfarandet i Beslutsroulette 99
+          Om ärendet redan ser färdigt ut att föras vidare kan snabbförfarandet i Beslutsroulette
           användas som nästa ordnade osäkerhet.
         </p>
         <div className="mt-6 flex flex-wrap gap-3">
           <Link
-            href="/beslutsroulette-99"
+            href="/beslutsroulette"
             className="rounded-full border border-steel/20 bg-white/90 px-4 py-2 text-sm text-ink transition hover:border-steel/45 hover:bg-white"
           >
-            Beslutsroulette 99
+            Beslutsroulette
           </Link>
         </div>
       </section>

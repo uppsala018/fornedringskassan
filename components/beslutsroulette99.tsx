@@ -262,6 +262,181 @@ function formatSwedishDate(date: Date) {
   }).format(date);
 }
 
+function escapeXml(value: string) {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&apos;");
+}
+
+function wrapText(text: string, maxLength: number) {
+  const words = text.trim().split(/\s+/).filter(Boolean);
+  const lines: string[] = [];
+  let current = "";
+
+  words.forEach((word) => {
+    if (!current) {
+      current = word;
+      return;
+    }
+
+    if ((current + " " + word).length <= maxLength) {
+      current += ` ${word}`;
+      return;
+    }
+
+    lines.push(current);
+    current = word;
+  });
+
+  if (current) {
+    lines.push(current);
+  }
+
+  return lines.length > 0 ? lines : [text.trim()];
+}
+
+function downloadBlob(blob: Blob, filename: string) {
+  const link = document.createElement("a");
+  const url = URL.createObjectURL(blob);
+  link.href = url;
+  link.download = filename;
+  link.click();
+  window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+function buildDecisionExportSvg(decision: RouletteDecision) {
+  const width = 1400;
+  const contentWidth = width - 144;
+  const sectionWidth = contentWidth;
+  const motivationLines = wrapText(decision.motivation, 76);
+  const validityLines = wrapText(decision.validity, 76);
+  const nextStepLines = wrapText(decision.nextStep, 76);
+  const timelineLines = decision.timeline;
+
+  let y = 72;
+  const parts: string[] = [];
+  const line = (x: number, yPosition: number, text: string, size: number, weight = 400, fill = "#203134") =>
+    `<text x="${x}" y="${yPosition}" fill="${fill}" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif" font-size="${size}" font-weight="${weight}">${escapeXml(text)}</text>`;
+
+  const section = (title: string, linesContent: string[], heightHint?: number, dark = false) => {
+    const lineHeight = dark ? 30 : 28;
+    const topPadding = 28;
+    const titleGap = 34;
+    const blockHeight = heightHint ?? topPadding + titleGap + linesContent.length * lineHeight + 24;
+    const background = dark ? "#101010" : "#f7f3ea";
+    const border = dark ? "rgba(255,255,255,0.12)" : "rgba(115,128,131,0.18)";
+    const bodyFill = dark ? "#f7f1e6" : "#203134";
+    const mutedFill = dark ? "rgba(247,241,230,0.72)" : "#5c6d71";
+    parts.push(
+      `<g transform="translate(72,${y})">
+        <rect width="${sectionWidth}" height="${blockHeight}" rx="26" fill="${background}" stroke="${border}" />
+        ${line(28, 36, title, 18, 700, mutedFill)}
+        ${linesContent
+          .map((text, index) => line(28, 72 + index * lineHeight, text, 26, 400, bodyFill))
+          .join("")}
+      </g>`,
+    );
+    y += blockHeight + 24;
+  };
+
+  parts.push(
+    `<rect x="0" y="0" width="${width}" height="100%" fill="#f5f0e7" />`,
+    `<g transform="translate(72,72)">
+      <text x="0" y="20" fill="#5a6c69" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3">BESLUTSROULETTE | FIKTIV BESLUTSSAMMANSTÄLLNING</text>
+      <text x="0" y="78" fill="#203134" font-family="Georgia, 'Times New Roman', serif" font-size="58" font-weight="700">${escapeXml(`Utfall ${decision.number}`)}</text>
+      <text x="0" y="120" fill="#415258" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif" font-size="26">${escapeXml(`${decision.heading} · ${decision.outcomeLabel}`)}</text>
+      <g transform="translate(0,150)">
+        <g transform="translate(0,0)">
+          <rect width="390" height="40" rx="20" fill="#ffffff" stroke="rgba(115,128,131,0.18)" />
+          ${line(18, 26, "Diarienummer", 16, 700, "#5a6c69")}
+          ${line(156, 26, decision.diaryNumber, 16, 400, "#203134")}
+        </g>
+        <g transform="translate(430,0)">
+          <rect width="390" height="40" rx="20" fill="#ffffff" stroke="rgba(115,128,131,0.18)" />
+          ${line(18, 26, "Giltighetstid", 16, 700, "#5a6c69")}
+          ${line(150, 26, decision.validity, 16, 400, "#203134")}
+        </g>
+        <g transform="translate(0,52)">
+          <rect width="390" height="40" rx="20" fill="#ffffff" stroke="rgba(115,128,131,0.18)" />
+          ${line(18, 26, "Utfall", 16, 700, "#5a6c69")}
+          ${line(96, 26, `${decision.number === 0 ? "Godkänd" : "Ej godkänd"}`, 16, 400, "#203134")}
+        </g>
+        <g transform="translate(430,52)">
+          <rect width="390" height="40" rx="20" fill="#ffffff" stroke="rgba(115,128,131,0.18)" />
+          ${line(18, 26, "Nästa steg", 16, 700, "#5a6c69")}
+          ${line(124, 26, decision.nextStep, 16, 400, "#203134")}
+        </g>
+      </g>
+    </g>`,
+  );
+
+  y = 320;
+
+  section("Kort motivering", motivationLines);
+  section("Intern rörelse", timelineLines, undefined);
+  section("Eventuell giltighetstid", validityLines);
+  section("Nästa steg eller fortsatt osäkerhet", nextStepLines);
+
+  const footerY = y + 12;
+  parts.push(
+    `<g transform="translate(72,${footerY})">
+      <text x="0" y="0" fill="#5a6c69" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif" font-size="14" font-weight="600" letter-spacing="2.8">FIKTIV BESLUTSSAMMANSTÄLLNING</text>
+      <text x="${sectionWidth}" y="0" text-anchor="end" fill="#5a6c69" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif" font-size="14" font-weight="500">Skapad för delning och intern ordning</text>
+    </g>`,
+  );
+
+  const height = footerY + 52 + 72;
+  const svg = `<?xml version="1.0" encoding="UTF-8"?>
+  <svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-label="Fiktiv beslutssammanställning">
+    ${parts.join("")}
+  </svg>`;
+
+  return { svg, width, height };
+}
+
+async function exportDecisionAsPng(decision: RouletteDecision) {
+  const { svg, width, height } = buildDecisionExportSvg(decision);
+  const safeDiary = decision.diaryNumber.replaceAll("/", "-");
+  const svgBlob = new Blob([svg], { type: "image/svg+xml;charset=utf-8" });
+  const svgUrl = URL.createObjectURL(svgBlob);
+
+  try {
+    const image = new Image();
+    image.decoding = "async";
+    image.src = svgUrl;
+    await image.decode();
+
+    const canvas = document.createElement("canvas");
+    canvas.width = width;
+    canvas.height = height;
+
+    const context = canvas.getContext("2d");
+    if (!context) {
+      throw new Error("Canvas context saknas.");
+    }
+
+    context.fillStyle = "#f5f0e7";
+    context.fillRect(0, 0, width, height);
+    context.drawImage(image, 0, 0, width, height);
+
+    const pngBlob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, "image/png"));
+
+    if (!pngBlob) {
+      throw new Error("PNG-export misslyckades.");
+    }
+
+    downloadBlob(pngBlob, `beslutsroulette-${safeDiary}.png`);
+  } catch {
+    const fallbackBlob = new Blob([svg], { type: "image/svg+xml;charset=utf-8" });
+    downloadBlob(fallbackBlob, `beslutsroulette-${safeDiary}.svg`);
+  } finally {
+    URL.revokeObjectURL(svgUrl);
+  }
+}
+
 function getDecisionKind(number: number): DecisionKind {
   if (number === 0) return "godkand";
   if (number < 20) return "avslag";
@@ -303,13 +478,14 @@ function playTone(
   oscillator.stop(now + duration + 0.02);
 }
 
-export function Beslutsroulette99() {
+export function Beslutsroulette() {
   const [formState, setFormState] = useState<FormState>(initialState);
   const [number, setNumber] = useState<number | null>(null);
   const [rotation, setRotation] = useState(0);
   const [isSpinning, setIsSpinning] = useState(false);
   const [decision, setDecision] = useState<RouletteDecision | null>(null);
   const [copyLabel, setCopyLabel] = useState("Kopiera beslut");
+  const [exportLabel, setExportLabel] = useState("Exportera som bild");
   const audioContextRef = useRef<AudioContext | null>(null);
   const tickTimerRef = useRef<number | null>(null);
   const stopTimerRef = useRef<number | null>(null);
@@ -320,7 +496,7 @@ export function Beslutsroulette99() {
       return {
         value,
         angle,
-        color: value === 0 ? "#2d7d46" : value % 2 === 0 ? "#141414" : "#0d0d0d",
+        color: value === 0 ? "#2d7d46" : "#101010",
       };
     });
   }, []);
@@ -370,7 +546,7 @@ export function Beslutsroulette99() {
       String(resultNumber),
       String(rotation),
     ].join("|"));
-    const diaryNumber = `BR99-${String(1000 + (seed % 9000)).padStart(4, "0")}/${new Date().getFullYear()}`;
+    const diaryNumber = `BR-${String(1000 + (seed % 9000)).padStart(4, "0")}/${new Date().getFullYear()}`;
     const supportText =
       formState.support === "ja"
         ? "Kompletterande material har bifogats."
@@ -392,6 +568,7 @@ export function Beslutsroulette99() {
     const timeline = pick(catalog.timeline, seed + 7).slice(0, 3);
     const copyText = [
       `${catalog.heading}`,
+      "Dokumenttyp: Fiktiv beslutssammanställning",
       `Utfall: ${resultNumber} – ${catalog.outcomeLabel}`,
       `Diarienummer: ${diaryNumber}`,
       "",
@@ -401,6 +578,9 @@ export function Beslutsroulette99() {
       "",
       "Intern rörelse:",
       ...timeline.map((item) => `- ${item}`),
+      "",
+      "Fiktiv beslutssammanställning",
+      "Skapad för delning och intern ordning",
     ].join("\n");
 
     return {
@@ -466,6 +646,21 @@ export function Beslutsroulette99() {
     }
   }
 
+  async function exportDecision() {
+    if (!decision) return;
+
+    setExportLabel("Exporterar...");
+
+    try {
+      await exportDecisionAsPng(decision);
+      setExportLabel("Bild sparad");
+    } catch {
+      setExportLabel("Export misslyckades");
+    } finally {
+      window.setTimeout(() => setExportLabel("Exportera som bild"), 1800);
+    }
+  }
+
   const wheelCenterLabel = decision
     ? number === 0
       ? "Godkänd"
@@ -486,14 +681,15 @@ export function Beslutsroulette99() {
         1 till 99 är ej godkänd.
       </p>
 
-      <div className="mt-6 grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
-        <form
+      <form
+        id="roulette-control-form"
           onSubmit={(event) => {
             event.preventDefault();
             spin();
           }}
-          className="space-y-4"
-        >
+        className="mt-6 grid gap-6 lg:grid-cols-[1.05fr_0.95fr]"
+      >
+        <div className="space-y-4">
           <label className="grid gap-2">
             <span className="text-sm font-medium text-ink">Vad gäller ärendet?</span>
             <input
@@ -570,13 +766,6 @@ export function Beslutsroulette99() {
 
           <div className="flex flex-wrap gap-3 pt-2">
             <button
-              type="submit"
-              disabled={isSpinning}
-              className="inline-flex min-h-12 items-center rounded-full bg-ink px-6 py-3 text-sm font-medium text-paper transition hover:bg-seal disabled:cursor-not-allowed disabled:opacity-60"
-            >
-              {isSpinning ? "Snurrar..." : "Snurra beslutshjulet"}
-            </button>
-            <button
               type="button"
               onClick={() => {
                 stopTicking();
@@ -586,13 +775,14 @@ export function Beslutsroulette99() {
                 setRotation(0);
                 setIsSpinning(false);
                 setCopyLabel("Kopiera beslut");
+                setExportLabel("Exportera som bild");
               }}
               className="inline-flex min-h-12 items-center rounded-full border border-steel/25 bg-white/92 px-6 py-3 text-sm font-medium text-ink transition hover:border-steel/45 hover:bg-white"
             >
               Rensa formulär
             </button>
           </div>
-        </form>
+        </div>
 
         <aside className="rounded-[1.5rem] border border-steel/20 bg-paper/92 p-5">
           <p className="text-xs uppercase tracking-[0.3em] text-ink/72">Förhandsvisning</p>
@@ -605,7 +795,7 @@ export function Beslutsroulette99() {
             ))}
           </dl>
         </aside>
-      </div>
+      </form>
 
       <div className="mt-6 grid gap-6 lg:grid-cols-[1fr_0.86fr]">
         <section className="rounded-[1.6rem] border border-steel/20 bg-white/90 p-5 sm:p-6">
@@ -613,7 +803,7 @@ export function Beslutsroulette99() {
             <div>
               <p className="text-xs uppercase tracking-[0.3em] text-ink/72">Roulettehjul</p>
               <h3 className="mt-2 font-display text-2xl font-semibold tracking-tight text-ink">
-                Beslutsroulette 99
+                Beslutsroulette
               </h3>
             </div>
             <div className="flex flex-wrap gap-2 text-xs uppercase tracking-[0.24em] text-ink/68">
@@ -628,7 +818,7 @@ export function Beslutsroulette99() {
               style={{
                 transform: `rotate(${rotation}deg)`,
                 backgroundImage:
-                  "radial-gradient(circle at center, rgba(255,255,255,0.05) 0 46%, rgba(0,0,0,0.12) 46% 47%, transparent 47% 100%), repeating-conic-gradient(from -90deg, rgba(247,244,236,0.08) 0deg 0.35deg, transparent 0.35deg 3.6deg), conic-gradient(from -90deg, " +
+                  "radial-gradient(circle at center, rgba(255,255,255,0.05) 0 46%, rgba(0,0,0,0.12) 46% 47%, transparent 47% 100%), repeating-conic-gradient(from -90deg, rgba(255,255,255,0.72) 0deg 0.14deg, transparent 0.14deg 3.6deg), repeating-conic-gradient(from -90deg, rgba(247,244,236,0.05) 0deg 0.12deg, transparent 0.12deg 3.6deg), conic-gradient(from -90deg, " +
                   wheelSegments.map((segment) => `${segment.color} ${segment.angle}deg ${segment.angle + 3.6}deg`).join(", ") +
                   ")",
               }}
@@ -678,6 +868,15 @@ export function Beslutsroulette99() {
             </div>
           </div>
 
+          <button
+            type="submit"
+            form="roulette-control-form"
+            disabled={isSpinning}
+            className="mx-auto mt-5 flex h-20 w-20 items-center justify-center rounded-full border border-[#f3d7d7]/30 bg-[#8f1f1f] text-[11px] font-semibold uppercase tracking-[0.24em] text-paper shadow-[inset_0_1px_0_rgba(255,255,255,0.28),0_10px_24px_rgba(0,0,0,0.28)] transition hover:bg-[#a22626] active:translate-y-[1px] active:shadow-[inset_0_1px_0_rgba(255,255,255,0.18),0_6px_16px_rgba(0,0,0,0.24)] disabled:cursor-not-allowed disabled:opacity-65"
+          >
+            {isSpinning ? "Snurrar" : "Snurra"}
+          </button>
+
           <p className="mt-5 text-center text-sm leading-7 text-ink/72">
             Hjulet snurrar i myndighetston. 0 är grönt. Resten är svart.
           </p>
@@ -690,16 +889,37 @@ export function Beslutsroulette99() {
               <h3 className="mt-2 font-display text-2xl font-semibold tracking-tight text-ink">
                 {decision ? decision.heading : "Resultatet visas här"}
               </h3>
+              <p className="mt-2 text-sm leading-6 text-ink/72">
+                Dokumenttyp: Fiktiv beslutssammanställning
+              </p>
             </div>
-            <span
-              className={`rounded-full border px-4 py-2 text-sm ${
-                decision && decision.kind === "godkand"
-                  ? "border-emerald-700/20 bg-emerald-50 text-emerald-900"
-                  : "border-steel/20 bg-paper text-ink"
-              }`}
-            >
-              {decision ? `Utfall ${decision.number}` : "Utfall väntar"}
-            </span>
+            <div className="flex flex-wrap gap-2">
+              <span
+                className={`rounded-full border px-4 py-2 text-sm ${
+                  decision && decision.kind === "godkand"
+                    ? "border-emerald-700/20 bg-emerald-50 text-emerald-900"
+                    : "border-steel/20 bg-paper text-ink"
+                }`}
+              >
+                {decision ? `Utfall ${decision.number}` : "Utfall väntar"}
+              </span>
+              <button
+                type="button"
+                onClick={copyDecision}
+                disabled={!decision}
+                className="inline-flex min-h-11 items-center rounded-full border border-steel/25 bg-paper px-5 py-2.5 text-sm font-medium text-ink transition hover:border-steel/45 hover:bg-white disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                {copyLabel}
+              </button>
+              <button
+                type="button"
+                onClick={exportDecision}
+                disabled={!decision}
+                className="inline-flex min-h-11 items-center rounded-full border border-steel/25 bg-paper px-5 py-2.5 text-sm font-medium text-ink transition hover:border-steel/45 hover:bg-white disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                {exportLabel}
+              </button>
+            </div>
           </div>
 
           <div className="mt-5 rounded-[1.35rem] border border-steel/15 bg-paper p-5">
@@ -737,20 +957,16 @@ export function Beslutsroulette99() {
                 ))}
               </div>
 
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap items-center justify-between gap-4 rounded-[1.35rem] border border-steel/15 bg-paper px-5 py-4">
+                <p className="text-sm leading-7 text-ink/76">
+                  Vill du jämföra mot nästa rundgång kan du snurra hjulet igen.
+                </p>
                 <button
                   type="button"
                   onClick={spin}
-                  className="inline-flex min-h-12 items-center rounded-full border border-steel/25 bg-paper px-6 py-3 text-sm font-medium text-ink transition hover:border-steel/45 hover:bg-white"
+                  className="inline-flex min-h-11 items-center rounded-full border border-steel/20 bg-white/92 px-5 py-2.5 text-sm font-medium text-ink transition hover:border-steel/45 hover:bg-white"
                 >
                   Generera på nytt
-                </button>
-                <button
-                  type="button"
-                  onClick={copyDecision}
-                  className="inline-flex min-h-12 items-center rounded-full bg-ink px-6 py-3 text-sm font-medium text-paper transition hover:bg-seal"
-                >
-                  {copyLabel}
                 </button>
               </div>
             </div>
