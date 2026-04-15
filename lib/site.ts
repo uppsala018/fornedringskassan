@@ -12,6 +12,7 @@ export const navItems = [
   { href: "/avslagsbrev", label: "Avslagsbrev" },
   { href: "/overklaga-beslut", label: "Överklaga beslut" },
   { href: "/beslutsroulette", label: "Beslutsroulette" },
+  { href: "/beslutsroulette-99", label: "Beslutsroulette 99" },
   { href: "/cv-generator", label: "CV-generator" },
   { href: "/arbetsformagebedomaren", label: "Arbetsförmågebedömaren" },
   { href: "/handlaggarnytt", label: "Handläggarnytt" },
