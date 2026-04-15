@@ -80,8 +80,8 @@ export function NadalageView() {
               En stilla paus för vila och värdighet.
             </h1>
             <p className="mt-5 max-w-2xl text-lg leading-8 text-[#415258]">
-              Här får du vila en stund utan invändningar, utan krav och utan att behöva
-              formulera dig rätt.
+              Här får du vila en stund utan invändningar, utan krav och utan att behöva bevisa
+              att vilan är berättigad.
             </p>
 
             <div className="mt-8 rounded-[1.75rem] border border-[#d7ddd7] bg-white/88 p-6 shadow-[0_10px_35px_rgba(49,67,70,0.05)]">

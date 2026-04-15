@@ -28,6 +28,7 @@ export const metadata: Metadata = {
 const relatedLinks = [
   { href: "/overklaga-beslut", label: "Överklaga beslut" },
   { href: "/spora-ditt-arende", label: "Spåra ditt ärende" },
+  { href: "/beslutsroulette-99", label: "Beslutsroulette 99" },
   { href: "/avslagsbrev", label: "Avslagsbrev" },
   { href: "/fragor-och-svar", label: "Frågor och svar" },
   { href: "/om", label: "Om projektet" },
@@ -37,16 +38,16 @@ export default function BeslutsroulettePage() {
   return (
     <PageShell
       title="Beslutsroulette"
-      intro="Välj vad ärendet gäller och låt systemet meddela ett beslut som låter formellt, men sällan förklarar något."
+      intro="Välj vad ärendet gäller och låt systemet meddela ett beslut som låter formellt medan logiken förblir ogenomskinlig."
       eyebrow="Beslutsfunktion"
       showInstitutionNote={false}
     >
       <section className="rounded-dossier border border-steel/20 bg-paper p-6 sm:p-8">
-        <p className="text-xs uppercase tracking-[0.32em] text-ink/72">Så fungerar den</p>
+        <p className="text-xs uppercase tracking-[0.32em] text-ink/72">Ogenomskinlig logik</p>
         <p className="mt-3 max-w-3xl text-base leading-8 text-ink/76">
           Beslutsrouletten tar emot en kort ärendebeskrivning, ser efter om kompletterande material
-          finns och levererar sedan ett beslut som ser formellt ut även när utfallet redan lutar åt
-          samma håll som vanligt.
+          finns och levererar sedan ett beslut som ser formellt ut även när det i praktiken redan
+          lutar åt samma håll som vanligt.
         </p>
       </section>
 
@@ -55,7 +56,7 @@ export default function BeslutsroulettePage() {
       <section className="rounded-dossier border border-steel/20 bg-white/90 p-8">
         <p className="text-sm uppercase tracking-[0.32em] text-ink/72">Vidare hänvisning</p>
         <h2 className="mt-3 text-balance font-display text-2xl font-semibold tracking-tight text-ink">
-          När beslutet vill ha sällskap
+          När samma svar vill ha sällskap
         </h2>
         <p className="mt-4 max-w-3xl text-base leading-8 text-ink/76">
           Om du vill se hur beslutsrouletten hänger ihop med resten av sajten finns här de närmaste

@@ -42,6 +42,7 @@ const steps = [
 
 const relatedLinks = [
   { href: "/avslagsbrev", label: "Avslagsbrev" },
+  { href: "/spora-ditt-arende", label: "Spåra ditt ärende" },
   { href: "/handlaggarkedja", label: "Handläggarkedja" },
   { href: "/fragor-och-svar", label: "Frågor och svar" },
   { href: "/om", label: "Om projektet" },
@@ -51,15 +52,15 @@ export default function OverklagaBeslutPage() {
   return (
     <PageShell
       title="Överklaga beslut"
-      intro="Här kan ett beslut överklagas enligt samma ordning som beslutet först föll i, bara med fler led, längre väntan och något större hövlighet."
+      intro="Här prövas samma beslut igen, med fler led, längre väntan och i praktiken samma risk för oförändrat resultat."
       eyebrow="Överklagande"
       showInstitutionNote={false}
     >
       <section className="rounded-dossier border border-steel/20 bg-paper p-6 sm:p-8">
-        <p className="text-xs uppercase tracking-[0.32em] text-ink/72">Så går det till</p>
+        <p className="text-xs uppercase tracking-[0.32em] text-ink/72">Så prövas samma sak igen</p>
         <p className="mt-3 max-w-3xl text-base leading-8 text-ink/76">
           Ett överklagande kan lämnas, läsas och prövas igen. Det är formellt möjligt, praktiskt
-          välbekant och i många fall en förlängning av samma beslut i ny kostym.
+          välbekant och i många fall samma beslut i ny kostym.
         </p>
         <div className="mt-6 grid gap-4 md:grid-cols-3">
           {steps.map(([stepTitle, body]) => (
@@ -168,11 +169,11 @@ export default function OverklagaBeslutPage() {
       <section className="rounded-dossier border border-steel/20 bg-white/90 p-8">
         <p className="text-sm uppercase tracking-[0.32em] text-ink/72">Vidare hänvisning</p>
         <h2 className="mt-3 text-balance font-display text-2xl font-semibold tracking-tight text-ink">
-          Relaterade delar av samma ordning
+          När samma beslut vill ha sällskap
         </h2>
         <p className="mt-4 max-w-3xl text-base leading-8 text-ink/76">
-          Om du vill se hur överklagandet hänger ihop med resten av sajten finns här de närmaste
-          funktionerna och förklaringsytorna.
+          Om du vill se hur överklagandet leder vidare finns här de närmaste funktionerna och
+          förklaringsytorna.
         </p>
         <div className="mt-6 flex flex-wrap gap-3">
           {relatedLinks.map((item) => (

@@ -28,7 +28,7 @@ export default function OmPage() {
   return (
     <PageShell
       title="Om Förnedringskassan"
-      intro="Förnedringskassan är ett satiriskt projekt om myndighetsspråk, processer och den sorts distans som uppstår när ärenden får mer värdighet än människor."
+      intro="Förnedringskassan är ett satiriskt projekt om myndighetsspråk som gör process viktigare än innehåll och människor till ärenden."
     >
       <section className="rounded-dossier border border-stamp/20 bg-stamp/10 p-6">
         <p className="text-xs uppercase tracking-[0.34em] text-ink/72">
@@ -51,9 +51,9 @@ export default function OmPage() {
           </h2>
           <div className="mt-4 space-y-4 text-base leading-8 text-ink/76">
             <p>
-              Webbplatsen är satir och social kommentar i form av en fiktiv myndighetsyta.
-              Den gestaltar hur institutionaliserat språk kan låta tryggt samtidigt som det
-              gör människor till ärenden.
+              Webbplatsen är satir och språkgranskning i fiktiv myndighetsform.
+              Den gestaltar hur institutionaliserat språk kan göra process till innehåll och
+              människor till ärenden.
             </p>
           </div>
         </article>
@@ -78,7 +78,7 @@ export default function OmPage() {
       <section className="institution-card p-8">
         <p className="text-sm uppercase tracking-[0.32em] text-ink/72">Syfte</p>
         <h2 className="mt-3 text-balance font-display text-3xl font-semibold tracking-tight text-ink">
-          Vad satiren riktar in sig på
+          Vad språksatiren riktar in sig på
         </h2>
         <ul className="mt-6 space-y-4 text-base leading-8 text-ink/76">
           <li>Språk som gör en mänsklig situation till en administrativ rad i marginalen.</li>

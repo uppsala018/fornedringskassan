@@ -29,16 +29,17 @@ export default function HandlaggarnyttPage() {
   return (
     <PageShell
       title="Handläggarnytt"
-      intro="Kortare notiser om ordning, väntan och andra justeringar i ärendeflödet."
+      intro="Korta notiser där systemet förklarar sina egna justeringar som rutin."
       eyebrow="Intern bulletin"
       showInstitutionNote={false}
     >
       <section className="rounded-dossier border border-steel/20 bg-paper p-6 sm:p-8">
-        <p className="text-xs uppercase tracking-[0.32em] text-ink/72">Arkivöversikt</p>
+        <p className="text-xs uppercase tracking-[0.32em] text-ink/72">Systemets egen bulletin</p>
         <p className="mt-3 max-w-3xl text-base leading-8 text-ink/76">
           Här samlas korta meddelanden om sådant som förändras precis lagom mycket för att kunna
-          beskrivas som rutin. Varje notis går att läsa för sig och kommer att uppdateras i samma
-          ordning som resten av sajten gärna pratar om ordning.
+          beskrivas som rutin. Varje notis visar hur systemet kan skriva om sina egna rörelser till
+          ordning, och kommer att uppdateras i samma ordning som resten av sajten gärna pratar om
+          ordning.
         </p>
       </section>
 

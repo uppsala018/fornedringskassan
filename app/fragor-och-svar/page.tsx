@@ -81,13 +81,13 @@ export default function FAQPage() {
   return (
     <PageShell
       title="Frågor och svar"
-      intro="Svar på vanliga frågor om Förnedringskassan, projektets satir och vad sidan inte är."
+      intro="Här svarar projektet på sig självt med samma lugn som resten av sajten."
       eyebrow="Vanliga frågor"
       showInstitutionNote={false}
     >
       <section className="institution-card p-6 sm:p-8">
         <p className="max-w-3xl text-base leading-8 text-ink/76">
-          Den här sidan samlar korta svar om projektet, dess fiktiva ram och den satiriska
+          Den här sidan samlar korta svar om projektets fiktiva ram och den institutionella
           logik som håller ihop resten av sajten.
         </p>
       </section>
@@ -107,10 +107,10 @@ export default function FAQPage() {
       <section className="rounded-dossier border border-steel/20 bg-paper p-8">
         <p className="text-sm uppercase tracking-[0.32em] text-ink/72">Vidare hänvisning</p>
         <h2 className="mt-3 text-balance font-display text-2xl font-semibold tracking-tight text-ink">
-          Se också de delar som används mest
+          Se också de delar som förklarar sig bäst
         </h2>
         <p className="mt-4 max-w-3xl text-base leading-8 text-ink/76">
-          Om du vill se hur frågorna blir till i praktiken finns här de närmaste interna
+          Om du vill se hur svaren växer fram i praktiken finns här de närmaste interna
           funktionerna och startsidan.
         </p>
         <div className="mt-6 flex flex-wrap gap-3">

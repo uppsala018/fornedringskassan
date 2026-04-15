@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 import { PageShell } from "@/components/page-shell";
 import { SporaDittArendeTracker } from "@/components/spora-ditt-arende-tracker";
@@ -28,16 +29,16 @@ export default function SporaDittArendePage() {
   return (
     <PageShell
       title="Spåra ditt ärende"
-      intro="Ange ett diarienummer och följ ärendets väg genom Förnedringskassans system. Rörelsen ser aktiv ut, men hjälper sällan."
+      intro="Ange ett diarienummer och följ ett ärende som rör sig tydligt utan att bli klarare."
       eyebrow="Ärendespårning"
       showInstitutionNote={false}
     >
       <section className="rounded-dossier border border-steel/20 bg-paper p-6 sm:p-8">
-        <p className="text-xs uppercase tracking-[0.32em] text-ink/72">Så fungerar spårningen</p>
+        <p className="text-xs uppercase tracking-[0.32em] text-ink/72">Rörelse utan besked</p>
         <p className="mt-3 max-w-3xl text-base leading-8 text-ink/76">
-          Spårningen visar en löpande status, några interna förflyttningar och en nästa rörelse som
-          låter lovande tills man läser den noggrant. Resultatet är aktivt nog att kännas pågående,
-          men begränsat nog att lämna samma fråga öppen.
+          Spårningen visar en löpande status, några interna förflyttningar och ett nästa icke-steg
+          som låter lovande tills man läser det noggrant. Resultatet är aktivt nog att kännas
+          pågående, men begränsat nog att lämna samma fråga öppen.
         </p>
       </section>
 
@@ -56,9 +57,9 @@ export default function SporaDittArendePage() {
         </article>
 
         <article className="institution-card p-6">
-          <p className="text-xs uppercase tracking-[0.3em] text-ink/72">Vad betyder statusen?</p>
+          <p className="text-xs uppercase tracking-[0.3em] text-ink/72">Vad syns?</p>
           <h2 className="mt-3 text-balance font-display text-2xl font-semibold tracking-tight text-ink">
-            Att något händer, utan att saken nödvändigtvis går framåt
+            Något händer, men saken går inte nödvändigtvis framåt
           </h2>
           <p className="mt-4 text-base leading-8 text-ink/76">
             Statusen bekräftar att ärendet är aktivt, registrerat och vid behov förflyttat. Det
@@ -67,7 +68,7 @@ export default function SporaDittArendePage() {
         </article>
 
         <article className="institution-card p-6">
-          <p className="text-xs uppercase tracking-[0.3em] text-ink/72">Historik</p>
+          <p className="text-xs uppercase tracking-[0.3em] text-ink/72">Historik utan avslut</p>
           <h2 className="mt-3 text-balance font-display text-2xl font-semibold tracking-tight text-ink">
             Tidigare milstolpar som fortfarande inte blev avslut
           </h2>
@@ -87,6 +88,25 @@ export default function SporaDittArendePage() {
             väntan eller en ny läsning av samma material i något annorlunda tonläge.
           </p>
         </article>
+      </section>
+
+      <section className="rounded-dossier border border-steel/20 bg-white/90 p-8">
+        <p className="text-sm uppercase tracking-[0.32em] text-ink/72">Vidare hänvisning</p>
+        <h2 className="mt-3 text-balance font-display text-2xl font-semibold tracking-tight text-ink">
+          Om nästa rörelse vill avgöras snabbare
+        </h2>
+        <p className="mt-4 max-w-3xl text-base leading-8 text-ink/76">
+          Om ärendet redan ser färdigt ut att föras vidare kan snabbförfarandet i Beslutsroulette 99
+          användas som nästa ordnade osäkerhet.
+        </p>
+        <div className="mt-6 flex flex-wrap gap-3">
+          <Link
+            href="/beslutsroulette-99"
+            className="rounded-full border border-steel/20 bg-white/90 px-4 py-2 text-sm text-ink transition hover:border-steel/45 hover:bg-white"
+          >
+            Beslutsroulette 99
+          </Link>
+        </div>
       </section>
     </PageShell>
   );
