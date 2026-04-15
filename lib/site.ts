@@ -13,6 +13,7 @@ export const navItems = [
   { href: "/overklaga-beslut", label: "Överklaga beslut" },
   { href: "/beslutsroulette", label: "Beslutsroulette" },
   { href: "/cv-generator", label: "CV-generator" },
+  { href: "/arbetsformagebedomaren", label: "Arbetsförmågebedömaren" },
   { href: "/handlaggarnytt", label: "Handläggarnytt" },
   { href: "/spora-ditt-arende", label: "Spåra ärende" },
   { href: "/handlaggarkedja", label: "Handläggarkedja" },
