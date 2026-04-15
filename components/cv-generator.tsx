@@ -213,6 +213,248 @@ function buildCvExportSvg(generated: GeneratedCv) {
   return { svg, width, height };
 }
 
+function buildCvPrintHtml(generated: GeneratedCv) {
+  const list = (items: string[]) =>
+    items
+      .map(
+        (item) =>
+          `<li style="margin:0 0 8px 0; padding:0 0 0 1.1em; position:relative;"><span style="position:absolute; left:0;">•</span><span>${escapeXml(item)}</span></li>`,
+      )
+      .join("");
+
+  return `<!doctype html>
+<html lang="sv">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CV-generator | ${escapeXml(generated.name)}</title>
+    <style>
+      @page {
+        size: A4;
+        margin: 14mm;
+      }
+      :root {
+        color-scheme: light;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html, body {
+        margin: 0;
+        padding: 0;
+        background: #f5f0e7;
+        color: #203134;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+      body {
+        padding: 0;
+      }
+      .sheet {
+        width: 100%;
+        min-height: 100vh;
+        padding: 0;
+      }
+      .eyebrow {
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        font-size: 11px;
+        font-weight: 700;
+        color: #5a6c69;
+      }
+      .title {
+        margin: 14px 0 8px;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 36px;
+        line-height: 1.08;
+        font-weight: 700;
+      }
+      .lead {
+        margin: 0 0 20px;
+        font-size: 15px;
+        line-height: 1.7;
+        color: #415258;
+      }
+      .meta-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        margin-bottom: 18px;
+      }
+      .meta {
+        border: 1px solid rgba(115, 128, 131, 0.18);
+        border-radius: 16px;
+        background: #ffffff;
+        padding: 12px 14px;
+      }
+      .meta-label {
+        display: block;
+        margin-bottom: 4px;
+        font-size: 10px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: #5a6c69;
+      }
+      .meta-value {
+        font-size: 13px;
+        line-height: 1.5;
+      }
+      .section {
+        border: 1px solid rgba(115, 128, 131, 0.18);
+        border-radius: 18px;
+        background: #ffffff;
+        padding: 16px 18px;
+        margin-bottom: 14px;
+      }
+      .section.dark {
+        background: #101010;
+        color: #f7f1e6;
+      }
+      .section-label {
+        font-size: 10px;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: inherit;
+        opacity: 0.75;
+      }
+      .section h2 {
+        margin: 8px 0 10px;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 20px;
+        line-height: 1.2;
+      }
+      .section p, .section li {
+        font-size: 14px;
+        line-height: 1.7;
+        margin: 0;
+      }
+      .section ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      .muted {
+        color: inherit;
+        opacity: 0.8;
+      }
+      .footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        margin-top: 18px;
+        padding-top: 12px;
+        border-top: 1px solid rgba(115, 128, 131, 0.18);
+        font-size: 10px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: #5a6c69;
+      }
+      .page-break {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="sheet">
+      <div class="eyebrow">CV-GENERATOR | FIKTIV ARBETSPROFIL</div>
+      <h1 class="title">${escapeXml(generated.name)}</h1>
+      <p class="lead">Uppdrag: ${escapeXml(generated.work)} · Tonläge: ${escapeXml(generated.toneLabel)} · Anpassning: ${escapeXml(generated.adaptationLabel)}</p>
+
+      <div class="meta-grid">
+        <div class="meta">
+          <span class="meta-label">Dokumenttyp</span>
+          <span class="meta-value">Fiktiv arbetsprofil</span>
+        </div>
+        <div class="meta">
+          <span class="meta-label">Referens</span>
+          <span class="meta-value">${escapeXml(generated.referenceNumber)}</span>
+        </div>
+        <div class="meta">
+          <span class="meta-label">Upprättad</span>
+          <span class="meta-value">${escapeXml(generated.generatedOn)}</span>
+        </div>
+        <div class="meta">
+          <span class="meta-label">Anpassning</span>
+          <span class="meta-value">${escapeXml(generated.adaptationLabel)}</span>
+        </div>
+      </div>
+
+      <section class="section page-break">
+        <div class="section-label">Profil</div>
+        <h2>Fiktiv arbetsprofil</h2>
+        <p>${escapeXml(generated.profile)}</p>
+      </section>
+
+      <section class="section page-break">
+        <div class="section-label">Kompetenser</div>
+        <h2>Kompetenser</h2>
+        <ul>${list(generated.competencies)}</ul>
+      </section>
+
+      <section class="section page-break">
+        <div class="section-label">Arbetsförmåga i praktiken</div>
+        <h2>Arbetsförmåga i praktiken</h2>
+        <p>${escapeXml(generated.practical)}</p>
+      </section>
+
+      <section class="section page-break">
+        <div class="section-label">Särskilda förutsättningar</div>
+        <h2>Särskilda förutsättningar</h2>
+        <ul>${list(generated.conditions)}</ul>
+      </section>
+
+      <section class="section page-break">
+        <div class="section-label">Rekommenderade arbetsområden</div>
+        <h2>Rekommenderade arbetsområden</h2>
+        <ul>${list(generated.recommendedAreas)}</ul>
+      </section>
+
+      <section class="section dark page-break">
+        <div class="section-label">Sammanfattande bedömning</div>
+        <h2>Sammanfattande bedömning</h2>
+        <p>${escapeXml(generated.summary)}</p>
+      </section>
+
+      <div class="footer">
+        <span>Fiktiv arbetsprofil</span>
+        <span>Skapad för delning och intern ordning</span>
+      </div>
+    </main>
+  </body>
+</html>`;
+}
+
+async function exportCvAsPdf(generated: GeneratedCv) {
+  const safeReference = generated.referenceNumber.replaceAll("/", "-");
+  const html = buildCvPrintHtml(generated);
+  const blob = new Blob([html], { type: "text/html;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const printWindow = window.open(url, "_blank", "noopener,noreferrer,width=980,height=1200");
+
+  if (!printWindow) {
+    downloadBlob(blob, `cv-generator-${safeReference}.html`);
+    return;
+  }
+
+  const finalize = () => {
+    try {
+      printWindow.focus();
+      printWindow.print();
+    } catch {
+      downloadBlob(blob, `cv-generator-${safeReference}.html`);
+    }
+  };
+
+  printWindow.addEventListener("load", finalize, { once: true });
+  window.setTimeout(() => {
+    if (!printWindow.closed) {
+      finalize();
+    }
+  }, 600);
+
+  window.setTimeout(() => URL.revokeObjectURL(url), 30000);
+}
+
 function downloadBlob(blob: Blob, filename: string) {
   const link = document.createElement("a");
   const url = URL.createObjectURL(blob);
@@ -420,6 +662,7 @@ export function CvGenerator() {
   const [generated, setGenerated] = useState<GeneratedCv | null>(null);
   const [copyLabel, setCopyLabel] = useState("Kopiera CV");
   const [exportLabel, setExportLabel] = useState("Exportera som bild");
+  const [pdfLabel, setPdfLabel] = useState("Spara som PDF");
 
   const preview = useMemo(
     () => [
@@ -463,6 +706,21 @@ export function CvGenerator() {
       setExportLabel("Export misslyckades");
     } finally {
       window.setTimeout(() => setExportLabel("Exportera som bild"), 1800);
+    }
+  }
+
+  async function exportPdfGenerated() {
+    if (!generated) return;
+
+    setPdfLabel("Öppnar utskrift...");
+
+    try {
+      await exportCvAsPdf(generated);
+      setPdfLabel("PDF klar");
+    } catch {
+      setPdfLabel("PDF misslyckades");
+    } finally {
+      window.setTimeout(() => setPdfLabel("Spara som PDF"), 1800);
     }
   }
 
@@ -644,6 +902,14 @@ export function CvGenerator() {
               className="inline-flex min-h-12 items-center rounded-full border border-steel/25 bg-paper px-6 py-3 text-sm font-medium text-ink transition hover:border-steel/45 hover:bg-white disabled:cursor-not-allowed disabled:opacity-50"
             >
               {exportLabel}
+            </button>
+            <button
+              type="button"
+              onClick={exportPdfGenerated}
+              disabled={!generated}
+              className="inline-flex min-h-12 items-center rounded-full border border-steel/25 bg-paper px-6 py-3 text-sm font-medium text-ink transition hover:border-steel/45 hover:bg-white disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              {pdfLabel}
             </button>
           </div>
         </div>
