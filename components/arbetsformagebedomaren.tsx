@@ -4,20 +4,30 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 
 type Tone = "neutral" | "sakligt-hoppfull" | "institutionellt-uppmuntrande";
+type Mode = "examples" | "custom";
 
-type FormState = {
-  weakIn: string;
-  limitations: string;
-  sometimesWorks: string;
-  observedCapacity: string;
-  restFrequency: string;
-  declineClarity: string;
-  tone: Tone;
+type ExampleScenario = {
+  id: string;
+  title: string;
+  text: string;
+  residualInterpretation: string;
+  tonedDown: string;
+  assumedAdaptation: string;
+  observableRest: string;
+};
+
+type CustomState = {
+  residualInterpretation: string;
+  tonedDown: string;
+  assumedAdaptation: string;
+  observableRest: string;
 };
 
 type GeneratedAssessment = {
   referenceNumber: string;
   generatedOn: string;
+  modeLabel: string;
+  scenarioLabel: string;
   toneLabel: string;
   bedomningsunderlag: string;
   observeradFormaga: string[];
@@ -34,14 +44,50 @@ const toneOptions: Array<{ value: Tone; label: string }> = [
   { value: "institutionellt-uppmuntrande", label: "Institutionellt uppmuntrande" },
 ];
 
-const initialState: FormState = {
-  weakIn: "",
-  limitations: "",
-  sometimesWorks: "",
-  observedCapacity: "",
-  restFrequency: "",
-  declineClarity: "",
-  tone: "neutral",
+const exampleScenarios: ExampleScenario[] = [
+  {
+    id: "vila-flera-ganger",
+    title: "Vila flera gånger per dag",
+    text: "Behöver vila flera gånger per dag men kan ändå ibland genomföra korta, tydligt avgränsade moment som systemet gärna läser som verksam förmåga.",
+    residualInterpretation: "de korta, tydligt avgränsade momenten kan lyftas fram som kvarvarande förmåga",
+    tonedDown: "den återkommande vilan och den begränsade hållbarheten över dagen",
+    assumedAdaptation: "belastningen hålls låg och övergångarna blir få",
+    observableRest: "förmåga att slutföra små uppgifter i lugn ordning",
+  },
+  {
+    id: "tilltagande-tratthet",
+    title: "Tilltagande trötthet och värk",
+    text: "Har tilltagande trötthet och värk men kan fortfarande utföra enklare uppgifter i lugn miljö under begränsad tid, vilket bedömningen gärna förstorar till fortsatt förmåga.",
+    residualInterpretation: "de enklare uppgifterna i lugn miljö räcker för att tala om viss funktion",
+    tonedDown: "den begränsade tiden och behovet av återhämtning mellan momenten",
+    assumedAdaptation: "uppgifterna delas upp i korta block med planerade pauser",
+    observableRest: "förmåga att arbeta i små steg när tempot sänks",
+  },
+  {
+    id: "vardagliga-aktiviteter",
+    title: "Vardagliga aktiviteter i korta stunder",
+    text: "Klarar vissa vardagliga aktiviteter i korta stunder, vilket i underlaget kan få större betydelse än helhetsbilden när små restvärden får tolkningsföreträde.",
+    residualInterpretation: "de korta stunderna kan lyftas fram som ett positivt restvärde",
+    tonedDown: "helhetsbilden av trötthet, återhämtning och otydlig uthållighet",
+    assumedAdaptation: "det som ska bedömas får göras kort, avgränsat och utan störningar",
+    observableRest: "förmåga att hålla ihop ett mindre moment när omgivningen hjälper till",
+  },
+  {
+    id: "tydlig-forsamring",
+    title: "Tydlig försämring över tid",
+    text: "Har tydlig försämring över tid men uppvisar fortfarande viss observerbar förmåga i små, förberedda steg som lätt kan användas som slutsatsens kärna.",
+    residualInterpretation: "de små, förberedda stegen kan ges större vikt än den tydliga försämringen",
+    tonedDown: "den långsamma försämringen och den ökande anpassningskostnaden",
+    assumedAdaptation: "uppgifterna följer redan förberedda steg och kräver minsta möjliga skifte",
+    observableRest: "förmåga att genomföra små steg när allt redan är ordnat i förväg",
+  },
+];
+
+const initialCustom: CustomState = {
+  residualInterpretation: "",
+  tonedDown: "",
+  assumedAdaptation: "",
+  observableRest: "",
 };
 
 function cleanText(value: string, fallback = "") {
@@ -69,110 +115,133 @@ function formatSwedishDate(date: Date) {
   }).format(date);
 }
 
-function buildAssessment(formState: FormState): GeneratedAssessment {
-  const weakIn = cleanText(formState.weakIn, "orkar inte längre i högt tempo och otydliga övergångar");
-  const limitations = cleanText(
-    formState.limitations,
-    "trötthet, smärta, hjärndimma och behov av tät återhämtning",
-  );
-  const sometimesWorks = cleanText(formState.sometimesWorks, "korta, förutsägbara moment under låg belastning");
-  const observedCapacity = cleanText(
-    formState.observedCapacity,
-    "förmåga att hålla ihop tydligt avgränsade uppgifter under lugna förutsättningar",
-  );
-  const restFrequency = cleanText(formState.restFrequency, "behöver vila flera gånger per dag");
-  const declineClarity = cleanText(formState.declineClarity, "försämringen är tydlig och har vuxit över tid");
-  const seed = seedFromString(
-    [weakIn, limitations, sometimesWorks, observedCapacity, restFrequency, declineClarity, formState.tone].join("|"),
-  );
-  const year = new Date().getFullYear();
-  const referenceNumber = `AFB-${String(2000 + (seed % 7000)).padStart(4, "0")}/${year}`;
+function buildAssessment(input: {
+  mode: Mode;
+  scenario: ExampleScenario;
+  custom: CustomState;
+  tone: Tone;
+}): GeneratedAssessment {
+  const currentYear = new Date().getFullYear();
   const generatedOn = formatSwedishDate(new Date());
-  const selectedTone = toneLabel(formState.tone);
+  const tone = toneLabel(input.tone);
+  const source =
+    input.mode === "examples"
+      ? {
+          label: input.scenario.title,
+          text: input.scenario.text,
+          residualInterpretation: input.scenario.residualInterpretation,
+          tonedDown: input.scenario.tonedDown,
+          assumedAdaptation: input.scenario.assumedAdaptation,
+          observableRest: input.scenario.observableRest,
+        }
+      : {
+          label: "Eget underlag",
+          text: `${cleanText(input.custom.residualInterpretation, "Bedömningslogiken utgår från ett begränsat restvärde som ges större vikt än helheten.")}.`,
+          residualInterpretation: cleanText(
+            input.custom.residualInterpretation,
+            "ett begränsat restvärde som ges större vikt än helheten",
+          ),
+          tonedDown: cleanText(
+            input.custom.tonedDown,
+            "det som riskerar att tonas ned när formuleringen görs jämnare",
+          ),
+          assumedAdaptation: cleanText(
+            input.custom.assumedAdaptation,
+            "anpassning som förutsätts utan att beskrivas fullt ut",
+          ),
+          observableRest: cleanText(
+            input.custom.observableRest,
+            "en liten men iakttagbar rest av funktion",
+          ),
+        };
 
-  const introByTone: Record<Tone, string[]> = {
-    neutral: [
-      "Den samlade bilden visar att det fortfarande finns vissa iakttagbara funktioner, men under villkor som kräver låg belastning och tydlig ordning.",
-      "Underlaget pekar på en kvarvarande men begränsad förmåga som främst framträder när arbetsmomenten hålls korta och förutsägbara.",
-      "Bedömningen utgår från att förmåga fortfarande kan observeras, men bara i en form som snabbt tappar hållbarhet utan återhämtning.",
-    ],
-    "sakligt-hoppfull": [
-      "Det finns fortfarande en försiktigt iakttagbar förmåga, särskilt där uppgifterna är tydliga och omgivningen inte kräver mer än kroppen rimligen lämnar ifrån sig.",
-      "Underlaget ger stöd för att viss arbetsförmåga fortfarande kan observeras när tempot är lågt och anpassningen faktisk.",
-      "Trots tydliga begränsningar framträder en kvarvarande funktion som kan tas till vara i mycket avgränsade former.",
-    ],
-    "institutionellt-uppmuntrande": [
-      "Den institutionella läsningen talar för att kvarvarande förmåga fortfarande kan anses tillräcklig för vissa former av ordnad insats.",
-      "Det finns skäl att beskriva situationen som fortsatt möjlig att bearbeta inom en ram där anpassning, vila och förutsägbarhet räknas som bärande delar.",
-      "Även om belastningen är påtaglig kvarstår en kapacitet som med rätt tonfall kan framstå som användbar.",
-    ],
-  };
+  const seed = seedFromString(
+    [source.label, source.text, source.residualInterpretation, source.tonedDown, source.assumedAdaptation, source.observableRest, input.tone].join(
+      "|",
+    ),
+  );
+  const referenceNumber = `AFB-${String(2000 + (seed % 7000)).padStart(4, "0")}/${currentYear}`;
 
-  const capacityPool = [
-    `Möjligheten att fullfölja ${sometimesWorks} under korta pass och med tydliga avslut.`,
-    `Förmågan att hålla ihop ${observedCapacity} när förväntningarna inte växlar för snabbt.`,
-    `Iakttagbar arbetsförmåga i miljöer som ger utrymme för lugn rytm, liten simultan belastning och planerad återhämtning.`,
-    `Förmåga att bidra i avgränsade delar av ett uppdrag så länge övergångarna får ske utan press.`,
-  ];
+  const bedomningsunderlag = [
+    source.text,
+    `Bedömningslogiken väljer att läsa detta som att ${source.residualInterpretation}.`,
+    `Det som tenderar att tonas ned är ${source.tonedDown}.`,
+  ].join(" ");
 
-  const limitationPool = [
-    `Påverkas av ${limitations}.`,
-    `Det som orkar mest riskerar att falla bort när ${weakIn} möter högre krav än väntat.`,
-    `Behöver tydliga vilopunkter eftersom ${restFrequency}.`,
-    `Försämringen över tid beskrivs som ${declineClarity}.`,
-  ];
-
-  const currentOrderPool = [
-    `Arbetsförmåga i nuvarande ordning bedöms kunna kvarstå i små, ordnade delar och främst där belastningen går att styra.`,
-    `Nuvarande ordning tillåter viss insats, men bara när kraven ligger under den nivå där trötthet och begränsning tar över dokumentet.`,
-    `I nuvarande ordning framträder arbetsförmåga främst som ett restvärde som blir tydligt först när tempot sänks och återhämtning planeras.`,
-  ];
-
-  const possibilityPool = [
-    `Normalt förekommande möjligheter kan fortfarande övervägas i ${sometimesWorks}, men endast om de delas upp i tydliga steg.`,
-    `Det som normalt förekommer blir möjligt främst i arbeten med låg samtidig belastning, tydlig struktur och återkommande pauser.`,
-    `Möjligheterna begränsas till sådant som kan utföras i korta, förberedda moment där varje övergång redan är förklarad.`,
-    `Förutsättningarna pekar mot enklare uppgifter som inte kräver lång uthållighet eller växlande tempo.`,
-  ];
-
-  const summaryByTone: Record<Tone, string[]> = {
-    neutral: [
-      `Den sammantagna bedömningen är att det finns kvarvarande arbetsförmåga, men endast i en ordning där ${restFrequency} och där uppgifterna hålls avgränsade.`,
-      `Underlaget ger stöd för att viss arbetsförmåga kan anses föreligga, om kraven anpassas till de begränsningar som redan är tydligt beskrivna.`,
-    ],
-    "sakligt-hoppfull": [
-      `Den samlade bilden är att ${observedCapacity} fortfarande kan tas till vara, förutsatt att arbetet läggs upp med låg belastning och tydlig struktur.`,
-      `Bedömningen lämnar utrymme för fortsatt arbetsförmåga i nuvarande ordning, men bara inom ramar där återhämtning och anpassning är reella delar av upplägget.`,
-    ],
-    "institutionellt-uppmuntrande": [
-      `Den institutionella slutsatsen är att kvarvarande arbetsförmåga fortsatt bör kunna användas, förutsatt att sammanhanget utformas efter det som faktiskt orkas.`,
-      `Det finns tillräckligt med iakttagbar funktion för att en fortsatt arbetsförmåga ska kunna beskrivas i ordnade och uppmuntrande termer, om än med tydliga begränsningar.`,
-    ],
-  };
-
-  const bedomningsunderlag = `${weakIn}. ${limitations}. ${restFrequency}. ${declineClarity}.`;
   const observeradFormaga = [
-    pick(capacityPool, seed),
-    `Det som fungerar bara ibland kan fortfarande ses i ${sometimesWorks}.`,
-    `Kvarvarande förmåga visar sig främst genom ${observedCapacity}.`,
+    `Det systemet faktiskt väljer att notera är ${source.observableRest}.`,
+    `Kvarvarande förmåga framträder när underlaget hålls kort, ordnat och lätt att omformulera.`,
+    `Exemplet räcker för att visa hur även liten funktion får större betydelse än helhetsläget.`,
   ];
+
   const begransningar = [
-    pick(limitationPool, seed + 2),
-    pick(limitationPool, seed + 4),
+    `Det som behöver beskrivas men inte får för stor plats är ${source.tonedDown}.`,
+    `Den del av bilden som inte bär en förenklad slutsats måste fortfarande finnas med i bakgrunden.`,
   ];
-  const currentOrder = pick(currentOrderPool, seed + 6);
+
+  const currentOrderPool: Record<Tone, string[]> = {
+    neutral: [
+      "Arbetsförmåga i nuvarande ordning bedöms kunna formuleras genom att små iakttagelser får väga tyngre än det som är svårt att bära.",
+      "I nuvarande ordning blir möjligheten att arbeta mest synlig när systemet får sätta rubriken före helheten.",
+    ],
+    "sakligt-hoppfull": [
+      "Arbetsförmåga i nuvarande ordning kan fortsatt beskrivas, förutsatt att det som orkar stannar i ett lugnt och förutsägbart format.",
+      "I nuvarande ordning finns fortfarande en möjlig arbetslinje, men bara där bedömningen låter återhämtning och anpassning räknas som reella delar.",
+    ],
+    "institutionellt-uppmuntrande": [
+      "Arbetsförmåga i nuvarande ordning framstår som möjlig att bekräfta när systemet tillåts läsa restvärdet som en faktisk tillgång.",
+      "Den institutionella läsningen gör det möjligt att tala om fortsatt arbetsförmåga, även när den i praktiken är mycket begränsad.",
+    ],
+  };
+
+  const normallyPossiblePool: Record<Tone, string[]> = {
+    neutral: [
+      "Uppgifter som kan delas upp i tydliga steg och göras utan lång samtidig belastning.",
+      "Arbeten där återhämtning redan är inritad i ordningen och inte behöver motiveras i efterhand.",
+      "Moment som kan avslutas innan trötthet och variation hinner bli ett hinder för helheten.",
+    ],
+    "sakligt-hoppfull": [
+      "Uppgifter som kan fördelas på små, tydliga block med redan planerade pauser.",
+      "Arbeten där låg belastning och tydlig struktur gör att det som orkas också får synas.",
+      "Moment som kan genomföras i lugn miljö och med rimlig anpassning från början.",
+    ],
+    "institutionellt-uppmuntrande": [
+      "Arbeten där även små steg får räknas som betydelsefulla delar av en fortsatt arbetsförmåga.",
+      "Uppgifter som låter systemet beskriva återhämtning som en funktionell del av arbetet.",
+      "Moment där anpassningen är så tydlig att bedömningen kan fortsätta låta trygg trots begränsningen.",
+    ],
+  };
+
+  const summaryPool: Record<Tone, string[]> = {
+    neutral: [
+      "Den sammantagna bedömningen är att det finns kvarvarande arbetsförmåga, men bara i en ordning där små iakttagelser får väga tyngre än den svårare helheten.",
+      "Bedömningen visar att arbetsförmåga kan anges i nuvarande ordning, men endast om helheten får beskrivas mer försiktigt än vanligt.",
+    ],
+    "sakligt-hoppfull": [
+      "Den samlade bilden är att kvarvarande arbetsförmåga fortfarande kan tas till vara, förutsatt att sammanhanget byggs runt det som faktiskt går att bära.",
+      "Underlaget lämnar utrymme för fortsatt arbetsförmåga i nuvarande ordning, så länge anpassning och återhämtning är verkliga villkor och inte bara ord.",
+    ],
+    "institutionellt-uppmuntrande": [
+      "Den institutionella slutsatsen är att den kvarvarande funktionen fortsatt bör kunna beskrivas som arbetsförmåga, när systemet väljer rätt tonfall.",
+      "Det finns tillräckligt med iakttagbar funktion för att en fortsatt arbetsförmåga ska kunna formuleras i ordnade och uppmuntrande termer.",
+    ],
+  };
+
+  const currentOrder = pick(currentOrderPool[input.tone], seed + 3);
   const normallyPossible = [
-    pick(possibilityPool, seed + 8),
-    pick(possibilityPool, seed + 10),
-    pick(possibilityPool, seed + 12),
+    pick(normallyPossiblePool[input.tone], seed + 5),
+    pick(normallyPossiblePool[input.tone], seed + 7),
+    pick(normallyPossiblePool[input.tone], seed + 9),
   ];
-  const summary = pick(summaryByTone[formState.tone], seed + 14);
+  const summary = pick(summaryPool[input.tone], seed + 11);
 
   const copyText = [
     "ARBETSFÖRMÅGEBEDÖMARE | FIKTIV BEDÖMNING",
     `Referens: ${referenceNumber}`,
     `Upprättad: ${generatedOn}`,
-    `Tonläge: ${selectedTone}`,
+    `Modus: ${input.mode === "examples" ? "Exempelbaserat" : "Eget underlag"}`,
+    `Tonläge: ${tone}`,
+    `Underlag: ${source.label}`,
     "",
     "Bedömningsunderlag",
     bedomningsunderlag,
@@ -196,7 +265,9 @@ function buildAssessment(formState: FormState): GeneratedAssessment {
   return {
     referenceNumber,
     generatedOn,
-    toneLabel: selectedTone,
+    modeLabel: input.mode === "examples" ? "Exempelbaserat" : "Eget underlag",
+    scenarioLabel: source.label,
+    toneLabel: tone,
     bedomningsunderlag,
     observeradFormaga,
     begransningar,
@@ -208,25 +279,47 @@ function buildAssessment(formState: FormState): GeneratedAssessment {
 }
 
 export function Arbetsformagebedomaren() {
-  const [formState, setFormState] = useState<FormState>(initialState);
+  const [mode, setMode] = useState<Mode>("examples");
+  const [selectedExampleId, setSelectedExampleId] = useState(exampleScenarios[0].id);
+  const [custom, setCustom] = useState<CustomState>(initialCustom);
+  const [tone, setTone] = useState<Tone>("neutral");
   const [generated, setGenerated] = useState<GeneratedAssessment | null>(null);
   const [copyLabel, setCopyLabel] = useState("Kopiera bedömning");
 
+  const selectedExample = exampleScenarios.find((item) => item.id === selectedExampleId) ?? exampleScenarios[0];
+
   const preview = useMemo(
     () => [
-      ["Vad orkar du inte längre?", formState.weakIn || "Inte angivet"],
-      ["Symtom / begränsningar", formState.limitations || "Inte angivet"],
-      ["Fungerar bara ibland", formState.sometimesWorks || "Inte angivet"],
-      ["Viss förmåga", formState.observedCapacity || "Inte angivet"],
-      ["Vila / återhämtning", formState.restFrequency || "Inte angivet"],
-      ["Försämring över tid", formState.declineClarity || "Inte angivet"],
-      ["Tonläge", toneLabel(formState.tone)],
+      ["Modus", mode === "examples" ? "Exempelbaserat" : "Eget underlag"],
+      ["Underlag", mode === "examples" ? selectedExample.title : custom.residualInterpretation || "Inte angivet"],
+      [
+        "Tolkad rest",
+        mode === "examples"
+          ? selectedExample.residualInterpretation
+          : custom.residualInterpretation || "Inte angivet",
+      ],
+      [
+        "Nedtonas som",
+        mode === "examples" ? selectedExample.tonedDown : custom.tonedDown || "Inte angivet",
+      ],
+      [
+        "Anpassning",
+        mode === "examples" ? selectedExample.assumedAdaptation : custom.assumedAdaptation || "Inte angivet",
+      ],
+      ["Tonläge", toneLabel(tone)],
     ],
-    [formState],
+    [custom, mode, selectedExample, tone],
   );
 
   function generate() {
-    setGenerated(buildAssessment(formState));
+    setGenerated(
+      buildAssessment({
+        mode,
+        scenario: selectedExample,
+        custom,
+        tone,
+      }),
+    );
     setCopyLabel("Kopiera bedömning");
   }
 
@@ -247,123 +340,198 @@ export function Arbetsformagebedomaren() {
       <section className="rounded-dossier border border-steel/20 bg-white/90 p-6 sm:p-8">
         <p className="text-xs uppercase tracking-[0.32em] text-ink/72">Så fungerar den</p>
         <h2 className="mt-3 text-balance font-display text-2xl font-semibold tracking-tight text-ink">
-          Beskriv det som blivit svårt och få tillbaka en formell bedömning
+          Beskriv hur systemet läser kvarvarande förmåga
         </h2>
         <p className="mt-4 max-w-3xl text-base leading-8 text-ink/76">
-          Det här är version 1: du skriver vad som inte längre fungerar, vad som bara fungerar ibland
-          och vad som fortfarande går att iaktta. Systemet formulerar sedan ett institutionellt svar
-          om kvarvarande arbetsförmåga i nuvarande ordning.
+          Den här sidan driver med hur bedömningar kan översätta det som är svårt till kvarvarande
+          arbetsförmåga. Om ämnet ligger för nära går det bra att hoppa över funktionen och välja
+          <Link href="/nadalage" className="ml-1 underline decoration-steel/35 underline-offset-4">
+            Nådeläge
+          </Link>
+          .
         </p>
       </section>
 
       <section className="rounded-dossier border border-steel/20 bg-paper p-6 sm:p-8">
         <p className="text-xs uppercase tracking-[0.32em] text-ink/72">Arbetsförmågebedömaren</p>
         <h2 className="mt-3 text-balance font-display text-2xl font-semibold tracking-tight text-ink">
-          Fyll i underlaget
+          Välj en läsning av underlaget
         </h2>
+        <p className="mt-4 max-w-3xl text-base leading-8 text-ink/76">
+          Standardläget utgår från exempel. Om du vill undersöka bedömningslogik mer direkt finns
+          ett eget underlag längre ned, formulerat utan att be dig om något personligt i onödan.
+        </p>
+
+        <div className="mt-6 flex flex-wrap gap-3">
+          <button
+            type="button"
+            onClick={() => setMode("examples")}
+            className={`inline-flex min-h-11 items-center rounded-full px-5 py-2.5 text-sm font-medium transition ${
+              mode === "examples"
+                ? "bg-ink text-paper"
+                : "border border-steel/25 bg-white/92 text-ink hover:border-steel/45 hover:bg-white"
+            }`}
+          >
+            Exempelbaserat
+          </button>
+          <button
+            type="button"
+            onClick={() => setMode("custom")}
+            className={`inline-flex min-h-11 items-center rounded-full px-5 py-2.5 text-sm font-medium transition ${
+              mode === "custom"
+                ? "bg-ink text-paper"
+                : "border border-steel/25 bg-white/92 text-ink hover:border-steel/45 hover:bg-white"
+            }`}
+          >
+            Eget underlag
+          </button>
+        </div>
 
         <div className="mt-6 grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
-          <form
-            className="space-y-4"
-            onSubmit={(event) => {
-              event.preventDefault();
-              generate();
-            }}
-          >
-            <label className="grid gap-2">
-              <span className="text-sm font-medium text-ink">Vad orkar du inte längre?</span>
-              <textarea
-                value={formState.weakIn}
-                onChange={(event) =>
-                  setFormState((current) => ({ ...current, weakIn: event.target.value }))
-                }
-                className="min-h-24 rounded-2xl border border-steel/20 bg-white/92 px-4 py-3 text-base text-ink outline-none transition focus:border-ink"
-                placeholder="Till exempel: längre pass, snabba växlingar eller tunga lyft"
-              />
-            </label>
+          <div className="space-y-5">
+            {mode === "examples" ? (
+              <section className="rounded-[1.4rem] border border-steel/15 bg-white/88 p-5">
+                <p className="text-xs uppercase tracking-[0.3em] text-ink/72">Exempelbaserat underlag</p>
+                <p className="mt-3 text-sm leading-7 text-ink/76">
+                  Välj ett exempel som visar hur systemet gärna läser små restvärden som mer betydelsefulla
+                  än helheten.
+                </p>
+                <div className="mt-5 grid gap-4">
+                  {exampleScenarios.map((scenario) => {
+                    const active = scenario.id === selectedExampleId;
 
-            <label className="grid gap-2">
-              <span className="text-sm font-medium text-ink">Vilka symtom eller begränsningar påverkar dig?</span>
-              <textarea
-                value={formState.limitations}
-                onChange={(event) =>
-                  setFormState((current) => ({ ...current, limitations: event.target.value }))
-                }
-                className="min-h-24 rounded-2xl border border-steel/20 bg-white/92 px-4 py-3 text-base text-ink outline-none transition focus:border-ink"
-                placeholder="Trötthet, smärta, oro, hjärndimma eller annat som påverkar hållbarheten"
-              />
-            </label>
+                    return (
+                      <button
+                        key={scenario.id}
+                        type="button"
+                        onClick={() => setSelectedExampleId(scenario.id)}
+                        className={`rounded-[1.35rem] border p-5 text-left transition ${
+                          active
+                            ? "border-ink bg-paper shadow-docket"
+                            : "border-steel/15 bg-white/92 hover:border-steel/35 hover:bg-paper/90"
+                        }`}
+                      >
+                        <div className="flex flex-col gap-3">
+                          <div className="flex flex-wrap items-center justify-between gap-3">
+                            <h3 className="font-display text-xl font-semibold tracking-tight text-ink">
+                              {scenario.title}
+                            </h3>
+                            <span className="rounded-full border border-steel/15 bg-white/80 px-3 py-1 text-xs uppercase tracking-[0.24em] text-ink/70">
+                              Exempel
+                            </span>
+                          </div>
+                          <p className="text-base leading-7 text-ink/78">{scenario.text}</p>
+                          <p className="text-sm leading-7 text-ink/64">
+                            Systemet kan läsa detta som: {scenario.residualInterpretation}.
+                          </p>
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+              </section>
+            ) : (
+              <section className="rounded-[1.4rem] border border-steel/15 bg-white/88 p-5">
+                <p className="text-xs uppercase tracking-[0.3em] text-ink/72">Eget underlag</p>
+                <p className="mt-3 text-sm leading-7 text-ink/76">
+                  Här formuleras underlaget som en läsning av bedömningslogik, inte som en begäran om
+                  personlig redogörelse.
+                </p>
 
-            <label className="grid gap-2">
-              <span className="text-sm font-medium text-ink">Vad fungerar bara ibland?</span>
-              <textarea
-                value={formState.sometimesWorks}
-                onChange={(event) =>
-                  setFormState((current) => ({ ...current, sometimesWorks: event.target.value }))
-                }
-                className="min-h-24 rounded-2xl border border-steel/20 bg-white/92 px-4 py-3 text-base text-ink outline-none transition focus:border-ink"
-                placeholder="Korta moment, lugna rutiner eller annat som går i stunder"
-              />
-            </label>
+                <div className="mt-5 space-y-4">
+                  <label className="grid gap-2">
+                    <span className="text-sm font-medium text-ink">
+                      Vilken del av underlaget riskerar att tolkas som kvarvarande förmåga?
+                    </span>
+                    <textarea
+                      value={custom.residualInterpretation}
+                      onChange={(event) =>
+                        setCustom((current) => ({ ...current, residualInterpretation: event.target.value }))
+                      }
+                      className="min-h-24 rounded-2xl border border-steel/20 bg-white/92 px-4 py-3 text-base text-ink outline-none transition focus:border-ink"
+                      placeholder="Till exempel: ett litet restvärde av funktion i tydligt avgränsade moment"
+                    />
+                  </label>
 
-            <label className="grid gap-2">
-              <span className="text-sm font-medium text-ink">Vad kan fortfarande observeras som viss förmåga?</span>
-              <textarea
-                value={formState.observedCapacity}
-                onChange={(event) =>
-                  setFormState((current) => ({ ...current, observedCapacity: event.target.value }))
-                }
-                className="min-h-24 rounded-2xl border border-steel/20 bg-white/92 px-4 py-3 text-base text-ink outline-none transition focus:border-ink"
-                placeholder="Det som ännu går att göra utan att hela systemet måste sluta sig"
-              />
-            </label>
+                  <label className="grid gap-2">
+                    <span className="text-sm font-medium text-ink">
+                      Vad i situationen tenderar att tonas ned när bedömningen formuleras?
+                    </span>
+                    <textarea
+                      value={custom.tonedDown}
+                      onChange={(event) =>
+                        setCustom((current) => ({ ...current, tonedDown: event.target.value }))
+                      }
+                      className="min-h-24 rounded-2xl border border-steel/20 bg-white/92 px-4 py-3 text-base text-ink outline-none transition focus:border-ink"
+                      placeholder="Till exempel: att återhämtning krävs ofta och att helheten är skör"
+                    />
+                  </label>
 
-            <div className="grid gap-4 md:grid-cols-2">
-              <label className="grid gap-2">
-                <span className="text-sm font-medium text-ink">Hur ofta behöver du vila eller återhämta dig?</span>
-                <input
-                  value={formState.restFrequency}
-                  onChange={(event) =>
-                    setFormState((current) => ({ ...current, restFrequency: event.target.value }))
-                  }
-                  className="rounded-2xl border border-steel/20 bg-white/92 px-4 py-3 text-base text-ink outline-none transition focus:border-ink"
-                  placeholder="Till exempel: flera gånger per dag"
-                />
-              </label>
+                  <label className="grid gap-2">
+                    <span className="text-sm font-medium text-ink">
+                      Vilken typ av anpassning förutsätts utan att beskrivas fullt ut?
+                    </span>
+                    <textarea
+                      value={custom.assumedAdaptation}
+                      onChange={(event) =>
+                        setCustom((current) => ({ ...current, assumedAdaptation: event.target.value }))
+                      }
+                      className="min-h-24 rounded-2xl border border-steel/20 bg-white/92 px-4 py-3 text-base text-ink outline-none transition focus:border-ink"
+                      placeholder="Till exempel: låg belastning, få skiften och tydliga pauser"
+                    />
+                  </label>
 
-              <label className="grid gap-2">
-                <span className="text-sm font-medium text-ink">Hur tydlig är försämringen över tid?</span>
-                <input
-                  value={formState.declineClarity}
-                  onChange={(event) =>
-                    setFormState((current) => ({ ...current, declineClarity: event.target.value }))
-                  }
-                  className="rounded-2xl border border-steel/20 bg-white/92 px-4 py-3 text-base text-ink outline-none transition focus:border-ink"
-                  placeholder="Till exempel: tydlig och ökande"
-                />
-              </label>
-            </div>
+                  <label className="grid gap-2">
+                    <span className="text-sm font-medium text-ink">
+                      Vilken observerbar rest kan komma att väga tyngre än helhetsbilden?
+                    </span>
+                    <textarea
+                      value={custom.observableRest}
+                      onChange={(event) =>
+                        setCustom((current) => ({ ...current, observableRest: event.target.value }))
+                      }
+                      className="min-h-24 rounded-2xl border border-steel/20 bg-white/92 px-4 py-3 text-base text-ink outline-none transition focus:border-ink"
+                      placeholder="Till exempel: kortvarig koncentration i lugn miljö"
+                    />
+                  </label>
+                </div>
+              </section>
+            )}
 
-            <label className="grid gap-2">
-              <span className="text-sm font-medium text-ink">Tonläge</span>
-              <select
-                value={formState.tone}
-                onChange={(event) =>
-                  setFormState((current) => ({ ...current, tone: event.target.value as Tone }))
-                }
-                className="rounded-2xl border border-steel/20 bg-white/92 px-4 py-3 text-base text-ink outline-none transition focus:border-ink"
-              >
-                {toneOptions.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-            </label>
+            <section className="rounded-[1.4rem] border border-steel/15 bg-white/88 p-5">
+              <p className="text-xs uppercase tracking-[0.3em] text-ink/72">Tonläge</p>
+              <div className="mt-4 grid gap-3 md:grid-cols-3">
+                {toneOptions.map((option) => {
+                  const active = tone === option.value;
+                  return (
+                    <button
+                      key={option.value}
+                      type="button"
+                      onClick={() => setTone(option.value)}
+                      className={`rounded-[1.25rem] border p-4 text-left transition ${
+                        active
+                          ? "border-ink bg-paper shadow-docket"
+                          : "border-steel/15 bg-white/92 hover:border-steel/35 hover:bg-paper/90"
+                      }`}
+                    >
+                      <p className="text-sm font-semibold text-ink">{option.label}</p>
+                      <p className="mt-2 text-sm leading-6 text-ink/68">
+                        {option.value === "neutral"
+                          ? "Håller texten torr och konsekvent."
+                          : option.value === "sakligt-hoppfull"
+                            ? "Låter läget vara svårt men läsbart."
+                            : "Låter systemet tala nästan vänligt om det svåra."}
+                      </p>
+                    </button>
+                  );
+                })}
+              </div>
+            </section>
 
-            <div className="flex flex-wrap gap-3 pt-2">
+            <div className="flex flex-wrap gap-3">
               <button
-                type="submit"
+                type="button"
+                onClick={generate}
                 className="inline-flex min-h-12 items-center rounded-full bg-ink px-6 py-3 text-sm font-medium text-paper transition hover:bg-seal"
               >
                 Generera bedömning
@@ -371,16 +539,19 @@ export function Arbetsformagebedomaren() {
               <button
                 type="button"
                 onClick={() => {
-                  setFormState(initialState);
+                  setMode("examples");
+                  setSelectedExampleId(exampleScenarios[0].id);
+                  setCustom(initialCustom);
+                  setTone("neutral");
                   setGenerated(null);
                   setCopyLabel("Kopiera bedömning");
                 }}
                 className="inline-flex min-h-12 items-center rounded-full border border-steel/25 bg-white/92 px-6 py-3 text-sm font-medium text-ink transition hover:border-steel/45 hover:bg-white"
               >
-                Rensa formulär
+                Återställ
               </button>
             </div>
-          </form>
+          </div>
 
           <aside className="rounded-[1.5rem] border border-steel/20 bg-white/88 p-5">
             <p className="text-xs uppercase tracking-[0.3em] text-ink/72">Förhandsvisning</p>
@@ -437,7 +608,7 @@ export function Arbetsformagebedomaren() {
                     Upprättad: {generated.generatedOn}
                   </span>
                   <span className="rounded-full border border-paper/15 bg-paper/8 px-3 py-1.5">
-                    Tonläge: {generated.toneLabel}
+                    Modus: {generated.modeLabel}
                   </span>
                 </div>
               </div>

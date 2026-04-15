@@ -3,9 +3,9 @@ import type { Metadata } from "next";
 import { PageShell } from "@/components/page-shell";
 import { Arbetsformagebedomaren } from "@/components/arbetsformagebedomaren";
 
-const title = "Arbetsförmågebedömaren | satirisk bedömning av kvarvarande förmåga";
+const title = "Arbetsförmågebedömaren | satirisk tolkning av arbetsförmåga";
 const description =
-  "Beskriv symtom, begränsningar och det som fortfarande kan observeras som förmåga. Få en fiktiv arbetsförmågebedömning i myndighetston.";
+  "Välj ett exempel eller bygg ett eget underlag och få en fiktiv arbetsförmågebedömning som översätter kvarvarande funktion till myndighetston.";
 
 export const metadata: Metadata = {
   title,
@@ -28,7 +28,7 @@ export default function ArbetsformagebedomarenPage() {
   return (
     <PageShell
       title="Arbetsförmågebedömaren"
-      intro="Beskriv det som blivit svårt och låt systemet formulera en formell bedömning av kvarvarande arbetsförmåga."
+      intro="Den här sidan driver med hur system kan läsa små rester av funktion som kvarvarande arbetsförmåga."
       eyebrow="Arbetsförmåga"
       showInstitutionNote={false}
     >
