@@ -10,6 +10,7 @@ import { navItems } from "@/lib/site";
 export function SiteHeader() {
   const pathname = usePathname();
   const isNadalage = pathname === "/nadalage";
+  const isMusic = pathname === "/musik/fornedringskassan";
 
   return (
     <header className="border-b border-steel/20 bg-[linear-gradient(180deg,rgba(245,240,231,0.98),rgba(239,234,224,0.94))] backdrop-blur">
@@ -27,6 +28,13 @@ export function SiteHeader() {
                       En stilla paus för vila och värdighet
                     </span>
                   </>
+                ) : isMusic ? (
+                  <>
+                    <p className="text-[11px] uppercase tracking-[0.3em] text-ink/75">Musik</p>
+                    <span className="text-[11px] uppercase tracking-[0.22em] text-ink/65">
+                      Förnedringskassan · Elektrisk Revy
+                    </span>
+                  </>
                 ) : (
                   <>
                     <p className="text-[11px] uppercase tracking-[0.3em] text-ink/75">
@@ -38,7 +46,7 @@ export function SiteHeader() {
                   </>
                 )}
               </div>
-              {isNadalage ? null : <SatireBadge />}
+              {isNadalage || isMusic ? null : <SatireBadge />}
             </div>
           </div>
 
@@ -48,7 +56,11 @@ export function SiteHeader() {
             </Link>
             <div className="hidden lg:block">
               <p className="text-[11px] uppercase tracking-[0.26em] text-ink/68">
-                {isNadalage ? "En stilla paus" : "Fiktiv institutionell yta"}
+                {isNadalage
+                  ? "En stilla paus"
+                  : isMusic
+                    ? "En publicerad utgåva"
+                    : "Fiktiv institutionell yta"}
               </p>
             </div>
           </div>
