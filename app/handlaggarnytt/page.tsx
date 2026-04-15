@@ -26,6 +26,8 @@ export const metadata: Metadata = {
 };
 
 export default function HandlaggarnyttPage() {
+  const posts = [...handlaggarnyttPosts].reverse();
+
   return (
     <PageShell
       title="Handläggarnytt"
@@ -44,7 +46,7 @@ export default function HandlaggarnyttPage() {
       </section>
 
       <section className="grid gap-6">
-        {handlaggarnyttPosts.map((post) => (
+        {posts.map((post) => (
           <article key={post.slug} className="institution-card p-6">
             <p className="text-xs uppercase tracking-[0.3em] text-ink/72">Notis</p>
             <h2 className="mt-3 text-balance font-display text-2xl font-semibold tracking-tight text-ink">

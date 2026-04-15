@@ -104,6 +104,156 @@ export const handlaggarnyttPosts: HandlaggarnyttPost[] = [
       },
     ],
   },
+  {
+    slug: "tillfallig-justering-av-vantan",
+    title: "Tillfällig justering av väntan",
+    summary:
+      "Väntetiden får en ny innebörd under en period som främst påverkar hur länge samma fråga kan fortsätta vara öppen.",
+    intro:
+      "En tillfällig anpassning av väntans roll i ärendeflödet, så att stillheten lättare kan beskrivas som fortsatt ordnad behandling.",
+    route: "/handlaggarnytt/tillfallig-justering-av-vantan",
+    published: "15 april 2026",
+    metadataTitle: "Tillfällig justering av väntan | Handläggarnytt",
+    metadataDescription:
+      "En kort notis om att väntetiden tillfälligt får en ny innebörd utan att ärendets riktning blir tydligare.",
+    sections: [
+      {
+        heading: "Vad justeras?",
+        body:
+          "Väntan får nu ingå tydligare i den formella beskrivningen av ärendet, vilket gör att stillhet kan redovisas som ett steg i sig.",
+      },
+      {
+        heading: "Hur länge?",
+        body:
+          "Tills vidare eller tills nästa rutin behöver samma väntan i något mer förklarande språk.",
+      },
+      {
+        heading: "Vad märks utåt?",
+        body:
+          "Främst att samma ärende kan ligga kvar längre utan att det behöver låta mer stillastående än tidigare.",
+      },
+    ],
+  },
+  {
+    slug: "fornyad-ordning-for-kompletterande-underlag",
+    title: "Förnyad ordning för kompletterande underlag",
+    summary:
+      "Kompletteringar ska nu lämnas, läsas och återföras i en ny följd som främst gör nästa begäran lättare att formulera.",
+    intro:
+      "En översyn av hur kompletterande handlingar hanteras när de redan en gång behövts men ändå inte riktigt räckt till.",
+    route: "/handlaggarnytt/fornyad-ordning-for-kompletterande-underlag",
+    published: "15 april 2026",
+    metadataTitle: "Förnyad ordning för kompletterande underlag | Handläggarnytt",
+    metadataDescription:
+      "En notis om att kompletterande underlag nu hanteras i ny ordning utan att underlaget blir mindre ofullständigt.",
+    sections: [
+      {
+        heading: "Ny följd",
+        body:
+          "Inkomna handlingar får nu läsas i en ordning som bättre motsvarar den väntan som redan uppstått runt dem.",
+      },
+      {
+        heading: "Intern effekt",
+        body:
+          "Handläggningen blir lättare att beskriva som pågående även när samma komplettering efterfrågas igen.",
+      },
+      {
+        heading: "För den som lämnar in",
+        body:
+          "Det räcker oftast att sända in det som redan sändes in, men nu med en något tydligare rubrik.",
+      },
+    ],
+  },
+  {
+    slug: "spraklig-oversyn-av-avslagsformuleringar",
+    title: "Språklig översyn av avslagsformuleringar",
+    summary:
+      "Avslag ges en mer enhetlig ton så att samma innehåll kan låta samlat även när innebörden förblir oförändrad.",
+    intro:
+      "En intern genomgång av hur nej kan formuleras med bättre marginaler, lugnare rytm och samma riktning som tidigare.",
+    route: "/handlaggarnytt/spraklig-oversyn-av-avslagsformuleringar",
+    published: "15 april 2026",
+    metadataTitle: "Språklig översyn av avslagsformuleringar | Handläggarnytt",
+    metadataDescription:
+      "En kort bulletin om att avslagsformuleringar ses över för att låta tydligare utan att bli mindre avslagslika.",
+    sections: [
+      {
+        heading: "Vad ses över?",
+        body:
+          "Främst formuleringar som redan säger nej men som kan säga det med mindre friktion och något större självförtroende.",
+      },
+      {
+        heading: "Varför nu?",
+        body:
+          "För att systemet ska låta mer samlat när det återkommer till samma slutsats i mer vårdad form.",
+      },
+      {
+        heading: "Vad förändras inte?",
+        body:
+          "Innehållet i nej:et. Det förblir nej, men med bättre rytm och färre onödiga ursäkter.",
+      },
+    ],
+  },
+  {
+    slug: "intern-samordning-av-omprovning-utan-andring-i-sak",
+    title: "Intern samordning av omprövning utan ändring i sak",
+    summary:
+      "Omprövningens olika led samordnas för att samma svar ska kunna återkomma med mindre intern friktion.",
+    intro:
+      "En samordning av den process där ett ärende kan omprövas flera gånger utan att dess riktning behöver ändras.",
+    route: "/handlaggarnytt/intern-samordning-av-omprovning-utan-andring-i-sak",
+    published: "15 april 2026",
+    metadataTitle: "Intern samordning av omprövning utan ändring i sak | Handläggarnytt",
+    metadataDescription:
+      "En notis om att omprövning utan ändring i sak nu samordnas tydligare mellan interna led.",
+    sections: [
+      {
+        heading: "Vad samordnas?",
+        body:
+          "Det som redan lett till samma slutsats får nu en gemensam ordning så att nästa omgång kan låta mer strukturerad.",
+      },
+      {
+        heading: "Hur märks det?",
+        body:
+          "Som en jämnare fördelning av samma beslut mellan de led som annars skulle ha beskrivit det i lite olika tonläge.",
+      },
+      {
+        heading: "Praktisk följd",
+        body:
+          "Omprövning kan fortsätta ske utan att ändring i sak behöver uppstå bara för att processen blivit mer samordnad.",
+      },
+    ],
+  },
+  {
+    slug: "fortydligande-om-rorelse-utan-framsteg",
+    title: "Förtydligande om rörelse utan framsteg",
+    summary:
+      "Ärendets rörelse ska inte längre förväxlas med framsteg när förflyttningen mest består av mer läsning av samma material.",
+    intro:
+      "Ett klargörande om när rörelse i ett ärende är just rörelse och inte nödvändigtvis något som leder någonstans.",
+    route: "/handlaggarnytt/fortydligande-om-rorelse-utan-framsteg",
+    published: "15 april 2026",
+    metadataTitle: "Förtydligande om rörelse utan framsteg | Handläggarnytt",
+    metadataDescription:
+      "En kort notis om att intern rörelse i ärenden inte alltid ska tolkas som framsteg.",
+    sections: [
+      {
+        heading: "Vad avses?",
+        body:
+          "Att ett ärende kan passera fler led, få ny placering eller ny rubrik utan att dess riktning blir nämnvärt annorlunda.",
+      },
+      {
+        heading: "Varför förtydligas detta?",
+        body:
+          "För att den som följer flödet inte ska behöva tro att varje förflyttning betyder mer än den faktiskt gör.",
+      },
+      {
+        heading: "Nästa läsning",
+        body:
+          "Kommer troligen att bekräfta att rörelsen fortsätter, men utan att hastigheten ska misstolkas som löst problem.",
+      },
+    ],
+  },
 ];
 
 export function getHandlaggarnyttPost(slug: string) {
