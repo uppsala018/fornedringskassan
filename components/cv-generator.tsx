@@ -1,5 +1,6 @@
 "use client";
 
+import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
 import { useMemo, useState } from "react";
 
 type Tone = "neutral" | "formellt-positiv" | "orimligt-valvillig";
@@ -29,6 +30,14 @@ type GeneratedCv = {
   recommendedAreas: string[];
   summary: string;
   copyText: string;
+};
+
+type PdfLine = {
+  text: string;
+  bold?: boolean;
+  size?: number;
+  color?: [number, number, number];
+  gapAfter?: number;
 };
 
 const toneOptions: Array<{ value: Tone; label: string }> = [
@@ -109,6 +118,36 @@ function wrapText(text: string, maxLength: number) {
     }
 
     lines.push(current);
+    current = word;
+  });
+
+  if (current) {
+    lines.push(current);
+  }
+
+  return lines.length > 0 ? lines : [text.trim()];
+}
+
+function wrapPdfText(
+  text: string,
+  font: { widthOfTextAtSize: (value: string, size: number) => number },
+  size: number,
+  maxWidth: number,
+) {
+  const words = text.trim().split(/\s+/).filter(Boolean);
+  const lines: string[] = [];
+  let current = "";
+
+  words.forEach((word) => {
+    const candidate = current ? `${current} ${word}` : word;
+    if (font.widthOfTextAtSize(candidate, size) <= maxWidth) {
+      current = candidate;
+      return;
+    }
+
+    if (current) {
+      lines.push(current);
+    }
     current = word;
   });
 
@@ -213,246 +252,253 @@ function buildCvExportSvg(generated: GeneratedCv) {
   return { svg, width, height };
 }
 
-function buildCvPrintHtml(generated: GeneratedCv) {
-  const list = (items: string[]) =>
-    items
-      .map(
-        (item) =>
-          `<li style="margin:0 0 8px 0; padding:0 0 0 1.1em; position:relative;"><span style="position:absolute; left:0;">•</span><span>${escapeXml(item)}</span></li>`,
-      )
-      .join("");
-
-  return `<!doctype html>
-<html lang="sv">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>CV-generator | ${escapeXml(generated.name)}</title>
-    <style>
-      @page {
-        size: A4;
-        margin: 14mm;
-      }
-      :root {
-        color-scheme: light;
-      }
-      * {
-        box-sizing: border-box;
-      }
-      html, body {
-        margin: 0;
-        padding: 0;
-        background: #f5f0e7;
-        color: #203134;
-        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      }
-      body {
-        padding: 0;
-      }
-      .sheet {
-        width: 100%;
-        min-height: 100vh;
-        padding: 0;
-      }
-      .eyebrow {
-        letter-spacing: 0.24em;
-        text-transform: uppercase;
-        font-size: 11px;
-        font-weight: 700;
-        color: #5a6c69;
-      }
-      .title {
-        margin: 14px 0 8px;
-        font-family: Georgia, "Times New Roman", serif;
-        font-size: 36px;
-        line-height: 1.08;
-        font-weight: 700;
-      }
-      .lead {
-        margin: 0 0 20px;
-        font-size: 15px;
-        line-height: 1.7;
-        color: #415258;
-      }
-      .meta-grid {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 10px;
-        margin-bottom: 18px;
-      }
-      .meta {
-        border: 1px solid rgba(115, 128, 131, 0.18);
-        border-radius: 16px;
-        background: #ffffff;
-        padding: 12px 14px;
-      }
-      .meta-label {
-        display: block;
-        margin-bottom: 4px;
-        font-size: 10px;
-        letter-spacing: 0.22em;
-        text-transform: uppercase;
-        color: #5a6c69;
-      }
-      .meta-value {
-        font-size: 13px;
-        line-height: 1.5;
-      }
-      .section {
-        border: 1px solid rgba(115, 128, 131, 0.18);
-        border-radius: 18px;
-        background: #ffffff;
-        padding: 16px 18px;
-        margin-bottom: 14px;
-      }
-      .section.dark {
-        background: #101010;
-        color: #f7f1e6;
-      }
-      .section-label {
-        font-size: 10px;
-        letter-spacing: 0.24em;
-        text-transform: uppercase;
-        color: inherit;
-        opacity: 0.75;
-      }
-      .section h2 {
-        margin: 8px 0 10px;
-        font-family: Georgia, "Times New Roman", serif;
-        font-size: 20px;
-        line-height: 1.2;
-      }
-      .section p, .section li {
-        font-size: 14px;
-        line-height: 1.7;
-        margin: 0;
-      }
-      .section ul {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-      }
-      .muted {
-        color: inherit;
-        opacity: 0.8;
-      }
-      .footer {
-        display: flex;
-        justify-content: space-between;
-        gap: 16px;
-        margin-top: 18px;
-        padding-top: 12px;
-        border-top: 1px solid rgba(115, 128, 131, 0.18);
-        font-size: 10px;
-        letter-spacing: 0.22em;
-        text-transform: uppercase;
-        color: #5a6c69;
-      }
-      .page-break {
-        break-inside: avoid;
-        page-break-inside: avoid;
-      }
-    </style>
-  </head>
-  <body>
-    <main class="sheet">
-      <div class="eyebrow">CV-GENERATOR | FIKTIV ARBETSPROFIL</div>
-      <h1 class="title">${escapeXml(generated.name)}</h1>
-      <p class="lead">Uppdrag: ${escapeXml(generated.work)} · Tonläge: ${escapeXml(generated.toneLabel)} · Anpassning: ${escapeXml(generated.adaptationLabel)}</p>
-
-      <div class="meta-grid">
-        <div class="meta">
-          <span class="meta-label">Dokumenttyp</span>
-          <span class="meta-value">Fiktiv arbetsprofil</span>
-        </div>
-        <div class="meta">
-          <span class="meta-label">Referens</span>
-          <span class="meta-value">${escapeXml(generated.referenceNumber)}</span>
-        </div>
-        <div class="meta">
-          <span class="meta-label">Upprättad</span>
-          <span class="meta-value">${escapeXml(generated.generatedOn)}</span>
-        </div>
-        <div class="meta">
-          <span class="meta-label">Anpassning</span>
-          <span class="meta-value">${escapeXml(generated.adaptationLabel)}</span>
-        </div>
-      </div>
-
-      <section class="section page-break">
-        <div class="section-label">Profil</div>
-        <h2>Fiktiv arbetsprofil</h2>
-        <p>${escapeXml(generated.profile)}</p>
-      </section>
-
-      <section class="section page-break">
-        <div class="section-label">Kompetenser</div>
-        <h2>Kompetenser</h2>
-        <ul>${list(generated.competencies)}</ul>
-      </section>
-
-      <section class="section page-break">
-        <div class="section-label">Arbetsförmåga i praktiken</div>
-        <h2>Arbetsförmåga i praktiken</h2>
-        <p>${escapeXml(generated.practical)}</p>
-      </section>
-
-      <section class="section page-break">
-        <div class="section-label">Särskilda förutsättningar</div>
-        <h2>Särskilda förutsättningar</h2>
-        <ul>${list(generated.conditions)}</ul>
-      </section>
-
-      <section class="section page-break">
-        <div class="section-label">Rekommenderade arbetsområden</div>
-        <h2>Rekommenderade arbetsområden</h2>
-        <ul>${list(generated.recommendedAreas)}</ul>
-      </section>
-
-      <section class="section dark page-break">
-        <div class="section-label">Sammanfattande bedömning</div>
-        <h2>Sammanfattande bedömning</h2>
-        <p>${escapeXml(generated.summary)}</p>
-      </section>
-
-      <div class="footer">
-        <span>Fiktiv arbetsprofil</span>
-        <span>Skapad för delning och intern ordning</span>
-      </div>
-    </main>
-  </body>
-</html>`;
-}
-
 async function exportCvAsPdf(generated: GeneratedCv) {
   const safeReference = generated.referenceNumber.replaceAll("/", "-");
-  const html = buildCvPrintHtml(generated);
-  const blob = new Blob([html], { type: "text/html;charset=utf-8" });
-  const url = URL.createObjectURL(blob);
-  const printWindow = window.open(url, "_blank", "noopener,noreferrer,width=980,height=1200");
+  const pdf = await PDFDocument.create();
+  const pageWidth = 595.28;
+  const pageHeight = 841.89;
+  const marginX = 40;
+  const marginTop = 42;
+  const marginBottom = 40;
+  const contentWidth = pageWidth - marginX * 2;
+  const lineHeight = 16;
+  const smallLineHeight = 13;
 
-  if (!printWindow) {
-    downloadBlob(blob, `cv-generator-${safeReference}.html`);
-    return;
-  }
+  const fontRegular = await pdf.embedFont(StandardFonts.Helvetica);
+  const fontBold = await pdf.embedFont(StandardFonts.HelveticaBold);
+  const fontSerif = await pdf.embedFont(StandardFonts.TimesRomanBold);
 
-  const finalize = () => {
-    try {
-      printWindow.focus();
-      printWindow.print();
-    } catch {
-      downloadBlob(blob, `cv-generator-${safeReference}.html`);
+  const pages = [] as ReturnType<typeof pdf.addPage>[];
+  let page = pdf.addPage([pageWidth, pageHeight]);
+  pages.push(page);
+  let cursorY = pageHeight - marginTop;
+
+  const ensureSpace = (needed: number) => {
+    if (cursorY - needed >= marginBottom) {
+      return;
+    }
+    page = pdf.addPage([pageWidth, pageHeight]);
+    pages.push(page);
+    cursorY = pageHeight - marginTop;
+  };
+
+  const drawTextBlock = (
+    text: string,
+    font: typeof fontRegular,
+    size: number,
+    color = rgb(0.125, 0.192, 0.204),
+    indent = 0,
+    spacingAfter = 0,
+  ) => {
+    const lines = wrapPdfText(text, font, size, contentWidth - indent);
+    lines.forEach((line) => {
+      ensureSpace(size + 4);
+      page.drawText(line, {
+        x: marginX + indent,
+        y: cursorY - size,
+        size,
+        font,
+        color,
+      });
+      cursorY -= size + 4;
+    });
+    cursorY -= spacingAfter;
+  };
+
+  const drawBulletList = (items: string[], fontSize = 12.5) => {
+    items.forEach((item) => {
+      const lines = wrapPdfText(item, fontRegular, fontSize, contentWidth - 18);
+      lines.forEach((line, index) => {
+        ensureSpace(fontSize + 4);
+        page.drawText(index === 0 ? `• ${line}` : line, {
+          x: marginX + (index === 0 ? 0 : 12),
+          y: cursorY - fontSize,
+          size: fontSize,
+          font: fontRegular,
+          color: rgb(0.125, 0.192, 0.204),
+        });
+        cursorY -= fontSize + 4;
+      });
+      cursorY -= 4;
+    });
+  };
+
+  const section = (label: string, title: string, body: () => void, dark = false) => {
+    const minHeight = dark ? 116 : 96;
+    ensureSpace(minHeight + 18);
+    const sectionTop = cursorY;
+    const pad = 14;
+    const actualHeight = dark ? Math.max(120, minHeight) : Math.max(104, minHeight);
+    const fill = dark ? rgb(0.062, 0.062, 0.062) : rgb(1, 1, 1);
+    const stroke = dark ? rgb(0.78, 0.82, 0.8) : rgb(0.71, 0.75, 0.74);
+    const textColor = dark ? rgb(0.97, 0.95, 0.9) : rgb(0.125, 0.192, 0.204);
+    page.drawRectangle({
+      x: marginX,
+      y: sectionTop - actualHeight,
+      width: contentWidth,
+      height: actualHeight,
+      borderColor: stroke,
+      borderWidth: 1,
+      color: fill,
+    });
+
+    cursorY = sectionTop - pad;
+    drawTextBlock(label, fontRegular, 9.5, textColor, 0, 2);
+    drawTextBlock(title, fontSerif, dark ? 16 : 15, textColor, 0, 5);
+    body();
+    cursorY -= 14;
+    if (cursorY < marginBottom) {
+      ensureSpace(30);
     }
   };
 
-  printWindow.addEventListener("load", finalize, { once: true });
-  window.setTimeout(() => {
-    if (!printWindow.closed) {
-      finalize();
-    }
-  }, 600);
+  page.drawText("CV-GENERATOR | FIKTIV ARBETSPROFIL", {
+    x: marginX,
+    y: cursorY,
+    size: 9.5,
+    font: fontBold,
+    color: rgb(0.353, 0.424, 0.412),
+  });
+  cursorY -= 18;
 
-  window.setTimeout(() => URL.revokeObjectURL(url), 30000);
+  page.drawText(generated.name, {
+    x: marginX,
+    y: cursorY - 34,
+    size: 28,
+    font: fontSerif,
+    color: rgb(0.125, 0.192, 0.204),
+  });
+  cursorY -= 44;
+
+  drawTextBlock(
+    `Uppdrag: ${generated.work} · Tonläge: ${generated.toneLabel} · Anpassning: ${generated.adaptationLabel}`,
+    fontRegular,
+    12,
+    rgb(0.255, 0.322, 0.345),
+    0,
+    10,
+  );
+
+  const metaItems = [
+    { label: "Dokumenttyp", value: "Fiktiv arbetsprofil" },
+    { label: "Referens", value: generated.referenceNumber },
+    { label: "Upprättad", value: generated.generatedOn },
+    { label: "Anpassning", value: generated.adaptationLabel },
+  ];
+
+  metaItems.forEach((item, index) => {
+    ensureSpace(24);
+    const halfWidth = (contentWidth - 8) / 2;
+    const x = marginX + ((index % 2) * (halfWidth + 8));
+    if (index % 2 === 0) {
+      const topY = cursorY;
+      const cardHeight = 34;
+      page.drawRectangle({
+        x,
+        y: topY - cardHeight,
+        width: halfWidth,
+        height: cardHeight,
+        borderColor: rgb(0.71, 0.75, 0.74),
+        borderWidth: 1,
+        color: rgb(1, 1, 1),
+      });
+      page.drawText(item.label, {
+        x: x + 10,
+        y: topY - 12,
+        size: 7.5,
+        font: fontBold,
+        color: rgb(0.353, 0.424, 0.412),
+      });
+      page.drawText(item.value, {
+        x: x + 10,
+        y: topY - 24,
+        size: 10.5,
+        font: fontRegular,
+        color: rgb(0.125, 0.192, 0.204),
+      });
+      const next = metaItems[index + 1];
+      if (next) {
+        const rightX = x + halfWidth + 8;
+        page.drawRectangle({
+          x: rightX,
+          y: topY - cardHeight,
+          width: halfWidth,
+          height: cardHeight,
+          borderColor: rgb(0.71, 0.75, 0.74),
+          borderWidth: 1,
+          color: rgb(1, 1, 1),
+        });
+        page.drawText(next.label, {
+          x: rightX + 10,
+          y: topY - 12,
+          size: 7.5,
+          font: fontBold,
+          color: rgb(0.353, 0.424, 0.412),
+        });
+        page.drawText(next.value, {
+          x: rightX + 10,
+          y: topY - 24,
+          size: 10.5,
+          font: fontRegular,
+          color: rgb(0.125, 0.192, 0.204),
+        });
+      }
+      cursorY -= 42;
+    }
+  });
+
+  cursorY -= 4;
+
+  section("Profil", "Fiktiv arbetsprofil", () => {
+    drawTextBlock(generated.profile, fontRegular, 12, rgb(0.125, 0.192, 0.204), 0, 0);
+  });
+
+  section("Kompetenser", "Kompetenser", () => {
+    drawBulletList(generated.competencies);
+  });
+
+  section("Arbetsförmåga i praktiken", "Arbetsförmåga i praktiken", () => {
+    drawTextBlock(generated.practical, fontRegular, 12, rgb(0.125, 0.192, 0.204), 0, 0);
+  });
+
+  section("Särskilda förutsättningar", "Särskilda förutsättningar", () => {
+    drawBulletList(generated.conditions);
+  });
+
+  section("Rekommenderade arbetsområden", "Rekommenderade arbetsområden", () => {
+    drawBulletList(generated.recommendedAreas);
+  });
+
+  section("Sammanfattande bedömning", "Sammanfattande bedömning", () => {
+    drawTextBlock(generated.summary, fontRegular, 12, rgb(0.96, 0.95, 0.9), 0, 0);
+  }, true);
+
+  ensureSpace(36);
+  page.drawLine({
+    start: { x: marginX, y: cursorY - 4 },
+    end: { x: marginX + contentWidth, y: cursorY - 4 },
+    thickness: 0.75,
+    color: rgb(0.71, 0.75, 0.74),
+  });
+  cursorY -= 16;
+  page.drawText("Fiktiv arbetsprofil", {
+    x: marginX,
+    y: cursorY,
+    size: 8,
+    font: fontBold,
+    color: rgb(0.353, 0.424, 0.412),
+  });
+  page.drawText("Skapad för delning och intern ordning", {
+    x: pageWidth - marginX - fontRegular.widthOfTextAtSize("Skapad för delning och intern ordning", 8),
+    y: cursorY,
+    size: 8,
+    font: fontRegular,
+    color: rgb(0.353, 0.424, 0.412),
+  });
+
+  const bytes = await pdf.save();
+  const blob = new Blob([bytes as unknown as BlobPart], { type: "application/pdf" });
+  downloadBlob(blob, `cv-generator-${safeReference}.pdf`);
 }
 
 function downloadBlob(blob: Blob, filename: string) {
