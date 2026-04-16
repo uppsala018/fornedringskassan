@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { PageShell } from "@/components/page-shell";
-import { PunchlineStrip } from "@/components/punchline-strip";
 import { jsonLd } from "@/lib/json-ld";
 import { siteUrl } from "@/lib/site-url";
 
@@ -103,11 +102,6 @@ export default function FAQPage() {
       eyebrow="Vanliga frågor"
       showInstitutionNote={false}
     >
-      <PunchlineStrip
-        eyebrow="FAQ"
-        punchline="Standardiserade svar på redan ordnade frågor"
-      />
-
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: jsonLd(faqJsonLd) }}

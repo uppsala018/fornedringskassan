@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { PageShell } from "@/components/page-shell";
-import { PunchlineStrip } from "@/components/punchline-strip";
 import { jsonLd } from "@/lib/json-ld";
 import { siteUrl } from "@/lib/site-url";
 import { handlaggarnyttPosts } from "./posts";
@@ -55,10 +54,6 @@ export default function HandlaggarnyttPage() {
       eyebrow="Intern bulletin"
       showInstitutionNote={false}
     >
-      <PunchlineStrip
-        eyebrow="Handläggarnytt"
-        punchline="Interna rörelser i ordnad stillhet"
-      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: jsonLd(archiveJsonLd) }}
