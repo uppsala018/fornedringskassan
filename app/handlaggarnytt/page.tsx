@@ -69,25 +69,22 @@ export default function HandlaggarnyttPage() {
         </p>
       </section>
 
-      <section className="grid gap-6">
+      <section className="grid gap-5">
         {posts.map((post) => (
-          <article key={post.slug} className="institution-card p-6">
-            <p className="text-xs uppercase tracking-[0.3em] text-ink/72">Notis</p>
-            <h2 className="mt-3 text-balance font-display text-2xl font-semibold tracking-tight text-ink">
+          <article key={post.slug} className="institution-card p-6 sm:p-7">
+            <p className="text-xs uppercase tracking-[0.3em] text-ink/68">Notis</p>
+            <h2 className="mt-3 text-balance font-display text-[1.55rem] font-semibold leading-tight tracking-tight text-ink sm:text-2xl">
               {post.title}
             </h2>
-            <p className="mt-2 text-sm uppercase tracking-[0.22em] text-ink/65">{post.published}</p>
-            <p className="mt-4 text-base leading-8 text-ink/76">{post.summary}</p>
-            <div className="mt-5 flex flex-wrap items-center gap-3">
+            <p className="mt-3 text-[11px] uppercase tracking-[0.24em] text-ink/60">{post.published}</p>
+            <p className="mt-4 max-w-3xl text-base leading-8 text-ink/76">{post.summary}</p>
+            <div className="mt-5">
               <Link
                 href={post.route}
                 className="inline-flex min-h-10 items-center rounded-full bg-ink px-5 py-2.5 text-sm text-paper transition hover:bg-seal"
               >
                 Läs notisen
               </Link>
-              <span className="rounded-full border border-steel/20 bg-white/88 px-4 py-2 text-sm text-ink/76">
-                {post.route}
-              </span>
             </div>
           </article>
         ))}

@@ -16,361 +16,361 @@ export type HandlaggarnyttPost = {
 export const handlaggarnyttPosts: HandlaggarnyttPost[] = [
   {
     slug: "forandrad-handlaggningsordning",
-    title: "Förändrad handläggningsordning",
+    title: "FĂ¶rĂ¤ndrad handlĂ¤ggningsordning",
     summary:
-      "Ärenden ska från och med nu föras vidare i en ny ordning som främst gör nästa steg lättare att beskriva.",
+      "Ă„renden ska frĂĄn och med nu fĂ¶ras vidare i en ny ordning som frĂ¤mst gĂ¶r nĂ¤sta steg lĂ¤ttare att beskriva.",
     intro:
-      "En justering i den ordning där ärenden läses, flyttas och får vänta vidare tills deras tur åter blivit begriplig.",
+      "En justering i den ordning dĂ¤r Ă¤renden lĂ¤ses, flyttas och fĂĄr vĂ¤nta vidare tills deras tur ĂĄter blivit begriplig.",
     route: "/handlaggarnytt/forandrad-handlaggningsordning",
     published: "14 april 2026",
-    metadataTitle: "Förändrad handläggningsordning | Handläggarnytt",
+    metadataTitle: "FĂ¶rĂ¤ndrad handlĂ¤ggningsordning | HandlĂ¤ggarnytt",
     metadataDescription:
-      "En kort notis om att ärenden nu förs vidare i ny ordning utan att den administrativa riktningen blir tydligare.",
+      "En kort notis om att Ă¤renden nu fĂ¶rs vidare i ny ordning utan att den administrativa riktningen blir tydligare.",
     sections: [
       {
-        heading: "Vad ändras?",
+        heading: "Vad Ă¤ndras?",
         body:
-          "Ärenden flyttas nu genom fler led innan de anses redo för samma slags genomgång som tidigare. Ordningen är ny; slutsatsen är inte det.",
+          "Ă„renden flyttas nu genom fler led innan de anses redo fĂ¶r samma slags genomgĂĄng som tidigare. Ordningen Ă¤r ny; slutsatsen Ă¤r inte det.",
       },
       {
-        heading: "Varför nu?",
+        heading: "VarfĂ¶r nu?",
         body:
-          "För att handläggningen ska framstå som samlad även när den i praktiken fortsätter i flera mindre versioner av samma väntan.",
+          "FĂ¶r att handlĂ¤ggningen ska framstĂĄ som samlad Ă¤ven nĂ¤r den i praktiken fortsĂ¤tter i flera mindre versioner av samma vĂ¤ntan.",
       },
       {
-        heading: "Praktisk följd",
+        heading: "Praktisk fĂ¶ljd",
         body:
-          "De som redan lämnat in något behöver inte ändra sin beskrivning. De behöver bara vänja sig vid att den läses i en annan följd.",
+          "De som redan lĂ¤mnat in nĂĄgot behĂ¶ver inte Ă¤ndra sin beskrivning. De behĂ¶ver bara vĂ¤nja sig vid att den lĂ¤ses i en annan fĂ¶ljd.",
       },
     ],
   },
   {
     slug: "fortydligande-om-vantan",
-    title: "Förtydligande om väntan",
+    title: "FĂ¶rtydligande om vĂ¤ntan",
     summary:
-      "Väntan ska nu förstås som en aktiv del av handläggningen, förutsatt att den är ordnad, diarieförd och fortsatt väntande.",
+      "VĂ¤ntan ska nu fĂ¶rstĂĄs som en aktiv del av handlĂ¤ggningen, fĂ¶rutsatt att den Ă¤r ordnad, diariefĂ¶rd och fortsatt vĂ¤ntande.",
     intro:
-      "Ett klargörande om att stillhet i ärenden sällan är stillhet i egentlig mening, bara rörelse med längre mellanrum.",
+      "Ett klargĂ¶rande om att stillhet i Ă¤renden sĂ¤llan Ă¤r stillhet i egentlig mening, bara rĂ¶relse med lĂ¤ngre mellanrum.",
     route: "/handlaggarnytt/fortydligande-om-vantan",
     published: "14 april 2026",
-    metadataTitle: "Förtydligande om väntan | Handläggarnytt",
+    metadataTitle: "FĂ¶rtydligande om vĂ¤ntan | HandlĂ¤ggarnytt",
     metadataDescription:
-      "En notis om att väntan räknas som en aktiv del av handläggningen när den är ordnad nog att beskrivas så.",
+      "En notis om att vĂ¤ntan rĂ¤knas som en aktiv del av handlĂ¤ggningen nĂ¤r den Ă¤r ordnad nog att beskrivas sĂĄ.",
     sections: [
       {
-        heading: "När väntan blir behandling",
+        heading: "NĂ¤r vĂ¤ntan blir behandling",
         body:
-          "Om ett ärende ligger stilla men ändå rör sig genom registrering, markering och intern läsning, betraktas det som fortsatt handlagt i den form som väntan medger.",
+          "Om ett Ă¤rende ligger stilla men Ă¤ndĂĄ rĂ¶r sig genom registrering, markering och intern lĂ¤sning, betraktas det som fortsatt handlagt i den form som vĂ¤ntan medger.",
       },
       {
-        heading: "Vad det betyder för dig",
+        heading: "Vad det betyder fĂ¶r dig",
         body:
-          "Att något ännu inte har hänt behöver inte innebära att det inte bearbetas. Det kan lika gärna innebära att bearbetningen ännu inte har hunnit likna ett svar.",
+          "Att nĂĄgot Ă¤nnu inte har hĂ¤nt behĂ¶ver inte innebĂ¤ra att det inte bearbetas. Det kan lika gĂ¤rna innebĂ¤ra att bearbetningen Ă¤nnu inte har hunnit likna ett svar.",
       },
       {
-        heading: "Nästa läge",
+        heading: "NĂ¤sta lĂ¤ge",
         body:
-          "När nästa uppdatering kommer är det vanligt att den endast bekräftar att väntan fortsatt har rätt ordning.",
+          "NĂ¤r nĂ¤sta uppdatering kommer Ă¤r det vanligt att den endast bekrĂ¤ftar att vĂ¤ntan fortsatt har rĂ¤tt ordning.",
       },
     ],
   },
   {
     slug: "intern-oversyn-av-tidigare-bedomningar",
-    title: "Intern översyn av tidigare bedömningar",
+    title: "Intern Ă¶versyn av tidigare bedĂ¶mningar",
     summary:
-      "Tidigare ställningstaganden går nu igenom ännu en läsning för att säkerställa samma slutsats med bättre ordval.",
+      "Tidigare stĂ¤llningstaganden gĂĄr nu igenom Ă¤nnu en lĂ¤sning fĂ¶r att sĂ¤kerstĂ¤lla samma slutsats med bĂ¤ttre ordval.",
     intro:
-      "En översyn av det som redan bedömts, för att se om precisionen kan förbättras utan att riktningen behöver röra sig.",
+      "En Ă¶versyn av det som redan bedĂ¶mts, fĂ¶r att se om precisionen kan fĂ¶rbĂ¤ttras utan att riktningen behĂ¶ver rĂ¶ra sig.",
     route: "/handlaggarnytt/intern-oversyn-av-tidigare-bedomningar",
     published: "14 april 2026",
-    metadataTitle: "Intern översyn av tidigare bedömningar | Handläggarnytt",
+    metadataTitle: "Intern Ă¶versyn av tidigare bedĂ¶mningar | HandlĂ¤ggarnytt",
     metadataDescription:
-      "En kort bulletin om att tidigare bedömningar läses om för att få tydligare formulering, inte nödvändigtvis annan utgång.",
+      "En kort bulletin om att tidigare bedĂ¶mningar lĂ¤ses om fĂ¶r att fĂĄ tydligare formulering, inte nĂ¶dvĂ¤ndigtvis annan utgĂĄng.",
     sections: [
       {
-        heading: "Vad ses över?",
+        heading: "Vad ses Ă¶ver?",
         body:
-          "Bedömningar som redan är formulerade men fortfarande kan sägas tydligare får nu en ny intern läsning, mest för att se om samma svar kan låta mer genomarbetat.",
+          "BedĂ¶mningar som redan Ă¤r formulerade men fortfarande kan sĂ¤gas tydligare fĂĄr nu en ny intern lĂ¤sning, mest fĂ¶r att se om samma svar kan lĂĄta mer genomarbetat.",
       },
       {
-        heading: "Vad påverkas?",
+        heading: "Vad pĂĄverkas?",
         body:
-          "Främst sättet beslutet beskrivs på. Själva bedömningen förblir i regel lika tydlig som före översynen, bara mer redigerad.",
+          "FrĂ¤mst sĂ¤ttet beslutet beskrivs pĂĄ. SjĂ¤lva bedĂ¶mningen fĂ¶rblir i regel lika tydlig som fĂ¶re Ă¶versynen, bara mer redigerad.",
       },
       {
-        heading: "Vad märks utåt?",
+        heading: "Vad mĂ¤rks utĂĄt?",
         body:
-          "Att ärendet ser mer bearbetat ut. Det är ibland det närmaste en förändring som handläggning kan komma utan att byta mening.",
+          "Att Ă¤rendet ser mer bearbetat ut. Det Ă¤r ibland det nĂ¤rmaste en fĂ¶rĂ¤ndring som handlĂ¤ggning kan komma utan att byta mening.",
       },
     ],
   },
   {
     slug: "tillfallig-justering-av-vantan",
-    title: "Tillfällig justering av väntan",
+    title: "TillfĂ¤llig justering av vĂ¤ntan",
     summary:
-      "Väntetiden får en ny innebörd under en period som främst påverkar hur länge samma fråga kan fortsätta vara öppen.",
+      "VĂ¤ntetiden fĂĄr en ny innebĂ¶rd under en period som frĂ¤mst pĂĄverkar hur lĂ¤nge samma frĂĄga kan fortsĂ¤tta vara Ă¶ppen.",
     intro:
-      "En tillfällig anpassning av väntans roll i ärendeflödet, så att stillheten lättare kan beskrivas som fortsatt ordnad behandling.",
+      "En tillfĂ¤llig anpassning av vĂ¤ntans roll i Ă¤rendeflĂ¶det, sĂĄ att stillheten lĂ¤ttare kan beskrivas som fortsatt ordnad behandling.",
     route: "/handlaggarnytt/tillfallig-justering-av-vantan",
     published: "15 april 2026",
-    metadataTitle: "Tillfällig justering av väntan | Handläggarnytt",
+    metadataTitle: "TillfĂ¤llig justering av vĂ¤ntan | HandlĂ¤ggarnytt",
     metadataDescription:
-      "En kort notis om att väntetiden tillfälligt får en ny innebörd utan att ärendets riktning blir tydligare.",
+      "En kort notis om att vĂ¤ntetiden tillfĂ¤lligt fĂĄr en ny innebĂ¶rd utan att Ă¤rendets riktning blir tydligare.",
     sections: [
       {
         heading: "Vad justeras?",
         body:
-          "Väntan får nu ingå tydligare i den formella beskrivningen av ärendet, vilket gör att stillhet kan redovisas som ett steg i sig.",
+          "VĂ¤ntan fĂĄr nu ingĂĄ tydligare i den formella beskrivningen av Ă¤rendet, vilket gĂ¶r att stillhet kan redovisas som ett steg i sig.",
       },
       {
-        heading: "Hur länge?",
+        heading: "Hur lĂ¤nge?",
         body:
-          "Tills vidare eller tills nästa rutin behöver samma väntan i något mer förklarande språk.",
+          "Tills vidare eller tills nĂ¤sta rutin behĂ¶ver samma vĂ¤ntan i nĂĄgot mer fĂ¶rklarande sprĂĄk.",
       },
       {
-        heading: "Vad märks utåt?",
+        heading: "Vad mĂ¤rks utĂĄt?",
         body:
-          "Främst att samma ärende kan ligga kvar längre utan att det behöver låta mer stillastående än tidigare.",
+          "FrĂ¤mst att samma Ă¤rende kan ligga kvar lĂ¤ngre utan att det behĂ¶ver lĂĄta mer stillastĂĄende Ă¤n tidigare.",
       },
     ],
   },
   {
     slug: "fornyad-ordning-for-kompletterande-underlag",
-    title: "Förnyad ordning för kompletterande underlag",
+    title: "FĂ¶rnyad ordning fĂ¶r kompletterande underlag",
     summary:
-      "Kompletteringar ska nu lämnas, läsas och återföras i en ny följd som främst gör nästa begäran lättare att formulera.",
+      "Kompletteringar ska nu lĂ¤mnas, lĂ¤sas och ĂĄterfĂ¶ras i en ny fĂ¶ljd som frĂ¤mst gĂ¶r nĂ¤sta begĂ¤ran lĂ¤ttare att formulera.",
     intro:
-      "En översyn av hur kompletterande handlingar hanteras när de redan en gång behövts men ändå inte riktigt räckt till.",
+      "En Ă¶versyn av hur kompletterande handlingar hanteras nĂ¤r de redan en gĂĄng behĂ¶vts men Ă¤ndĂĄ inte riktigt rĂ¤ckt till.",
     route: "/handlaggarnytt/fornyad-ordning-for-kompletterande-underlag",
     published: "15 april 2026",
-    metadataTitle: "Förnyad ordning för kompletterande underlag | Handläggarnytt",
+    metadataTitle: "FĂ¶rnyad ordning fĂ¶r kompletterande underlag | HandlĂ¤ggarnytt",
     metadataDescription:
-      "En notis om att kompletterande underlag nu hanteras i ny ordning utan att underlaget blir mindre ofullständigt.",
+      "En notis om att kompletterande underlag nu hanteras i ny ordning utan att underlaget blir mindre ofullstĂ¤ndigt.",
     sections: [
       {
-        heading: "Ny följd",
+        heading: "Ny fĂ¶ljd",
         body:
-          "Inkomna handlingar får nu läsas i en ordning som bättre motsvarar den väntan som redan uppstått runt dem.",
+          "Inkomna handlingar fĂĄr nu lĂ¤sas i en ordning som bĂ¤ttre motsvarar den vĂ¤ntan som redan uppstĂĄtt runt dem.",
       },
       {
         heading: "Intern effekt",
         body:
-          "Handläggningen blir lättare att beskriva som pågående även när samma komplettering efterfrågas igen.",
+          "HandlĂ¤ggningen blir lĂ¤ttare att beskriva som pĂĄgĂĄende Ă¤ven nĂ¤r samma komplettering efterfrĂĄgas igen.",
       },
       {
-        heading: "För den som lämnar in",
+        heading: "FĂ¶r den som lĂ¤mnar in",
         body:
-          "Det räcker oftast att sända in det som redan sändes in, men nu med en något tydligare rubrik.",
+          "Det rĂ¤cker oftast att sĂ¤nda in det som redan sĂ¤ndes in, men nu med en nĂĄgot tydligare rubrik.",
       },
     ],
   },
   {
     slug: "spraklig-oversyn-av-avslagsformuleringar",
-    title: "Språklig översyn av avslagsformuleringar",
+    title: "SprĂĄklig Ă¶versyn av avslagsformuleringar",
     summary:
-      "Avslag ges en mer enhetlig ton så att samma innehåll kan låta samlat även när innebörden förblir oförändrad.",
+      "Avslag ges en mer enhetlig ton sĂĄ att samma innehĂĄll kan lĂĄta samlat Ă¤ven nĂ¤r innebĂ¶rden fĂ¶rblir ofĂ¶rĂ¤ndrad.",
     intro:
-      "En intern genomgång av hur nej kan formuleras med bättre marginaler, lugnare rytm och samma riktning som tidigare.",
+      "En intern genomgĂĄng av hur nej kan formuleras med bĂ¤ttre marginaler, lugnare rytm och samma riktning som tidigare.",
     route: "/handlaggarnytt/spraklig-oversyn-av-avslagsformuleringar",
     published: "15 april 2026",
-    metadataTitle: "Språklig översyn av avslagsformuleringar | Handläggarnytt",
+    metadataTitle: "SprĂĄklig Ă¶versyn av avslagsformuleringar | HandlĂ¤ggarnytt",
     metadataDescription:
-      "En kort bulletin om att avslagsformuleringar ses över för att låta tydligare utan att bli mindre avslagslika.",
+      "En kort bulletin om att avslagsformuleringar ses Ă¶ver fĂ¶r att lĂĄta tydligare utan att bli mindre avslagslika.",
     sections: [
       {
-        heading: "Vad ses över?",
+        heading: "Vad ses Ă¶ver?",
         body:
-          "Främst formuleringar som redan säger nej men som kan säga det med mindre friktion och något större självförtroende.",
+          "FrĂ¤mst formuleringar som redan sĂ¤ger nej men som kan sĂ¤ga det med mindre friktion och nĂĄgot stĂ¶rre sjĂ¤lvfĂ¶rtroende.",
       },
       {
-        heading: "Varför nu?",
+        heading: "VarfĂ¶r nu?",
         body:
-          "För att systemet ska låta mer samlat när det återkommer till samma slutsats i mer vårdad form.",
+          "FĂ¶r att systemet ska lĂĄta mer samlat nĂ¤r det ĂĄterkommer till samma slutsats i mer vĂĄrdad form.",
       },
       {
-        heading: "Vad förändras inte?",
+        heading: "Vad fĂ¶rĂ¤ndras inte?",
         body:
-          "Innehållet i nej:et. Det förblir nej, men med bättre rytm och färre onödiga ursäkter.",
+          "InnehĂĄllet i nej:et. Det fĂ¶rblir nej, men med bĂ¤ttre rytm och fĂ¤rre onĂ¶diga ursĂ¤kter.",
       },
     ],
   },
   {
     slug: "intern-samordning-av-omprovning-utan-andring-i-sak",
-    title: "Intern samordning av omprövning utan ändring i sak",
+    title: "Intern samordning av omprĂ¶vning utan Ă¤ndring i sak",
     summary:
-      "Omprövningens olika led samordnas för att samma svar ska kunna återkomma med mindre intern friktion.",
+      "OmprĂ¶vningens olika led samordnas fĂ¶r att samma svar ska kunna ĂĄterkomma med mindre intern friktion.",
     intro:
-      "En samordning av den process där ett ärende kan omprövas flera gånger utan att dess riktning behöver ändras.",
+      "En samordning av den process dĂ¤r ett Ă¤rende kan omprĂ¶vas flera gĂĄnger utan att dess riktning behĂ¶ver Ă¤ndras.",
     route: "/handlaggarnytt/intern-samordning-av-omprovning-utan-andring-i-sak",
     published: "15 april 2026",
-    metadataTitle: "Intern samordning av omprövning utan ändring i sak | Handläggarnytt",
+    metadataTitle: "Intern samordning av omprĂ¶vning utan Ă¤ndring i sak | HandlĂ¤ggarnytt",
     metadataDescription:
-      "En notis om att omprövning utan ändring i sak nu samordnas tydligare mellan interna led.",
+      "En notis om att omprĂ¶vning utan Ă¤ndring i sak nu samordnas tydligare mellan interna led.",
     sections: [
       {
         heading: "Vad samordnas?",
         body:
-          "Det som redan lett till samma slutsats får nu en gemensam ordning så att nästa omgång kan låta mer strukturerad.",
+          "Det som redan lett till samma slutsats fĂĄr nu en gemensam ordning sĂĄ att nĂ¤sta omgĂĄng kan lĂĄta mer strukturerad.",
       },
       {
-        heading: "Hur märks det?",
+        heading: "Hur mĂ¤rks det?",
         body:
-          "Som en jämnare fördelning av samma beslut mellan de led som annars skulle ha beskrivit det i lite olika tonläge.",
+          "Som en jĂ¤mnare fĂ¶rdelning av samma beslut mellan de led som annars skulle ha beskrivit det i lite olika tonlĂ¤ge.",
       },
       {
-        heading: "Praktisk följd",
+        heading: "Praktisk fĂ¶ljd",
         body:
-          "Omprövning kan fortsätta ske utan att ändring i sak behöver uppstå bara för att processen blivit mer samordnad.",
+          "OmprĂ¶vning kan fortsĂ¤tta ske utan att Ă¤ndring i sak behĂ¶ver uppstĂĄ bara fĂ¶r att processen blivit mer samordnad.",
       },
     ],
   },
   {
     slug: "fortydligande-om-rorelse-utan-framsteg",
-    title: "Förtydligande om rörelse utan framsteg",
+    title: "FĂ¶rtydligande om rĂ¶relse utan framsteg",
     summary:
-      "Ärendets rörelse ska inte längre förväxlas med framsteg när förflyttningen mest består av mer läsning av samma material.",
+      "Ă„rendets rĂ¶relse ska inte lĂ¤ngre fĂ¶rvĂ¤xlas med framsteg nĂ¤r fĂ¶rflyttningen mest bestĂĄr av mer lĂ¤sning av samma material.",
     intro:
-      "Ett klargörande om när rörelse i ett ärende är just rörelse och inte nödvändigtvis något som leder någonstans.",
+      "Ett klargĂ¶rande om nĂ¤r rĂ¶relse i ett Ă¤rende Ă¤r just rĂ¶relse och inte nĂ¶dvĂ¤ndigtvis nĂĄgot som leder nĂĄgonstans.",
     route: "/handlaggarnytt/fortydligande-om-rorelse-utan-framsteg",
     published: "15 april 2026",
-    metadataTitle: "Förtydligande om rörelse utan framsteg | Handläggarnytt",
+    metadataTitle: "FĂ¶rtydligande om rĂ¶relse utan framsteg | HandlĂ¤ggarnytt",
     metadataDescription:
-      "En kort notis om att intern rörelse i ärenden inte alltid ska tolkas som framsteg.",
+      "En kort notis om att intern rĂ¶relse i Ă¤renden inte alltid ska tolkas som framsteg.",
     sections: [
       {
         heading: "Vad avses?",
         body:
-          "Att ett ärende kan passera fler led, få ny placering eller ny rubrik utan att dess riktning blir nämnvärt annorlunda.",
+          "Att ett Ă¤rende kan passera fler led, fĂĄ ny placering eller ny rubrik utan att dess riktning blir nĂ¤mnvĂ¤rt annorlunda.",
       },
       {
-        heading: "Varför förtydligas detta?",
+        heading: "VarfĂ¶r fĂ¶rtydligas detta?",
         body:
-          "För att den som följer flödet inte ska behöva tro att varje förflyttning betyder mer än den faktiskt gör.",
+          "FĂ¶r att den som fĂ¶ljer flĂ¶det inte ska behĂ¶va tro att varje fĂ¶rflyttning betyder mer Ă¤n den faktiskt gĂ¶r.",
       },
       {
-        heading: "Nästa läsning",
+        heading: "NĂ¤sta lĂ¤sning",
         body:
-          "Kommer troligen att bekräfta att rörelsen fortsätter, men utan att hastigheten ska misstolkas som löst problem.",
+          "Kommer troligen att bekrĂ¤fta att rĂ¶relsen fortsĂ¤tter, men utan att hastigheten ska misstolkas som lĂ¶st problem.",
       },
     ],
   },
   {
     slug: "tillfalligt-fortydligande-av-arbetsformaga",
-    title: "TillfĂ¤lligt fĂ¶rtydligande av arbetsfĂ¶rmĂĄga",
+    title: "Tillfälligt förtydligande av arbetsförmåga",
     summary:
-      "ArbetsfĂ¶rmĂĄgebegreppet ges en kortvarigt tydligare ram fĂ¶r att samma bedĂ¶mning ska kunna lĂ¤sas med mindre osĂ¤kerhet.",
+      "Arbetsförmågebegreppet ges en kortvarigt tydligare ram för att samma bedömning ska kunna läsas med mindre osäkerhet.",
     intro:
-      "En tillfĂ¤llig precisering av hur arbetsfĂ¶rmĂĄga ska beskrivas nĂ¤r underlaget redan finns men fortfarande lĂ¤mnar utrymme fĂ¶r tvetydighet.",
+      "En tillfällig precisering av hur arbetsförmåga ska beskrivas när underlaget redan finns men fortfarande lämnar utrymme för tvetydighet.",
     route: "/handlaggarnytt/tillfalligt-fortydligande-av-arbetsformaga",
     published: "16 april 2026",
-    metadataTitle: "TillfĂ¤lligt fĂ¶rtydligande av arbetsfĂ¶rmĂĄga | HandlĂ¤ggarnytt",
+    metadataTitle: "Tillfälligt förtydligande av arbetsförmåga | Handläggarnytt",
     metadataDescription:
-      "En kort notis om att arbetsfĂ¶rmĂĄgebegreppet fĂĄr en tydligare ram under en begrĂ¤nsad period.",
+      "En kort notis om att arbetsförmågebegreppet får en tydligare ram under en begränsad period.",
     sections: [
       {
-        heading: "Vad fĂ¶rtydligas?",
+        heading: "Vad förtydligas?",
         body:
-          "Hur arbetsfĂ¶rmĂĄga ska lĂ¤sas i fĂ¶rhĂĄllande till befintliga underlag, sĂĄ att samma ord kan bĂ¤ra en nĂĄgot mindre diffus innebĂ¶rd.",
+          "Hur arbetsförmåga ska läsas i förhållande till befintliga underlag, så att samma ord kan bära en något mindre diffus innebörd.",
       },
       {
-        heading: "VarfĂ¶r nu?",
+        heading: "Varför nu?",
         body:
-          "FĂ¶r att minska skillnaden mellan vad som redan bedĂ¶mts och hur det efterlĂ¤mnade sprĂĄket fortfarande uppfattas i fĂ¶ljande led.",
+          "För att minska skillnaden mellan vad som redan bedömts och hur det efterlämnade språket fortfarande uppfattas i följande led.",
       },
       {
-        heading: "Vad pĂĄverkas inte?",
+        heading: "Vad påverkas inte?",
         body:
-          "SjĂ¤lva riktningen i bedĂ¶mningen. Det Ă¤r fortfarande samma ordning, men med nĂĄgot tydligare kanter.",
+          "Själva riktningen i bedömningen. Det är fortfarande samma ordning, men med något tydligare kanter.",
       },
     ],
   },
   {
     slug: "administrativ-samordning-mellan-besked-och-uppfoljning",
-    title: "Administrativ samordning mellan besked och uppfĂ¶ljning",
+    title: "Administrativ samordning mellan besked och uppföljning",
     summary:
-      "Besked och uppfĂ¶ljning lĂ¤ggs nĂ¤rmare varandra fĂ¶r att samma Ă¤rende ska beskrivas mer enhetligt genom hela fĂ¶rloppet.",
+      "Besked och uppföljning läggs närmare varandra för att samma ärende ska beskrivas mer enhetligt genom hela förloppet.",
     intro:
-      "En samordning av hur ett besked lĂ¤mnas och hur det sedan fĂ¶ljs upp, sĂĄ att nĂ¤sta lĂ¤sning inte behĂ¶ver uppfinna samma ordning pĂĄ nytt.",
+      "En samordning av hur ett besked lämnas och hur det sedan följs upp, så att nästa läsning inte behöver uppfinna samma ordning på nytt.",
     route: "/handlaggarnytt/administrativ-samordning-mellan-besked-och-uppfoljning",
     published: "16 april 2026",
-    metadataTitle: "Administrativ samordning mellan besked och uppfĂ¶ljning | HandlĂ¤ggarnytt",
+    metadataTitle: "Administrativ samordning mellan besked och uppföljning | Handläggarnytt",
     metadataDescription:
-      "En notis om att besked och uppfĂ¶ljning nu samordnas tydligare inom samma Ă¤rendefĂ¶rlopp.",
+      "En notis om att besked och uppföljning nu samordnas tydligare inom samma ärendeförlopp.",
     sections: [
       {
         heading: "Vad samordnas?",
         body:
-          "Formuleringen av ett besked och den efterfĂ¶ljande beskrivningen av hur det ska fĂ¶rstĂĄs i nĂ¤sta led.",
+          "Formuleringen av ett besked och den efterföljande beskrivningen av hur det ska förstås i nästa led.",
       },
       {
         heading: "Syftet",
         body:
-          "Att minska risken fĂ¶r att uppfĂ¶ljningen lĂĄter som om den beskriver ett annat Ă¤rende Ă¤n det som just avslutats.",
+          "Att minska risken för att uppföljningen låter som om den beskriver ett annat ärende än det som just avslutats.",
       },
       {
-        heading: "Praktisk fĂ¶ljd",
+        heading: "Praktisk följd",
         body:
-          "Samma Ă¤rende kan fortsĂ¤tta genom systemen med lite mindre sprĂĄklig friktion och lite mer intern Ă¶verensstĂ¤mmelse.",
+          "Samma ärende kan fortsätta genom systemen med lite mindre språklig friktion och lite mer intern överensstämmelse.",
       },
     ],
   },
   {
     slug: "utokad-anvandning-av-standardiserade-formuleringar",
-    title: "UtĂ¶kad anvĂ¤ndning av standardiserade formuleringar",
+    title: "Utökad användning av standardiserade formuleringar",
     summary:
-      "Standardiserade formuleringar fĂĄr bredare anvĂ¤ndning fĂ¶r att samma svar ska kunna lĂĄta samlat Ă¤ven i skilda delar av flĂ¶det.",
+      "Standardiserade formuleringar får bredare användning för att samma svar ska kunna låta samlat även i skilda delar av flödet.",
     intro:
-      "En utvidgning av de fasta formuleringarna i den interna textmassan, avsedd att ge fler besked samma ton utan att de behĂ¶ver bli identiska pĂĄ ytan.",
+      "En utvidgning av de fasta formuleringarna i den interna textmassan, avsedd att ge fler besked samma ton utan att de behöver bli identiska på ytan.",
     route: "/handlaggarnytt/utokad-anvandning-av-standardiserade-formuleringar",
     published: "16 april 2026",
-    metadataTitle: "UtĂ¶kad anvĂ¤ndning av standardiserade formuleringar | HandlĂ¤ggarnytt",
+    metadataTitle: "Utökad användning av standardiserade formuleringar | Handläggarnytt",
     metadataDescription:
-      "En kort bulletin om att standardiserade formuleringar nu anvĂ¤nds bredare i intern handlĂ¤ggning.",
+      "En kort bulletin om att standardiserade formuleringar nu används bredare i intern handläggning.",
     sections: [
       {
         heading: "Vad blir standardiserat?",
         body:
-          "Formuleringar om mottagning, vĂ¤ntan och ĂĄterkoppling fĂĄr samma grundton oavsett vilket steg som beskriver dem.",
+          "Formuleringar om mottagning, väntan och återkoppling får samma grundton oavsett vilket steg som beskriver dem.",
       },
       {
-        heading: "VarfĂ¶r breddas det?",
+        heading: "Varför breddas det?",
         body:
-          "FĂ¶r att den interna texten ska uppfattas som mer sammanhĂĄllen nĂ¤r samma Ă¤rende passerar flera led.",
+          "För att den interna texten ska uppfattas som mer sammanhållen när samma ärende passerar flera led.",
       },
       {
-        heading: "Vad fĂ¶rblir ofĂ¶rĂ¤ndrat?",
+        heading: "Vad förblir oförändrat?",
         body:
-          "SjĂ¤lva innehĂĄllet i beskedet. Det Ă¤r fortfarande samma sak, bara mer enhetligt formulerad.",
+          "Själva innehållet i beskedet. Det är fortfarande samma sak, bara mer enhetligt formulerad.",
       },
     ],
   },
   {
     slug: "teknisk-justering-av-sporning-vantetid-och-status",
-    title: "Teknisk justering av spĂĄrning, vĂ¤ntetid och status",
+    title: "Teknisk justering av spårning, väntetid och status",
     summary:
-      "SpĂĄrningen fĂĄr en mindre teknisk justering sĂĄ att status, vĂ¤ntetid och lĂ¤ge kan beskrivas med nĂĄgot stabilare ordning.",
+      "Spårningen får en mindre teknisk justering så att status, väntetid och läge kan beskrivas med något stabilare ordning.",
     intro:
-      "En liten teknisk anpassning i hur Ă¤rendestatus och vĂ¤ntetider ĂĄterges, sĂĄ att samma fĂ¶rflyttning inte behĂ¶ver se olika ut beroende pĂĄ nĂ¤r den lĂ¤ses.",
+      "En liten teknisk anpassning i hur ärendestatus och väntetider återges, så att samma förflyttning inte behöver se olika ut beroende på när den läses.",
     route: "/handlaggarnytt/teknisk-justering-av-sporning-vantetid-och-status",
     published: "16 april 2026",
-    metadataTitle: "Teknisk justering av spĂĄrning, vĂ¤ntetid och status | HandlĂ¤ggarnytt",
+    metadataTitle: "Teknisk justering av spårning, väntetid och status | Handläggarnytt",
     metadataDescription:
-      "En notis om en teknisk justering som stabiliserar hur spĂĄrning, vĂ¤ntetid och status ĂĄterges.",
+      "En notis om en teknisk justering som stabiliserar hur spårning, väntetid och status återges.",
     sections: [
       {
         heading: "Vad justeras?",
         body:
-          "Hur statusfĂ¤lt, vĂ¤ntetider och rĂ¶relse i ett Ă¤rende presenteras internt sĂĄ att de lĂ¤ses mer konsekvent.",
+          "Hur statusfält, väntetider och rörelse i ett ärende presenteras internt så att de läses mer konsekvent.",
       },
       {
-        heading: "VarfĂ¶r nu?",
+        heading: "Varför nu?",
         body:
-          "FĂ¶r att minska smĂĄ skillnader mellan vad systemet visar och hur samma lĂ¤ge beskrivs i ĂĄterkommande notiser.",
+          "För att minska små skillnader mellan vad systemet visar och hur samma läge beskrivs i återkommande notiser.",
       },
       {
-        heading: "Vad mĂ¤rks utĂĄt?",
+        heading: "Vad märks utåt?",
         body:
-          "Att statusen ser nĂĄgot mer stabil ut, utan att fĂ¶r den skull innebĂ¤ra nĂĄgon snabbare handlĂ¤ggning.",
+          "Att statusen ser något mer stabil ut, utan att för den skull innebära någon snabbare handläggning.",
       },
     ],
   },

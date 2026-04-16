@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { PageShell } from "@/components/page-shell";
+import { siteUrl } from "@/lib/site-url";
 
 const title = "Pressmeddelande | Förnedringskassan";
 const description =
@@ -17,10 +18,14 @@ export const metadata: Metadata = {
     title,
     description,
     url: "/pressmeddelande",
+    type: "article",
+    images: [siteUrl("/opengraph-image")],
   },
   twitter: {
+    card: "summary_large_image",
     title,
     description,
+    images: [siteUrl("/opengraph-image")],
   },
 };
 
