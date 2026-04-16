@@ -12,7 +12,7 @@ export function PageShell({
   title,
   intro,
   children,
-  eyebrow = "Ärendetyp",
+  eyebrow = "",
   showInstitutionNote = false,
 }: PageShellProps) {
   return (
@@ -26,7 +26,9 @@ export function PageShell({
             ].join(" ")}
           >
             <div>
-              <p className="text-sm uppercase tracking-[0.34em] text-ink/72">{eyebrow}</p>
+              {eyebrow ? (
+                <p className="text-sm uppercase tracking-[0.34em] text-ink/72">{eyebrow}</p>
+              ) : null}
               <h1 className="mt-4 break-words text-balance font-display text-4xl font-semibold leading-tight tracking-tight text-ink sm:text-5xl">
                 {title}
               </h1>
