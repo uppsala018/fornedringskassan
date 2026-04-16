@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 
 import { handlaggarnyttPosts } from "./handlaggarnytt/posts";
+import { siteUrl } from "@/lib/site-url";
 
 const routes = [
   "/",
@@ -24,7 +25,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const archiveRoutes = handlaggarnyttPosts.map((post) => post.route);
 
   return [...routes, ...archiveRoutes].map((route) => ({
-    url: `https://fornedringskassan.vercel.app${route}`,
+    url: siteUrl(route),
     lastModified: new Date(),
     changeFrequency: route === "/" ? "weekly" : "monthly",
     priority: route === "/" ? 1 : 0.8,

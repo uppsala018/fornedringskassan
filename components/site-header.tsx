@@ -13,11 +13,6 @@ type HeaderFrame = {
 };
 
 const headerFrames: Record<string, HeaderFrame> = {
-  "/nadalage": {
-    eyebrow: "Nådeläge",
-    subtitle: "En stilla paus för vila och värdighet",
-    helper: "En lugn väg bort från bedömning",
-  },
   "/arbetsformagebedomaren": {
     eyebrow: "Arbetsförmåga",
     subtitle: "Kvarvarande funktion",
@@ -32,16 +27,6 @@ const headerFrames: Record<string, HeaderFrame> = {
     eyebrow: "Överklagande",
     subtitle: "Samma beslut, ny läsning",
     helper: "Prövning i ny ordning",
-  },
-  "/spora-ditt-arende": {
-    eyebrow: "Ärendespårning",
-    subtitle: "Rörelse utan besked",
-    helper: "Aktiv status utan slutpunkt",
-  },
-  "/handlaggarnytt": {
-    eyebrow: "Intern bulletin",
-    subtitle: "Systemets egen bulletin",
-    helper: "Arkiv för rutin som förklarar sig själv",
   },
   "/musik/fornedringskassan": {
     eyebrow: "Musik",

@@ -5,11 +5,12 @@ import Link from "next/link";
 import { PageShell } from "@/components/page-shell";
 import { ReleaseShareButton } from "@/components/release-share-button";
 import { PunchlineStrip } from "@/components/punchline-strip";
+import { siteUrl } from "@/lib/site-url";
 
 const title = "Förnedringskassan | Elektrisk Revy";
 const description =
   'Lyssna på "Förnedringskassan" av Elektrisk Revy direkt på sidan. En satirisk singel med omslag, lokal uppspelning, HyperFollow och plats för fler lyssningslänkar.';
-const pageUrl = "https://fornedringskassan.vercel.app/musik/fornedringskassan";
+const pageUrl = siteUrl("/musik/fornedringskassan");
 const hyperfollowUrl =
   "https://distrokid.com/hyperfollow/elektriskrevy/frnedringskassan";
 const audioSrc = "/audio/fornedringskassan.mp3";

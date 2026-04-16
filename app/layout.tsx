@@ -3,11 +3,12 @@ import type { Metadata } from "next";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { siteDescription, siteName } from "@/lib/site";
+import { siteBaseUrl } from "@/lib/site-url";
 
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://fornedringskassan.vercel.app"),
+  metadataBase: new URL(siteBaseUrl),
   applicationName: siteName,
   title: siteName,
   description: siteDescription,

@@ -1,5 +1,7 @@
 import type { MetadataRoute } from "next";
 
+import { siteBaseUrl, siteUrl } from "@/lib/site-url";
+
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
@@ -8,7 +10,7 @@ export default function robots(): MetadataRoute.Robots {
         allow: "/",
       },
     ],
-    sitemap: "https://fornedringskassan.vercel.app/sitemap.xml",
-    host: "https://fornedringskassan.vercel.app",
+    sitemap: siteUrl("/sitemap.xml"),
+    host: siteBaseUrl,
   };
 }
