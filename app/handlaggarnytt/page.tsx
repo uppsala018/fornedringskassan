@@ -3,6 +3,8 @@ import Link from "next/link";
 
 import { PageShell } from "@/components/page-shell";
 import { PunchlineStrip } from "@/components/punchline-strip";
+import { jsonLd } from "@/lib/json-ld";
+import { siteUrl } from "@/lib/site-url";
 import { handlaggarnyttPosts } from "./posts";
 
 const title = "Handläggarnytt | officiella notiser från Förnedringskassan";
@@ -28,6 +30,23 @@ export const metadata: Metadata = {
 
 export default function HandlaggarnyttPage() {
   const posts = [...handlaggarnyttPosts].reverse();
+  const archiveJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: title,
+    description,
+    inLanguage: "sv-SE",
+    url: siteUrl("/handlaggarnytt"),
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: posts.map((post, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        url: siteUrl(post.route),
+        name: post.title,
+      })),
+    },
+  };
 
   return (
     <PageShell
@@ -39,6 +58,10 @@ export default function HandlaggarnyttPage() {
       <PunchlineStrip
         eyebrow="Handläggarnytt"
         punchline="Interna rörelser i ordnad stillhet"
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLd(archiveJsonLd) }}
       />
 
       <section className="rounded-dossier border border-steel/20 bg-paper p-6 sm:p-8">

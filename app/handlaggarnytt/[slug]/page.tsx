@@ -3,6 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { PageShell } from "@/components/page-shell";
+import { jsonLd } from "@/lib/json-ld";
+import { siteUrl } from "@/lib/site-url";
 
 import { getHandlaggarnyttPost, handlaggarnyttPosts } from "../posts";
 
@@ -48,6 +50,20 @@ export default async function HandlaggarnyttPostPage({ params }: { params: Promi
     notFound();
   }
 
+  const postJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.metadataTitle,
+    description: post.metadataDescription,
+    inLanguage: "sv-SE",
+    url: siteUrl(post.route),
+    mainEntityOfPage: siteUrl(post.route),
+    publisher: {
+      "@type": "Organization",
+      name: "Förnedringskassan",
+    },
+  };
+
   return (
     <PageShell
       title={post.title}
@@ -55,6 +71,10 @@ export default async function HandlaggarnyttPostPage({ params }: { params: Promi
       eyebrow="Handläggarnytt"
       showInstitutionNote={false}
     >
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLd(postJsonLd) }}
+      />
       <section className="rounded-dossier border border-steel/20 bg-paper p-6 sm:p-8">
         <div className="flex flex-wrap items-center gap-3">
           <span className="rounded-full border border-steel/20 bg-white/88 px-4 py-2 text-sm text-ink/76">

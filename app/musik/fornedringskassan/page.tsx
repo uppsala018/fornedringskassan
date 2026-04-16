@@ -5,6 +5,7 @@ import Link from "next/link";
 import { PageShell } from "@/components/page-shell";
 import { ReleaseShareButton } from "@/components/release-share-button";
 import { PunchlineStrip } from "@/components/punchline-strip";
+import { jsonLd } from "@/lib/json-ld";
 import { siteUrl } from "@/lib/site-url";
 
 const title = "Förnedringskassan | Elektrisk Revy";
@@ -15,6 +16,19 @@ const hyperfollowUrl =
   "https://distrokid.com/hyperfollow/elektriskrevy/frnedringskassan";
 const audioSrc = "/audio/fornedringskassan.mp3";
 const coverSrc = "/images/fornedringskassan-cover.png";
+const musicJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "MusicRecording",
+  name: title,
+  description,
+  inLanguage: "sv-SE",
+  url: pageUrl,
+  byArtist: {
+    "@type": "MusicGroup",
+    name: "Elektrisk Revy",
+  },
+  image: siteUrl(coverSrc),
+};
 
 export const metadata: Metadata = {
   title,
@@ -41,6 +55,10 @@ export default function MusikFornedringskassanPage() {
       eyebrow="Musik"
       showInstitutionNote={false}
     >
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLd(musicJsonLd) }}
+      />
       <PunchlineStrip
         eyebrow="Lyssning"
         punchline="En satirlåt i institutionell förpackning"

@@ -3,6 +3,8 @@ import Link from "next/link";
 
 import { PageShell } from "@/components/page-shell";
 import { PunchlineStrip } from "@/components/punchline-strip";
+import { jsonLd } from "@/lib/json-ld";
+import { siteUrl } from "@/lib/site-url";
 
 const title = "Frågor och svar | Förnedringskassan";
 const description =
@@ -78,6 +80,21 @@ const faqs = [
   },
 ] as const;
 
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.answer,
+    },
+  })),
+  inLanguage: "sv-SE",
+  url: siteUrl("/fragor-och-svar"),
+};
+
 export default function FAQPage() {
   return (
     <PageShell
@@ -89,6 +106,11 @@ export default function FAQPage() {
       <PunchlineStrip
         eyebrow="FAQ"
         punchline="Standardiserade svar på redan ordnade frågor"
+      />
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLd(faqJsonLd) }}
       />
 
       <section className="institution-card p-6 sm:p-8">

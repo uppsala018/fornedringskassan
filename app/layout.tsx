@@ -36,6 +36,7 @@ export const metadata: Metadata = {
     description: siteDescription,
     siteName,
     type: "website",
+    locale: "sv_SE",
   },
   twitter: {
     card: "summary_large_image",

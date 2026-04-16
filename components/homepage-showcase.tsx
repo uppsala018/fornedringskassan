@@ -6,6 +6,7 @@ import type { CSSProperties, FormEvent } from "react";
 
 import { LogoMark } from "@/components/logo-mark";
 import { PunchlineStrip } from "@/components/punchline-strip";
+import { siteUrl } from "@/lib/site-url";
 
 const actions = [
   ["/friskforklaring", "Bli friskförklarad", "Primär prövning", "Verklighet konverteras till underlag"],
@@ -161,6 +162,8 @@ const decision = (q: string) =>
     "Detta beslut är satiriskt, fiktivt och fullt möjligt att kopiera som text.",
   ].join(" ");
 
+const homepageUrl = siteUrl("/");
+
 export function HomepageShowcase() {
   const modalRef = useRef<HTMLDivElement | null>(null);
   const progTimer = useRef<number | null>(null);
@@ -287,7 +290,7 @@ export function HomepageShowcase() {
   };
 
   const copyUrl = async () => {
-    await navigator.clipboard.writeText(window.location.href);
+    await navigator.clipboard.writeText(homepageUrl);
     setLinkCopied(true);
     window.setTimeout(() => setLinkCopied(false), 1400);
   };
@@ -295,7 +298,7 @@ export function HomepageShowcase() {
   const shareText = typed || full || "Jag fick ett beslut från Förnedringskassan.";
 
   const copyShareCaption = async () => {
-    const caption = `${shareText}\n\n${window.location.href}`;
+    const caption = `${shareText}\n\n${homepageUrl}`;
     await navigator.clipboard.writeText(caption);
     setShareCopied(true);
     window.setTimeout(() => setShareCopied(false), 1400);
@@ -310,12 +313,12 @@ export function HomepageShowcase() {
     await navigator.share({
       title: "Förnedringskassan",
       text: shareText,
-      url: window.location.href,
+      url: homepageUrl,
     });
   };
 
   const openShareTarget = async (target: ShareTarget) => {
-    const url = window.location.href;
+    const url = homepageUrl;
 
     if (target.kind === "link") {
       window.open(target.buildHref(url, shareText), "_blank", "noopener,noreferrer");
