@@ -44,6 +44,7 @@ const relatedLinks = [
   { href: "/avslagsbrev", label: "Avslagsbrev" },
   { href: "/spora-ditt-arende", label: "Spåra ditt ärende" },
   { href: "/handlaggarkedja", label: "Handläggarkedja" },
+  { href: "/handlaggarnytt", label: "Handläggarnytt" },
   { href: "/fragor-och-svar", label: "Frågor och svar" },
   { href: "/om", label: "Om projektet" },
 ] as const;

@@ -524,6 +524,21 @@ export function HomepageShowcase() {
         </aside>
       </section>
 
+      <section className="mt-12">
+        <div className="rounded-dossier border border-steel/20 bg-paper p-6 sm:p-7">
+          <p className="text-xs uppercase tracking-[0.3em] text-ink/72">Handläggarnytt</p>
+          <p className="mt-3 max-w-3xl text-base leading-8 text-ink/76">
+            Korta notiser om justeringar, väntan och andra små förskjutningar i samma ordning.
+          </p>
+          <Link
+            href="/handlaggarnytt"
+            className="mt-5 inline-flex min-h-11 items-center rounded-full border border-steel/20 bg-white/90 px-5 py-2.5 text-sm font-medium text-ink transition hover:border-steel/45 hover:bg-white"
+          >
+            Till Handläggarnytt
+          </Link>
+        </div>
+      </section>
+
       <section className="mt-12 grid gap-6 lg:grid-cols-[1.12fr_0.88fr]">
         <article className="bureaucratic-panel overflow-hidden rounded-dossier border border-steel/20 bg-ink p-8 text-paper shadow-docket">
           <p className="text-xs uppercase tracking-[0.3em] text-paper/60">Nådeläge</p>

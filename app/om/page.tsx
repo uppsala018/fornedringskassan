@@ -147,6 +147,12 @@ export default function OmPage() {
             Handläggarnytt
           </Link>
           <Link
+            href="/pressmeddelande"
+            className="rounded-full border border-steel/20 bg-white/90 px-4 py-2 text-sm text-ink transition hover:border-steel/45 hover:bg-white"
+          >
+            Pressmeddelande
+          </Link>
+          <Link
             href="/musik/fornedringskassan"
             className="rounded-full border border-steel/20 bg-white/90 px-4 py-2 text-sm text-ink transition hover:border-steel/45 hover:bg-white"
           >

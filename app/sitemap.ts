@@ -19,6 +19,7 @@ const routes = [
   "/fragor-och-svar",
   "/normalt-forekommande-arbeten",
   "/om",
+  "/pressmeddelande",
 ] as const;
 
 export default function sitemap(): MetadataRoute.Sitemap {

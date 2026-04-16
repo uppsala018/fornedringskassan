@@ -254,6 +254,126 @@ export const handlaggarnyttPosts: HandlaggarnyttPost[] = [
       },
     ],
   },
+  {
+    slug: "tillfalligt-fortydligande-av-arbetsformaga",
+    title: "TillfĂ¤lligt fĂ¶rtydligande av arbetsfĂ¶rmĂĄga",
+    summary:
+      "ArbetsfĂ¶rmĂĄgebegreppet ges en kortvarigt tydligare ram fĂ¶r att samma bedĂ¶mning ska kunna lĂ¤sas med mindre osĂ¤kerhet.",
+    intro:
+      "En tillfĂ¤llig precisering av hur arbetsfĂ¶rmĂĄga ska beskrivas nĂ¤r underlaget redan finns men fortfarande lĂ¤mnar utrymme fĂ¶r tvetydighet.",
+    route: "/handlaggarnytt/tillfalligt-fortydligande-av-arbetsformaga",
+    published: "16 april 2026",
+    metadataTitle: "TillfĂ¤lligt fĂ¶rtydligande av arbetsfĂ¶rmĂĄga | HandlĂ¤ggarnytt",
+    metadataDescription:
+      "En kort notis om att arbetsfĂ¶rmĂĄgebegreppet fĂĄr en tydligare ram under en begrĂ¤nsad period.",
+    sections: [
+      {
+        heading: "Vad fĂ¶rtydligas?",
+        body:
+          "Hur arbetsfĂ¶rmĂĄga ska lĂ¤sas i fĂ¶rhĂĄllande till befintliga underlag, sĂĄ att samma ord kan bĂ¤ra en nĂĄgot mindre diffus innebĂ¶rd.",
+      },
+      {
+        heading: "VarfĂ¶r nu?",
+        body:
+          "FĂ¶r att minska skillnaden mellan vad som redan bedĂ¶mts och hur det efterlĂ¤mnade sprĂĄket fortfarande uppfattas i fĂ¶ljande led.",
+      },
+      {
+        heading: "Vad pĂĄverkas inte?",
+        body:
+          "SjĂ¤lva riktningen i bedĂ¶mningen. Det Ă¤r fortfarande samma ordning, men med nĂĄgot tydligare kanter.",
+      },
+    ],
+  },
+  {
+    slug: "administrativ-samordning-mellan-besked-och-uppfoljning",
+    title: "Administrativ samordning mellan besked och uppfĂ¶ljning",
+    summary:
+      "Besked och uppfĂ¶ljning lĂ¤ggs nĂ¤rmare varandra fĂ¶r att samma Ă¤rende ska beskrivas mer enhetligt genom hela fĂ¶rloppet.",
+    intro:
+      "En samordning av hur ett besked lĂ¤mnas och hur det sedan fĂ¶ljs upp, sĂĄ att nĂ¤sta lĂ¤sning inte behĂ¶ver uppfinna samma ordning pĂĄ nytt.",
+    route: "/handlaggarnytt/administrativ-samordning-mellan-besked-och-uppfoljning",
+    published: "16 april 2026",
+    metadataTitle: "Administrativ samordning mellan besked och uppfĂ¶ljning | HandlĂ¤ggarnytt",
+    metadataDescription:
+      "En notis om att besked och uppfĂ¶ljning nu samordnas tydligare inom samma Ă¤rendefĂ¶rlopp.",
+    sections: [
+      {
+        heading: "Vad samordnas?",
+        body:
+          "Formuleringen av ett besked och den efterfĂ¶ljande beskrivningen av hur det ska fĂ¶rstĂĄs i nĂ¤sta led.",
+      },
+      {
+        heading: "Syftet",
+        body:
+          "Att minska risken fĂ¶r att uppfĂ¶ljningen lĂĄter som om den beskriver ett annat Ă¤rende Ă¤n det som just avslutats.",
+      },
+      {
+        heading: "Praktisk fĂ¶ljd",
+        body:
+          "Samma Ă¤rende kan fortsĂ¤tta genom systemen med lite mindre sprĂĄklig friktion och lite mer intern Ă¶verensstĂ¤mmelse.",
+      },
+    ],
+  },
+  {
+    slug: "utokad-anvandning-av-standardiserade-formuleringar",
+    title: "UtĂ¶kad anvĂ¤ndning av standardiserade formuleringar",
+    summary:
+      "Standardiserade formuleringar fĂĄr bredare anvĂ¤ndning fĂ¶r att samma svar ska kunna lĂĄta samlat Ă¤ven i skilda delar av flĂ¶det.",
+    intro:
+      "En utvidgning av de fasta formuleringarna i den interna textmassan, avsedd att ge fler besked samma ton utan att de behĂ¶ver bli identiska pĂĄ ytan.",
+    route: "/handlaggarnytt/utokad-anvandning-av-standardiserade-formuleringar",
+    published: "16 april 2026",
+    metadataTitle: "UtĂ¶kad anvĂ¤ndning av standardiserade formuleringar | HandlĂ¤ggarnytt",
+    metadataDescription:
+      "En kort bulletin om att standardiserade formuleringar nu anvĂ¤nds bredare i intern handlĂ¤ggning.",
+    sections: [
+      {
+        heading: "Vad blir standardiserat?",
+        body:
+          "Formuleringar om mottagning, vĂ¤ntan och ĂĄterkoppling fĂĄr samma grundton oavsett vilket steg som beskriver dem.",
+      },
+      {
+        heading: "VarfĂ¶r breddas det?",
+        body:
+          "FĂ¶r att den interna texten ska uppfattas som mer sammanhĂĄllen nĂ¤r samma Ă¤rende passerar flera led.",
+      },
+      {
+        heading: "Vad fĂ¶rblir ofĂ¶rĂ¤ndrat?",
+        body:
+          "SjĂ¤lva innehĂĄllet i beskedet. Det Ă¤r fortfarande samma sak, bara mer enhetligt formulerad.",
+      },
+    ],
+  },
+  {
+    slug: "teknisk-justering-av-sporning-vantetid-och-status",
+    title: "Teknisk justering av spĂĄrning, vĂ¤ntetid och status",
+    summary:
+      "SpĂĄrningen fĂĄr en mindre teknisk justering sĂĄ att status, vĂ¤ntetid och lĂ¤ge kan beskrivas med nĂĄgot stabilare ordning.",
+    intro:
+      "En liten teknisk anpassning i hur Ă¤rendestatus och vĂ¤ntetider ĂĄterges, sĂĄ att samma fĂ¶rflyttning inte behĂ¶ver se olika ut beroende pĂĄ nĂ¤r den lĂ¤ses.",
+    route: "/handlaggarnytt/teknisk-justering-av-sporning-vantetid-och-status",
+    published: "16 april 2026",
+    metadataTitle: "Teknisk justering av spĂĄrning, vĂ¤ntetid och status | HandlĂ¤ggarnytt",
+    metadataDescription:
+      "En notis om en teknisk justering som stabiliserar hur spĂĄrning, vĂ¤ntetid och status ĂĄterges.",
+    sections: [
+      {
+        heading: "Vad justeras?",
+        body:
+          "Hur statusfĂ¤lt, vĂ¤ntetider och rĂ¶relse i ett Ă¤rende presenteras internt sĂĄ att de lĂ¤ses mer konsekvent.",
+      },
+      {
+        heading: "VarfĂ¶r nu?",
+        body:
+          "FĂ¶r att minska smĂĄ skillnader mellan vad systemet visar och hur samma lĂ¤ge beskrivs i ĂĄterkommande notiser.",
+      },
+      {
+        heading: "Vad mĂ¤rks utĂĄt?",
+        body:
+          "Att statusen ser nĂĄgot mer stabil ut, utan att fĂ¶r den skull innebĂ¤ra nĂĄgon snabbare handlĂ¤ggning.",
+      },
+    ],
+  },
 ];
 
 export function getHandlaggarnyttPost(slug: string) {
