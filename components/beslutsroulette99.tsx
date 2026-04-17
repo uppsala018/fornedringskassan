@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useMemo, useRef, useState } from "react";
 
+import { DocumentActions } from "@/components/document-actions";
+
 type ReviewSpeed = "ingen" | "kort" | "oklart" | "tillracklig";
 type SupportState = "ja" | "nej" | "osakert";
 type DecisionKind = "godkand" | "avslag" | "omprovning" | "komplettering" | "uppskjuten" | "kvarstar";
@@ -920,6 +922,17 @@ export function Beslutsroulette() {
                 {exportLabel}
               </button>
             </div>
+          </div>
+
+          <div className="mt-4">
+            <DocumentActions
+              title={decision ? decision.heading : "Beslutsroulette"}
+              text={decision ? decision.copyText : ""}
+              pdfFilename={`beslutsroulette-${decision ? decision.diaryNumber.toLowerCase().replaceAll("/", "-") : "utkast"}.pdf`}
+              sharePath="/beslutsroulette"
+              shareTitle={decision ? decision.heading : "Beslutsroulette"}
+              buttonLabel="Beslutshandling"
+            />
           </div>
 
           <div className="mt-5 rounded-[1.35rem] border border-steel/15 bg-paper p-5">

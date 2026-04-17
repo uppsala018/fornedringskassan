@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 
+import { DocumentActions } from "@/components/document-actions";
 import { PageShell } from "@/components/page-shell";
 import { statusMicrocopy } from "@/lib/microcopy";
 
@@ -200,6 +201,16 @@ export function HandlaggarkedjaSimulator() {
 
     return "Vid nästa kontakt förs ärendet vidare till ytterligare funktion med högre formalitetsgrad och lägre känsla av ägarskap.";
   }, [canAdvance]);
+  const documentText = [
+    `Aktuell handläggare: ${stage.title}`,
+    `Avdelning: ${stage.department}`,
+    `Hållning: ${stage.posture}`,
+    response ? `Senaste återkoppling: ${response}` : "Senaste återkoppling: ännu ingen direkt återkoppling har aktiverats.",
+    `Nästa förskjutning: ${nextHint}`,
+    history.length
+      ? `Historik:\n${history.map((entry) => `- Steg ${entry.stage}: ${entry.action}`).join("\n")}`
+      : "Historik: inga förskjutningar ännu.",
+  ].join("\n\n");
 
   function handleAction(action: PromptAction) {
     setLastAction(action);
@@ -276,6 +287,17 @@ export function HandlaggarkedjaSimulator() {
               Nästa förskjutning
             </p>
             <p className="mt-3 text-sm leading-7 text-ink/76">{nextHint}</p>
+          </div>
+
+          <div className="mt-4">
+            <DocumentActions
+              title="Handläggarkedja"
+              text={documentText}
+              pdfFilename={`handlaggarkedja-${stageIndex + 1}.pdf`}
+              sharePath="/handlaggarkedja"
+              shareTitle="Handläggarkedja"
+              buttonLabel="Kedjehandling"
+            />
           </div>
 
           <div className="mt-6">

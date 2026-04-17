@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 
+import { DocumentActions } from "@/components/document-actions";
+
 type Tone = "neutral" | "sakligt-hoppfull" | "institutionellt-uppmuntrande";
 type Mode = "examples" | "custom";
 
@@ -795,6 +797,17 @@ export function Arbetsformagebedomaren() {
               {exportLabel}
             </button>
           </div>
+        </div>
+
+        <div className="mt-4">
+          <DocumentActions
+            title={generated ? "Arbetsförmågebedömaren" : "Arbetsförmågebedömaren"}
+            text={generated ? generated.copyText : ""}
+            pdfFilename={`arbetsformagebedomaren-${generated ? generated.referenceNumber.toLowerCase() : "utkast"}.pdf`}
+            sharePath="/arbetsformagebedomaren"
+            shareTitle={generated ? generated.referenceNumber : "Arbetsförmågebedömaren"}
+            buttonLabel="Beslutshandling"
+          />
         </div>
 
         {generated ? (

@@ -2,6 +2,8 @@
 
 import { useMemo, useState } from "react";
 
+import { DocumentActions } from "@/components/document-actions";
+
 type FormState = {
   matter: string;
   understanding: string;
@@ -257,9 +259,20 @@ export function OverklagaBeslutGenerator() {
           </p>
           <p className="mt-4 whitespace-pre-line text-base leading-8 text-ink">
             {outcome
-              ? `${outcome.body}\n\n${outcome.ending}`
-              : "Det tidigare beslutet står tills vidare fast, i väntan på att ett överklagande ska ange sig självt."}
+            ? `${outcome.body}\n\n${outcome.ending}`
+            : "Det tidigare beslutet står tills vidare fast, i väntan på att ett överklagande ska ange sig självt."}
           </p>
+        </div>
+
+        <div className="mt-4">
+          <DocumentActions
+            title={outcome ? outcome.header : "Överklaga beslut"}
+            text={outcome ? `${outcome.header}\nDiarienummer: ${outcome.diaryNumber}\n\n${outcome.fullText}` : ""}
+            pdfFilename={`overklaga-beslut-${outcome ? outcome.diaryNumber.toLowerCase() : "utkast"}.pdf`}
+            sharePath="/overklaga-beslut"
+            shareTitle={outcome ? outcome.header : "Överklaga beslut"}
+            buttonLabel="Beslutshandling"
+          />
         </div>
 
         <div className="mt-5 flex flex-wrap gap-3">

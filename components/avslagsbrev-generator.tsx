@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { type FormEvent, useMemo, useState } from "react";
 
+import { DocumentActions } from "@/components/document-actions";
 import { PageShell } from "@/components/page-shell";
 import { statusMicrocopy } from "@/lib/microcopy";
 
@@ -452,11 +453,11 @@ export function AvslagsbrevGenerator() {
             </div>
           </div>
 
-          <div className="grid gap-8 px-5 py-7 sm:px-8 lg:grid-cols-[1.15fr_0.85fr]">
-            <article className="rounded-[1.5rem] border border-steel/15 bg-paper p-5 sm:p-6">
-              <p className="whitespace-pre-line text-base leading-8 text-ink">
-                {letter.fullText}
-              </p>
+        <div className="grid gap-8 px-5 py-7 sm:px-8 lg:grid-cols-[1.15fr_0.85fr]">
+          <article className="rounded-[1.5rem] border border-steel/15 bg-paper p-5 sm:p-6">
+            <p className="whitespace-pre-line text-base leading-8 text-ink">
+              {letter.fullText}
+            </p>
             </article>
 
             <aside className="space-y-4">
@@ -519,6 +520,17 @@ export function AvslagsbrevGenerator() {
                 </Link>
               </div>
             </aside>
+          </div>
+
+          <div className="px-5 pb-5 sm:px-8">
+            <DocumentActions
+              title={letter.title}
+              text={`${letter.title}\nDiarienummer: ${letter.diaryNumber}\nDatum: ${new Date().toLocaleDateString("sv-SE")}\n\n${letter.fullText}`}
+              pdfFilename={`premiumavslag-${letter.diaryNumber.toLowerCase().replaceAll("/", "-")}.pdf`}
+              sharePath="/avslagsbrev"
+              shareTitle={letter.title}
+              buttonLabel="Brevhandling"
+            />
           </div>
         </section>
       ) : (

@@ -3,6 +3,8 @@
 import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
 import { useMemo, useState } from "react";
 
+import { DocumentActions } from "@/components/document-actions";
+
 type Tone = "neutral" | "formellt-positiv" | "orimligt-valvillig";
 type Adaptation = "liten" | "måttlig" | "omfattande" | "mycket omfattande";
 
@@ -1058,6 +1060,17 @@ export function CvGenerator() {
               <span>Fiktiv arbetsprofil</span>
               <span>Skapad för delning och intern ordning</span>
             </div>
+
+            <DocumentActions
+              className="mt-4"
+              title="CV-generator"
+              text={generated.copyText}
+              pdfFilename={`cv-generator-${generated.referenceNumber.toLowerCase().replaceAll("/", "-")}.pdf`}
+              sharePath="/cv-generator"
+              shareTitle={generated.name}
+              buttonLabel="Delningsrad"
+              showSave={false}
+            />
           </div>
         ) : (
           <div className="mt-6 rounded-[1.35rem] border border-dashed border-steel/25 bg-paper/85 p-5 text-base leading-8 text-ink/72">

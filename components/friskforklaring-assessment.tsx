@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { type FormEvent, useMemo, useState } from "react";
 
+import { DocumentActions } from "@/components/document-actions";
 import { PageShell } from "@/components/page-shell";
 import { statusMicrocopy } from "@/lib/microcopy";
 
@@ -144,6 +145,16 @@ export function FriskforklaringAssessment() {
       })),
     [formState],
   );
+  const decisionDocumentText = decision
+    ? [
+        decision.rubric,
+        `Diarienummer: ${decision.diaryNumber}`,
+        `Beslutsdatum: ${new Date().toLocaleDateString("sv-SE")}`,
+        decision.body,
+        `Motivering: ${decision.motivation}`,
+        `Omprövningsfönster: ${decision.reviewWindow}`,
+      ].join("\n\n")
+    : "";
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -373,6 +384,17 @@ export function FriskforklaringAssessment() {
               </dl>
               <p className="mt-5 text-sm leading-7 text-ink/76">{decision.reviewWindow}</p>
             </aside>
+          </div>
+
+          <div className="px-5 pb-5 sm:px-8">
+            <DocumentActions
+              title={decision.rubric}
+              text={decisionDocumentText}
+              pdfFilename={`friskforklaring-${decision.diaryNumber.toLowerCase().replaceAll("/", "-")}.pdf`}
+              sharePath="/friskforklaring"
+              shareTitle="Friskförklaring"
+              buttonLabel="Beslutshandling"
+            />
           </div>
         </section>
       ) : (
