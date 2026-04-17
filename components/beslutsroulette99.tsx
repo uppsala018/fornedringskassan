@@ -81,6 +81,22 @@ function describeWheelPocket(startAngle: number, endAngle: number) {
   ].join(" ");
 }
 
+function normalizeDegrees(degrees: number) {
+  return ((degrees % 360) + 360) % 360;
+}
+
+function getWheelIndexForRotation(currentRotation: number) {
+  const step = 360 / wheelSlotCount;
+  const pointerAngle = normalizeDegrees(currentRotation);
+  const alignedAngle = normalizeDegrees(360 - pointerAngle);
+
+  return Math.round(alignedAngle / step) % wheelSlotCount;
+}
+
+function getWheelNumberForRotation(currentRotation: number) {
+  return rouletteOrder[getWheelIndexForRotation(currentRotation)];
+}
+
 const kindCatalog: Record<
   DecisionKind,
   {
@@ -480,13 +496,6 @@ function getDecisionKind(number: number): DecisionKind {
   return "kvarstar";
 }
 
-function getWheelRotation(targetNumber: number) {
-  const targetIndex = rouletteOrder.indexOf(targetNumber as (typeof rouletteOrder)[number]);
-  const step = 360 / wheelSlotCount;
-  const center = (targetIndex >= 0 ? targetIndex : 0) * step;
-  return (360 - center) % 360;
-}
-
 function playTone(
   context: AudioContext,
   frequency: number,
@@ -647,8 +656,10 @@ export function Beslutsroulette() {
       await audioContext.resume();
     }
 
-    const resultNumber = rouletteOrder[Math.floor(Math.random() * wheelSlotCount)];
-    const targetRotation = rotation + 5 * 360 + getWheelRotation(resultNumber);
+    const targetIndex = Math.floor(Math.random() * wheelSlotCount);
+    const targetNumber = rouletteOrder[targetIndex];
+    const step = 360 / wheelSlotCount;
+    const targetRotation = rotation + 5 * 360 + ((wheelSlotCount - targetIndex) % wheelSlotCount) * step;
 
     setIsSpinning(true);
     setDecision(null);
@@ -662,14 +673,15 @@ export function Beslutsroulette() {
       }, 125);
       stopTimerRef.current = window.setTimeout(() => {
         stopTicking();
-        playTone(audioContext, resultNumber === 0 ? 560 : 180, 0.18, 0.035, "triangle");
+        playTone(audioContext, targetNumber === 0 ? 560 : 180, 0.18, 0.035, "triangle");
       }, 4300);
     }
 
     window.setTimeout(() => {
       stopTicking();
-      const nextDecision = buildDecision(resultNumber);
-      setNumber(resultNumber);
+      const landedNumber = getWheelNumberForRotation(targetRotation);
+      const nextDecision = buildDecision(landedNumber);
+      setNumber(landedNumber);
       setDecision(nextDecision);
       setIsSpinning(false);
     }, 4500);
