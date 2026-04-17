@@ -47,8 +47,39 @@ const supportOptions: Array<{ value: SupportState; label: string }> = [
   { value: "osakert", label: "Osäkert" },
 ];
 
-const wheelSlotCount = 60;
-const wheelNumbers = Array.from({ length: wheelSlotCount }, (_, index) => index);
+const rouletteOrder = [
+  0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10, 5,
+  24, 16, 33, 1, 20, 14, 31, 9, 22, 18, 29, 7, 28, 12, 35, 3, 26,
+] as const;
+const wheelSlotCount = rouletteOrder.length;
+
+function polarPoint(centerX: number, centerY: number, radius: number, angle: number) {
+  const radians = ((angle - 90) * Math.PI) / 180;
+
+  return {
+    x: centerX + radius * Math.cos(radians),
+    y: centerY + radius * Math.sin(radians),
+  };
+}
+
+function describeWheelPocket(startAngle: number, endAngle: number) {
+  const center = 50;
+  const outerRadius = 43.5;
+  const innerRadius = 28.5;
+  const outerStart = polarPoint(center, center, outerRadius, startAngle);
+  const outerEnd = polarPoint(center, center, outerRadius, endAngle);
+  const innerStart = polarPoint(center, center, innerRadius, startAngle);
+  const innerEnd = polarPoint(center, center, innerRadius, endAngle);
+  const largeArcFlag = endAngle - startAngle > 180 ? 1 : 0;
+
+  return [
+    `M ${outerStart.x} ${outerStart.y}`,
+    `A ${outerRadius} ${outerRadius} 0 ${largeArcFlag} 1 ${outerEnd.x} ${outerEnd.y}`,
+    `L ${innerEnd.x} ${innerEnd.y}`,
+    `A ${innerRadius} ${innerRadius} 0 ${largeArcFlag} 0 ${innerStart.x} ${innerStart.y}`,
+    "Z",
+  ].join(" ");
+}
 
 const kindCatalog: Record<
   DecisionKind,
@@ -442,16 +473,17 @@ async function exportDecisionAsPng(decision: RouletteDecision) {
 
 function getDecisionKind(number: number): DecisionKind {
   if (number === 0) return "godkand";
-  if (number < 13) return "avslag";
-  if (number < 25) return "omprovning";
-  if (number < 37) return "komplettering";
-  if (number < 49) return "uppskjuten";
+  if (number < 8) return "avslag";
+  if (number < 15) return "omprovning";
+  if (number < 22) return "komplettering";
+  if (number < 29) return "uppskjuten";
   return "kvarstar";
 }
 
 function getWheelRotation(targetNumber: number) {
+  const targetIndex = rouletteOrder.indexOf(targetNumber as (typeof rouletteOrder)[number]);
   const step = 360 / wheelSlotCount;
-  const center = targetNumber * step + step / 2;
+  const center = (targetIndex >= 0 ? targetIndex : 0) * step;
   return (360 - center) % 360;
 }
 
@@ -494,39 +526,21 @@ export function Beslutsroulette() {
   const stopTimerRef = useRef<number | null>(null);
 
   const wheelSegments = useMemo(() => {
-    return wheelNumbers.map((value) => {
-      const angle = (value / wheelSlotCount) * 360;
+    return rouletteOrder.map((value, index) => {
       const segmentSize = 360 / wheelSlotCount;
+      const centerAngle = index * segmentSize;
+      const isZero = value === 0;
+
       return {
         value,
-        angle,
-        centerAngle: angle + segmentSize / 2,
-        startAngle: angle,
-        endAngle: angle + segmentSize,
-        color: value === 0 ? "#0f8f4b" : "#080808",
+        centerAngle,
+        startAngle: centerAngle - segmentSize / 2,
+        endAngle: centerAngle + segmentSize / 2,
+        fill: isZero ? "url(#greenPocket)" : "url(#blackPocket)",
+        textColor: isZero ? "#eaffef" : "#fff8e8",
       };
     });
   }, []);
-  const wheelBackground = useMemo(() => {
-    const divider = "#fffaf0";
-    const parts = wheelSegments.flatMap((segment) => {
-      const dividerWidth = 0.11;
-      const colorStart = segment.startAngle + dividerWidth;
-      const colorEnd = segment.endAngle - dividerWidth;
-
-      return [
-        `${divider} ${segment.startAngle}deg ${colorStart}deg`,
-        `${segment.color} ${colorStart}deg ${colorEnd}deg`,
-        `${divider} ${colorEnd}deg ${segment.endAngle}deg`,
-      ];
-    });
-
-    return [
-      "radial-gradient(circle at 50% 48%, rgba(255,255,255,0.12) 0 8%, rgba(255,255,255,0.02) 22%, rgba(0,0,0,0.2) 66%, rgba(0,0,0,0.72) 100%)",
-      "radial-gradient(circle at 34% 24%, rgba(255,255,255,0.16), transparent 24%)",
-      `conic-gradient(from -90deg, ${parts.join(", ")})`,
-    ].join(", ");
-  }, [wheelSegments]);
 
   const selectedSupportLabel = supportOptions.find((option) => option.value === formState.support)?.label ?? "Ja";
   const selectedReviewLabel = reviewSpeedOptions.find((option) => option.value === formState.reviewSpeed)?.label ?? "Ingen";
@@ -633,7 +647,7 @@ export function Beslutsroulette() {
       await audioContext.resume();
     }
 
-    const resultNumber = Math.floor(Math.random() * wheelSlotCount);
+    const resultNumber = rouletteOrder[Math.floor(Math.random() * wheelSlotCount)];
     const targetRotation = rotation + 5 * 360 + getWheelRotation(resultNumber);
 
     setIsSpinning(true);
@@ -705,7 +719,7 @@ export function Beslutsroulette() {
       </h2>
       <p className="mt-4 max-w-3xl text-base leading-8 text-ink/76">
         När en full genomgång inte hinns med kan ärendet avgöras i ett beslutshjul. 0 är godkänd.
-        1 till 59 är ej godkänd.
+        1 till 36 är ej godkänd.
       </p>
 
       <form
@@ -778,7 +792,7 @@ export function Beslutsroulette() {
                 <p className="mt-1 text-sm leading-6 text-ink/76">Grön. Godkänd i 7 dagar.</p>
               </div>
               <div className="rounded-2xl border border-steel/15 bg-paper p-4">
-                <p className="text-sm font-semibold text-ink">1–59</p>
+                <p className="text-sm font-semibold text-ink">1–36</p>
                 <p className="mt-1 text-sm leading-6 text-ink/76">Svart. Ej godkänd.</p>
               </div>
             </div>
@@ -835,61 +849,104 @@ export function Beslutsroulette() {
             </div>
             <div className="flex flex-wrap gap-2 text-xs uppercase tracking-[0.24em] text-ink/68">
               <span className="rounded-full border border-steel/15 bg-paper px-3 py-1.5">0 = Godkänd</span>
-              <span className="rounded-full border border-steel/15 bg-paper px-3 py-1.5">1–59 = Ej godkänd</span>
+              <span className="rounded-full border border-steel/15 bg-paper px-3 py-1.5">1–36 = Ej godkänd</span>
             </div>
           </div>
 
           <div className="relative mx-auto mt-6 aspect-square w-full max-w-[560px]">
-            <div className="absolute -inset-[5%] rounded-full bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.7)_0,rgba(255,255,255,0)_55%),linear-gradient(145deg,rgba(16,16,16,0.2),rgba(0,0,0,0.46))] blur-md" />
+            <div className="absolute -inset-[4%] rounded-full bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.65)_0,rgba(255,255,255,0)_52%),linear-gradient(145deg,rgba(74,39,13,0.16),rgba(0,0,0,0.4))] blur-md" />
             <div
-              className="absolute inset-0 overflow-hidden rounded-full border-[10px] border-[#16110c] shadow-[0_28px_70px_rgba(8,8,8,0.28),inset_0_0_0_2px_rgba(255,255,255,0.08),inset_0_0_0_12px_rgba(184,139,73,0.22)] transition-transform duration-[4600ms] ease-[cubic-bezier(0.12,0.82,0.18,1)]"
+              className="absolute inset-0 rounded-full transition-transform duration-[4600ms] ease-[cubic-bezier(0.12,0.82,0.18,1)]"
               style={{
                 transform: `rotate(${rotation}deg)`,
-                backgroundImage: wheelBackground,
               }}
             >
-              <div className="absolute inset-[3.2%] rounded-full border border-[#d8b779]/70 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.25)]" />
-              <div className="absolute inset-[17%] rounded-full border border-[#f7efe2]/70 shadow-[0_0_0_1px_rgba(0,0,0,0.42)]" />
-              <div className="absolute inset-[27%] rounded-full border border-[#d6ad65]/45 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.08),rgba(8,8,8,0.22)_58%,rgba(0,0,0,0.46))] shadow-[inset_0_0_24px_rgba(0,0,0,0.5)]" />
-              <div className="absolute inset-0">
+              <svg
+                viewBox="0 0 100 100"
+                className="h-full w-full overflow-visible drop-shadow-[0_26px_50px_rgba(19,13,8,0.32)]"
+                role="img"
+                aria-label="Beslutsroulette med grönt nollfält och svarta numrerade fält"
+              >
+                <defs>
+                  <radialGradient id="woodRim" cx="38%" cy="28%" r="70%">
+                    <stop offset="0%" stopColor="#f3d59a" />
+                    <stop offset="42%" stopColor="#9c5d23" />
+                    <stop offset="74%" stopColor="#4b220b" />
+                    <stop offset="100%" stopColor="#211006" />
+                  </radialGradient>
+                  <radialGradient id="innerBowl" cx="35%" cy="30%" r="70%">
+                    <stop offset="0%" stopColor="#f4d28c" />
+                    <stop offset="42%" stopColor="#a46724" />
+                    <stop offset="100%" stopColor="#4a2109" />
+                  </radialGradient>
+                  <linearGradient id="blackPocket" x1="0" x2="1" y1="0" y2="1">
+                    <stop offset="0%" stopColor="#2a2a2a" />
+                    <stop offset="45%" stopColor="#070707" />
+                    <stop offset="100%" stopColor="#1b1b1b" />
+                  </linearGradient>
+                  <linearGradient id="greenPocket" x1="0" x2="1" y1="0" y2="1">
+                    <stop offset="0%" stopColor="#1ca65b" />
+                    <stop offset="55%" stopColor="#08733c" />
+                    <stop offset="100%" stopColor="#064425" />
+                  </linearGradient>
+                </defs>
+
+                <circle cx="50" cy="50" r="49" fill="url(#woodRim)" stroke="#e6bd76" strokeWidth="1.2" />
+                <circle cx="50" cy="50" r="45.2" fill="#2b1207" stroke="#f3d69d" strokeWidth="0.8" />
+                <circle cx="50" cy="50" r="43.6" fill="#120c08" />
+
                 {wheelSegments.map((segment) => {
-                  const isZero = segment.value === 0;
+                  const numberPoint = polarPoint(50, 50, 38.8, segment.centerAngle);
+
                   return (
-                    <span
-                      key={segment.value}
-                      className={[
-                        "absolute left-1/2 top-1/2 flex h-5 w-5 select-none items-center justify-center text-[9px] font-semibold leading-none",
-                        isZero
-                          ? "text-white"
-                          : "text-[#fffaf0]",
-                      ].join(" ")}
-                      style={{
-                        transform: `translate(-50%, -50%) rotate(${segment.centerAngle}deg) translateY(-clamp(129px, 40vw, 236px)) rotate(-${segment.centerAngle}deg)`,
-                        textShadow: "0 1px 3px rgba(0,0,0,0.92)",
-                      }}
-                    >
-                      {segment.value}
-                    </span>
+                    <g key={segment.value}>
+                      <path
+                        d={describeWheelPocket(segment.startAngle, segment.endAngle)}
+                        fill={segment.fill}
+                        stroke="#fff7e8"
+                        strokeWidth="0.28"
+                        strokeLinejoin="round"
+                      />
+                      <text
+                        x={numberPoint.x}
+                        y={numberPoint.y}
+                        fill={segment.textColor}
+                        fontSize={segment.value === 0 ? 3.25 : 2.95}
+                        fontWeight="700"
+                        textAnchor="middle"
+                        dominantBaseline="central"
+                        transform={`rotate(${segment.centerAngle}, ${numberPoint.x}, ${numberPoint.y})`}
+                        style={{ textShadow: "0 1px 2px rgba(0,0,0,0.75)" }}
+                      >
+                        {segment.value}
+                      </text>
+                    </g>
                   );
                 })}
 
-                <div
-                  className={`absolute left-1/2 top-1/2 flex h-[30%] w-[30%] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-[5px] border-[#d7b06c] text-center shadow-[0_16px_42px_rgba(0,0,0,0.45),inset_0_0_0_1px_rgba(255,255,255,0.16)] transition-transform duration-300 ${
-                    isSpinning ? "scale-[1.03]" : "scale-100"
-                  }`}
-                  style={{
-                    background:
-                      number === 0
-                        ? "radial-gradient(circle at 35% 28%, rgba(255,255,255,0.22), transparent 34%), linear-gradient(180deg, rgba(20,135,74,0.98), rgba(9,61,36,0.98))"
-                        : "radial-gradient(circle at 35% 28%, rgba(255,255,255,0.14), transparent 34%), linear-gradient(180deg, rgba(24,24,24,0.98), rgba(5,5,5,0.98))",
-                  }}
-                >
-                  <div>
-                    <p className="text-[0.65rem] uppercase text-paper/70">{wheelCenterLabel}</p>
-                    <p className="mt-2 text-5xl font-semibold text-paper">{wheelCenterNumber}</p>
-                  </div>
-                </div>
-              </div>
+                <circle cx="50" cy="50" r="43.7" fill="none" stroke="#f6ddaa" strokeWidth="0.9" />
+                <circle cx="50" cy="50" r="28.4" fill="none" stroke="#fff7e8" strokeWidth="0.7" />
+                <circle cx="50" cy="50" r="25.8" fill="url(#innerBowl)" stroke="#5b2d10" strokeWidth="0.9" />
+                <circle cx="50" cy="50" r="11.8" fill="rgba(70,32,10,0.22)" stroke="#d6a052" strokeWidth="0.5" />
+                {[0, 72, 144, 216, 288].map((spoke) => {
+                  const end = polarPoint(50, 50, 25, spoke);
+                  return (
+                    <line
+                      key={spoke}
+                      x1="50"
+                      y1="50"
+                      x2={end.x}
+                      y2={end.y}
+                      stroke="#f1d59b"
+                      strokeWidth="0.45"
+                      strokeLinecap="round"
+                      opacity="0.72"
+                    />
+                  );
+                })}
+                <circle cx="50" cy="50" r="6" fill="#e8c071" stroke="#fff2c8" strokeWidth="0.8" />
+                <circle cx="50" cy="50" r="3.4" fill="#f5df9d" stroke="#9d6828" strokeWidth="0.6" />
+              </svg>
             </div>
 
             <div className="pointer-events-none absolute left-1/2 top-0 z-20 -translate-x-1/2">
