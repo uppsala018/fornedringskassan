@@ -6,7 +6,7 @@ import { Beslutsroulette } from "@/components/beslutsroulette99";
 
 const title = "Beslutsroulette | ordnad slump i myndighetston";
 const description =
-  "Snurra ett fiktivt beslutshjul där 0 ger tillfälligt bifall i 7 dagar och 1–99 ger ej godkänd. En satirisk snabbprövning hos Förnedringskassan.";
+  "Snurra ett fiktivt beslutshjul där 0 ger tillfälligt bifall i 7 dagar och 1-36 ger ej godkänt. En satirisk snabbprövning hos Förnedringskassan.";
 
 export const metadata: Metadata = {
   title,
@@ -38,7 +38,7 @@ export default function BeslutsroulettePage() {
   return (
     <PageShell
       title="Beslutsroulette"
-      intro="Om en full granskning inte hinns med kan ärendet avgöras i ordnad slump. 0 betyder godkänd i 7 dagar. 1–99 betyder ej godkänd."
+      intro="Om en full granskning inte hinns med kan ärendet avgöras i ordnad slump. 0 betyder godkänd i 7 dagar. 1-36 betyder ej godkänt."
       eyebrow="Beslutsfunktion"
       showInstitutionNote={false}
     >
