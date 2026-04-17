@@ -47,7 +47,8 @@ const supportOptions: Array<{ value: SupportState; label: string }> = [
   { value: "osakert", label: "Osäkert" },
 ];
 
-const wheelNumbers = Array.from({ length: 100 }, (_, index) => index);
+const wheelSlotCount = 60;
+const wheelNumbers = Array.from({ length: wheelSlotCount }, (_, index) => index);
 
 const kindCatalog: Record<
   DecisionKind,
@@ -441,15 +442,15 @@ async function exportDecisionAsPng(decision: RouletteDecision) {
 
 function getDecisionKind(number: number): DecisionKind {
   if (number === 0) return "godkand";
-  if (number < 20) return "avslag";
-  if (number < 40) return "omprovning";
-  if (number < 60) return "komplettering";
-  if (number < 80) return "uppskjuten";
+  if (number < 13) return "avslag";
+  if (number < 25) return "omprovning";
+  if (number < 37) return "komplettering";
+  if (number < 49) return "uppskjuten";
   return "kvarstar";
 }
 
 function getWheelRotation(targetNumber: number) {
-  const step = 360 / 100;
+  const step = 360 / wheelSlotCount;
   const center = targetNumber * step + step / 2;
   return (360 - center) % 360;
 }
@@ -494,8 +495,8 @@ export function Beslutsroulette() {
 
   const wheelSegments = useMemo(() => {
     return wheelNumbers.map((value) => {
-      const angle = (value / 100) * 360;
-      const segmentSize = 360 / 100;
+      const angle = (value / wheelSlotCount) * 360;
+      const segmentSize = 360 / wheelSlotCount;
       return {
         value,
         angle,
@@ -509,7 +510,7 @@ export function Beslutsroulette() {
   const wheelBackground = useMemo(() => {
     const divider = "#fffaf0";
     const parts = wheelSegments.flatMap((segment) => {
-      const dividerWidth = segment.value === 0 ? 0.1 : 0.075;
+      const dividerWidth = 0.11;
       const colorStart = segment.startAngle + dividerWidth;
       const colorEnd = segment.endAngle - dividerWidth;
 
@@ -521,8 +522,8 @@ export function Beslutsroulette() {
     });
 
     return [
-      "radial-gradient(circle at 50% 48%, rgba(255,255,255,0.18) 0 9%, rgba(255,255,255,0.035) 10% 43%, rgba(0,0,0,0.34) 68%, rgba(0,0,0,0.82) 100%)",
-      "radial-gradient(circle at 32% 24%, rgba(255,255,255,0.2), transparent 26%)",
+      "radial-gradient(circle at 50% 48%, rgba(255,255,255,0.12) 0 8%, rgba(255,255,255,0.02) 22%, rgba(0,0,0,0.2) 66%, rgba(0,0,0,0.72) 100%)",
+      "radial-gradient(circle at 34% 24%, rgba(255,255,255,0.16), transparent 24%)",
       `conic-gradient(from -90deg, ${parts.join(", ")})`,
     ].join(", ");
   }, [wheelSegments]);
@@ -632,7 +633,7 @@ export function Beslutsroulette() {
       await audioContext.resume();
     }
 
-    const resultNumber = Math.floor(Math.random() * 100);
+    const resultNumber = Math.floor(Math.random() * wheelSlotCount);
     const targetRotation = rotation + 5 * 360 + getWheelRotation(resultNumber);
 
     setIsSpinning(true);
@@ -704,7 +705,7 @@ export function Beslutsroulette() {
       </h2>
       <p className="mt-4 max-w-3xl text-base leading-8 text-ink/76">
         När en full genomgång inte hinns med kan ärendet avgöras i ett beslutshjul. 0 är godkänd.
-        1 till 99 är ej godkänd.
+        1 till 59 är ej godkänd.
       </p>
 
       <form
@@ -777,7 +778,7 @@ export function Beslutsroulette() {
                 <p className="mt-1 text-sm leading-6 text-ink/76">Grön. Godkänd i 7 dagar.</p>
               </div>
               <div className="rounded-2xl border border-steel/15 bg-paper p-4">
-                <p className="text-sm font-semibold text-ink">1–99</p>
+                <p className="text-sm font-semibold text-ink">1–59</p>
                 <p className="mt-1 text-sm leading-6 text-ink/76">Svart. Ej godkänd.</p>
               </div>
             </div>
@@ -834,7 +835,7 @@ export function Beslutsroulette() {
             </div>
             <div className="flex flex-wrap gap-2 text-xs uppercase tracking-[0.24em] text-ink/68">
               <span className="rounded-full border border-steel/15 bg-paper px-3 py-1.5">0 = Godkänd</span>
-              <span className="rounded-full border border-steel/15 bg-paper px-3 py-1.5">1–99 = Ej godkänd</span>
+              <span className="rounded-full border border-steel/15 bg-paper px-3 py-1.5">1–59 = Ej godkänd</span>
             </div>
           </div>
 
@@ -848,8 +849,8 @@ export function Beslutsroulette() {
               }}
             >
               <div className="absolute inset-[3.2%] rounded-full border border-[#d8b779]/70 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.25)]" />
-              <div className="absolute inset-[10.2%] rounded-full border border-[#f7efe2]/70 shadow-[0_0_0_1px_rgba(0,0,0,0.42)]" />
-              <div className="absolute inset-[18%] rounded-full border border-[#d6ad65]/45 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.08),rgba(8,8,8,0.22)_58%,rgba(0,0,0,0.46))] shadow-[inset_0_0_24px_rgba(0,0,0,0.5)]" />
+              <div className="absolute inset-[17%] rounded-full border border-[#f7efe2]/70 shadow-[0_0_0_1px_rgba(0,0,0,0.42)]" />
+              <div className="absolute inset-[27%] rounded-full border border-[#d6ad65]/45 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.08),rgba(8,8,8,0.22)_58%,rgba(0,0,0,0.46))] shadow-[inset_0_0_24px_rgba(0,0,0,0.5)]" />
               <div className="absolute inset-0">
                 {wheelSegments.map((segment) => {
                   const isZero = segment.value === 0;
@@ -857,14 +858,14 @@ export function Beslutsroulette() {
                     <span
                       key={segment.value}
                       className={[
-                        "absolute left-1/2 top-1/2 flex h-4 w-4 select-none items-center justify-center rounded-full text-[8px] font-semibold leading-none",
+                        "absolute left-1/2 top-1/2 flex h-5 w-5 select-none items-center justify-center text-[9px] font-semibold leading-none",
                         isZero
-                          ? "bg-[#0f8f4b] text-white shadow-[0_0_0_1px_rgba(255,255,255,0.92),0_0_12px_rgba(15,143,75,0.65)]"
+                          ? "text-white"
                           : "text-[#fffaf0]",
                       ].join(" ")}
                       style={{
-                        transform: `translate(-50%, -50%) rotate(${segment.centerAngle}deg) translateY(-clamp(125px, 41vw, 247px)) rotate(-${segment.centerAngle}deg)`,
-                        textShadow: isZero ? "none" : "0 1px 2px rgba(0,0,0,0.9)",
+                        transform: `translate(-50%, -50%) rotate(${segment.centerAngle}deg) translateY(-clamp(129px, 40vw, 236px)) rotate(-${segment.centerAngle}deg)`,
+                        textShadow: "0 1px 3px rgba(0,0,0,0.92)",
                       }}
                     >
                       {segment.value}
