@@ -495,13 +495,37 @@ export function Beslutsroulette() {
   const wheelSegments = useMemo(() => {
     return wheelNumbers.map((value) => {
       const angle = (value / 100) * 360;
+      const segmentSize = 360 / 100;
       return {
         value,
         angle,
-        color: value === 0 ? "#2d7d46" : "#101010",
+        centerAngle: angle + segmentSize / 2,
+        startAngle: angle,
+        endAngle: angle + segmentSize,
+        color: value === 0 ? "#0f8f4b" : "#080808",
       };
     });
   }, []);
+  const wheelBackground = useMemo(() => {
+    const divider = "#fffaf0";
+    const parts = wheelSegments.flatMap((segment) => {
+      const dividerWidth = segment.value === 0 ? 0.1 : 0.075;
+      const colorStart = segment.startAngle + dividerWidth;
+      const colorEnd = segment.endAngle - dividerWidth;
+
+      return [
+        `${divider} ${segment.startAngle}deg ${colorStart}deg`,
+        `${segment.color} ${colorStart}deg ${colorEnd}deg`,
+        `${divider} ${colorEnd}deg ${segment.endAngle}deg`,
+      ];
+    });
+
+    return [
+      "radial-gradient(circle at 50% 48%, rgba(255,255,255,0.18) 0 9%, rgba(255,255,255,0.035) 10% 43%, rgba(0,0,0,0.34) 68%, rgba(0,0,0,0.82) 100%)",
+      "radial-gradient(circle at 32% 24%, rgba(255,255,255,0.2), transparent 26%)",
+      `conic-gradient(from -90deg, ${parts.join(", ")})`,
+    ].join(", ");
+  }, [wheelSegments]);
 
   const selectedSupportLabel = supportOptions.find((option) => option.value === formState.support)?.label ?? "Ja";
   const selectedReviewLabel = reviewSpeedOptions.find((option) => option.value === formState.reviewSpeed)?.label ?? "Ingen";
@@ -815,29 +839,32 @@ export function Beslutsroulette() {
           </div>
 
           <div className="relative mx-auto mt-6 aspect-square w-full max-w-[560px]">
+            <div className="absolute -inset-[5%] rounded-full bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.7)_0,rgba(255,255,255,0)_55%),linear-gradient(145deg,rgba(16,16,16,0.2),rgba(0,0,0,0.46))] blur-md" />
             <div
-              className="absolute inset-0 rounded-full border border-steel/20 shadow-docket transition-transform duration-[4600ms] ease-[cubic-bezier(0.12,0.82,0.18,1)]"
+              className="absolute inset-0 overflow-hidden rounded-full border-[10px] border-[#16110c] shadow-[0_28px_70px_rgba(8,8,8,0.28),inset_0_0_0_2px_rgba(255,255,255,0.08),inset_0_0_0_12px_rgba(184,139,73,0.22)] transition-transform duration-[4600ms] ease-[cubic-bezier(0.12,0.82,0.18,1)]"
               style={{
                 transform: `rotate(${rotation}deg)`,
-                backgroundImage:
-                  "radial-gradient(circle at center, rgba(255,255,255,0.05) 0 46%, rgba(0,0,0,0.12) 46% 47%, transparent 47% 100%), repeating-conic-gradient(from -90deg, rgba(255,255,255,0.72) 0deg 0.14deg, transparent 0.14deg 3.6deg), repeating-conic-gradient(from -90deg, rgba(247,244,236,0.05) 0deg 0.12deg, transparent 0.12deg 3.6deg), conic-gradient(from -90deg, " +
-                  wheelSegments.map((segment) => `${segment.color} ${segment.angle}deg ${segment.angle + 3.6}deg`).join(", ") +
-                  ")",
+                backgroundImage: wheelBackground,
               }}
             >
-              <div className="absolute inset-[8%] rounded-full border border-paper/15 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.05),rgba(15,15,15,0.24))]">
-                <div className="absolute inset-[18%] rounded-full border border-paper/12 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.08),rgba(255,255,255,0.02))]" />
+              <div className="absolute inset-[3.2%] rounded-full border border-[#d8b779]/70 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.25)]" />
+              <div className="absolute inset-[10.2%] rounded-full border border-[#f7efe2]/70 shadow-[0_0_0_1px_rgba(0,0,0,0.42)]" />
+              <div className="absolute inset-[18%] rounded-full border border-[#d6ad65]/45 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.08),rgba(8,8,8,0.22)_58%,rgba(0,0,0,0.46))] shadow-[inset_0_0_24px_rgba(0,0,0,0.5)]" />
+              <div className="absolute inset-0">
                 {wheelSegments.map((segment) => {
                   const isZero = segment.value === 0;
-                  const labelColor = isZero ? "#d8efe0" : "#f3eee4";
                   return (
                     <span
                       key={segment.value}
-                      className="absolute left-1/2 top-1/2 select-none text-[10px] font-semibold leading-none tracking-tight"
+                      className={[
+                        "absolute left-1/2 top-1/2 flex h-4 w-4 select-none items-center justify-center rounded-full text-[8px] font-semibold leading-none",
+                        isZero
+                          ? "bg-[#0f8f4b] text-white shadow-[0_0_0_1px_rgba(255,255,255,0.92),0_0_12px_rgba(15,143,75,0.65)]"
+                          : "text-[#fffaf0]",
+                      ].join(" ")}
                       style={{
-                        color: labelColor,
-                        transform: `translate(-50%, -50%) rotate(${segment.angle + 1.8}deg) translateY(-clamp(128px, 33vw, 206px)) rotate(-${segment.angle + 1.8}deg)`,
-                        textShadow: "0 1px 2px rgba(0,0,0,0.55)",
+                        transform: `translate(-50%, -50%) rotate(${segment.centerAngle}deg) translateY(-clamp(125px, 41vw, 247px)) rotate(-${segment.centerAngle}deg)`,
+                        textShadow: isZero ? "none" : "0 1px 2px rgba(0,0,0,0.9)",
                       }}
                     >
                       {segment.value}
@@ -846,27 +873,27 @@ export function Beslutsroulette() {
                 })}
 
                 <div
-                  className={`absolute left-1/2 top-1/2 flex h-[28%] w-[28%] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-paper/12 text-center shadow-docket transition-transform duration-300 ${
+                  className={`absolute left-1/2 top-1/2 flex h-[30%] w-[30%] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-[5px] border-[#d7b06c] text-center shadow-[0_16px_42px_rgba(0,0,0,0.45),inset_0_0_0_1px_rgba(255,255,255,0.16)] transition-transform duration-300 ${
                     isSpinning ? "scale-[1.03]" : "scale-100"
                   }`}
                   style={{
                     background:
                       number === 0
-                        ? "linear-gradient(180deg, rgba(45,125,70,0.95), rgba(28,82,46,0.98))"
-                        : "linear-gradient(180deg, rgba(19,19,19,0.96), rgba(8,8,8,0.98))",
+                        ? "radial-gradient(circle at 35% 28%, rgba(255,255,255,0.22), transparent 34%), linear-gradient(180deg, rgba(20,135,74,0.98), rgba(9,61,36,0.98))"
+                        : "radial-gradient(circle at 35% 28%, rgba(255,255,255,0.14), transparent 34%), linear-gradient(180deg, rgba(24,24,24,0.98), rgba(5,5,5,0.98))",
                   }}
                 >
                   <div>
-                    <p className="text-[0.7rem] uppercase tracking-[0.3em] text-paper/70">{wheelCenterLabel}</p>
-                    <p className="mt-2 text-5xl font-semibold tracking-tight text-paper">{wheelCenterNumber}</p>
+                    <p className="text-[0.65rem] uppercase text-paper/70">{wheelCenterLabel}</p>
+                    <p className="mt-2 text-5xl font-semibold text-paper">{wheelCenterNumber}</p>
                   </div>
                 </div>
               </div>
             </div>
 
             <div className="pointer-events-none absolute left-1/2 top-0 z-20 -translate-x-1/2">
-              <div className="mx-auto h-0 w-0 border-b-[24px] border-l-[16px] border-r-[16px] border-b-ink border-l-transparent border-r-transparent" />
-              <div className="mx-auto mt-[-4px] h-5 w-5 rounded-full border border-paper/25 bg-paper shadow-[0_2px_10px_rgba(0,0,0,0.25)]" />
+              <div className="mx-auto h-0 w-0 border-b-[30px] border-l-[18px] border-r-[18px] border-b-[#12100d] border-l-transparent border-r-transparent drop-shadow-[0_4px_6px_rgba(0,0,0,0.35)]" />
+              <div className="mx-auto mt-[-5px] h-6 w-6 rounded-full border border-[#f4e7cf]/60 bg-[linear-gradient(180deg,#f7efe2,#b98f52)] shadow-[0_2px_10px_rgba(0,0,0,0.35)]" />
             </div>
           </div>
 
