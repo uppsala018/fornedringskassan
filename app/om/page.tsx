@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { DocumentActions } from "@/components/document-actions";
 import { PageShell } from "@/components/page-shell";
 
 const title = "Om Förnedringskassan | satirisk parodi på myndighetsspråk";
@@ -25,6 +26,14 @@ export const metadata: Metadata = {
 };
 
 export default function OmPage() {
+  const pageText = [
+    title,
+    description,
+    "Vad detta är: Webbplatsen är satir och språkskärpa i fiktiv myndighetsform.",
+    "Vad detta inte är: inte juridisk rådgivning, inte medicinsk rådgivning och inte officiell information.",
+    "Satirens riktning: mot byråkratiskt språk, ansvarsförskjutning och processer som gör människor till ärenden.",
+  ].join("\n\n");
+
   return (
     <PageShell
       title="Om Förnedringskassan"
@@ -166,6 +175,17 @@ export default function OmPage() {
           </Link>
         </div>
       </section>
+
+      <div className="pt-2">
+        <DocumentActions
+          title="Om Förnedringskassan"
+          text={pageText}
+          pdfFilename="om-fornedringskassan.pdf"
+          sharePath="/om"
+          shareTitle="Om Förnedringskassan"
+          buttonLabel="Sidhandling"
+        />
+      </div>
     </PageShell>
   );
 }

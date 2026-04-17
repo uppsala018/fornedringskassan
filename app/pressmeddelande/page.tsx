@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { DocumentActions } from "@/components/document-actions";
 import { PageShell } from "@/components/page-shell";
 import { siteUrl } from "@/lib/site-url";
 
@@ -30,6 +31,13 @@ export const metadata: Metadata = {
 };
 
 export default function PressmeddelandePage() {
+  const pageText = [
+    title,
+    description,
+    "Kort om projektet: fiktiv myndighetsparodi om hur språk, processer och distans kan få system att låta ordnade.",
+    "Vad sidan innehåller: om projektet, varför det finns, en satirisk avgränsning och länkar vidare till fler delar.",
+  ].join("\n\n");
+
   return (
     <PageShell
       title="Pressmeddelande"
@@ -128,10 +136,21 @@ export default function PressmeddelandePage() {
             href="/fragor-och-svar"
             className="rounded-full border border-steel/20 bg-white/90 px-4 py-2 text-sm text-ink transition hover:border-steel/45 hover:bg-white"
           >
-            Frågor och svar
+          Frågor och svar
           </Link>
         </div>
       </section>
+
+      <div className="pt-2">
+        <DocumentActions
+          title="Pressmeddelande"
+          text={pageText}
+          pdfFilename="pressmeddelande-fornedringskassan.pdf"
+          sharePath="/pressmeddelande"
+          shareTitle="Pressmeddelande"
+          buttonLabel="Sidhandling"
+        />
+      </div>
     </PageShell>
   );
 }

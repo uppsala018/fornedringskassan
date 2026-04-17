@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 
+import { DocumentActions } from "@/components/document-actions";
 import { PageShell } from "@/components/page-shell";
 import {
   globalApplyOutcomes,
@@ -91,6 +92,19 @@ export function NormaltForekommandeArbetenPage() {
 
     return shuffle(filteredJobs).slice(0, 9);
   }, [category, seed]);
+  const pageText = useMemo(
+    () =>
+      [
+        "Normalt förekommande arbeten",
+        "Arbetsförnedringen har tagit emot ärendet",
+        `Aktuellt filter: ${category}`,
+        ...visibleJobs.map(
+          (job) =>
+            `${job.title}\n${job.category} · ${job.location}\n${job.description}\nAnställningsform: ${job.employmentType}\nErsättningsmodell: ${job.compensation}`,
+        ),
+      ].join("\n\n"),
+    [category, visibleJobs],
+  );
 
   function handleApply(job: JobRecord) {
     setOutcomesById((current) => ({
@@ -263,6 +277,17 @@ export function NormaltForekommandeArbetenPage() {
           </article>
         ))}
       </section>
+
+      <div className="pt-2">
+        <DocumentActions
+          title="Normalt förekommande arbeten"
+          text={pageText}
+          pdfFilename="normalt-forekommande-arbeten.pdf"
+          sharePath="/normalt-forekommande-arbeten"
+          shareTitle="Normalt förekommande arbeten"
+          buttonLabel="Arbetshandling"
+        />
+      </div>
     </PageShell>
   );
 }

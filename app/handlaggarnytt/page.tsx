@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { DocumentActions } from "@/components/document-actions";
 import { PageShell } from "@/components/page-shell";
 import { jsonLd } from "@/lib/json-ld";
 import { siteUrl } from "@/lib/site-url";
@@ -29,6 +30,12 @@ export const metadata: Metadata = {
 
 export default function HandlaggarnyttPage() {
   const posts = [...handlaggarnyttPosts].reverse();
+  const archiveText = [
+    title,
+    description,
+    "Arkiv över interna notiser:",
+    ...posts.map((post) => `${post.title}\n${post.published}\n${post.summary}`),
+  ].join("\n\n");
   const archiveJsonLd = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
@@ -89,6 +96,17 @@ export default function HandlaggarnyttPage() {
           </article>
         ))}
       </section>
+
+      <div className="pt-2">
+        <DocumentActions
+          title="Handläggarnytt"
+          text={archiveText}
+          pdfFilename="handlaggarnytt-arkiv.pdf"
+          sharePath="/handlaggarnytt"
+          shareTitle="Handläggarnytt"
+          buttonLabel="Arkivhandling"
+        />
+      </div>
     </PageShell>
   );
 }

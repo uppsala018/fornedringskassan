@@ -2,6 +2,8 @@
 
 import { useMemo, useState } from "react";
 
+import { DocumentActions } from "@/components/document-actions";
+
 type SupportCategory = "Stillhet" | "Tröst" | "Värdighet";
 
 type SupportLine = {
@@ -62,6 +64,19 @@ export function NadalageView() {
         lines: supportLines.filter((line) => line.category === category).slice(0, 2),
       })),
     [],
+  );
+  const pageText = useMemo(
+    () =>
+      [
+        "Nådeläge",
+        "En stilla paus för vila och värdighet.",
+        `Aktuell rad: ${currentLine.category} · ${currentLine.text}`,
+        ...groupedLines.map(
+          (group) =>
+            `${group.category}\n${group.description}\n${group.lines.map((line) => `- ${line.text}`).join("\n")}`,
+        ),
+      ].join("\n\n"),
+    [currentLine, groupedLines],
   );
 
   return (
@@ -155,6 +170,17 @@ export function NadalageView() {
           ))}
         </div>
       </section>
+
+      <div className="mt-8">
+        <DocumentActions
+          title="Nådeläge"
+          text={pageText}
+          pdfFilename="nadalage.pdf"
+          sharePath="/nadalage"
+          shareTitle="Nådeläge"
+          buttonLabel="Vilohandling"
+        />
+      </div>
     </section>
   );
 }

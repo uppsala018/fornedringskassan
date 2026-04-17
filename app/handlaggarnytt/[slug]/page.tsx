@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { DocumentActions } from "@/components/document-actions";
 import { PageShell } from "@/components/page-shell";
 import { jsonLd } from "@/lib/json-ld";
 import { siteUrl } from "@/lib/site-url";
@@ -49,6 +50,13 @@ export default async function HandlaggarnyttPostPage({ params }: { params: Promi
   if (!post) {
     notFound();
   }
+
+  const pageText = [
+    post.title,
+    post.published,
+    post.summary,
+    ...post.sections.map((section) => `${section.heading}\n${section.body}`),
+  ].join("\n\n");
 
   const postJsonLd = {
     "@context": "https://schema.org",
@@ -123,10 +131,21 @@ export default async function HandlaggarnyttPostPage({ params }: { params: Promi
             href="/beslutsroulette"
             className="rounded-full border border-steel/20 bg-white/90 px-4 py-2 text-sm text-ink transition hover:border-steel/45 hover:bg-white"
           >
-            Beslutsroulette
+          Beslutsroulette
           </Link>
         </div>
       </section>
+
+      <div className="pt-2">
+        <DocumentActions
+          title={post.title}
+          text={pageText}
+          pdfFilename={`${post.slug}.pdf`}
+          sharePath={post.route}
+          shareTitle={post.title}
+          buttonLabel="Notishandling"
+        />
+      </div>
     </PageShell>
   );
 }

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { DocumentActions } from "@/components/document-actions";
 import { PageShell } from "@/components/page-shell";
 import { jsonLd } from "@/lib/json-ld";
 import { siteUrl } from "@/lib/site-url";
@@ -95,6 +96,12 @@ const faqJsonLd = {
 };
 
 export default function FAQPage() {
+  const faqText = [
+    title,
+    description,
+    ...faqs.map((item) => `${item.question}\n${item.answer}`),
+  ].join("\n\n");
+
   return (
     <PageShell
       title="Frågor och svar"
@@ -174,6 +181,17 @@ export default function FAQPage() {
           </Link>
         </div>
       </section>
+
+      <div className="pt-2">
+        <DocumentActions
+          title="Frågor och svar"
+          text={faqText}
+          pdfFilename="fragor-och-svar.pdf"
+          sharePath="/fragor-och-svar"
+          shareTitle="Frågor och svar"
+          buttonLabel="FAQ-handling"
+        />
+      </div>
     </PageShell>
   );
 }

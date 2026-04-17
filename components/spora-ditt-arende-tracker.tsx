@@ -2,6 +2,8 @@
 
 import { useMemo, useState } from "react";
 
+import { DocumentActions } from "@/components/document-actions";
+
 type MatterType = "beslut" | "omprovning" | "komplettering" | "ovrigt";
 
 type TrackingResult = {
@@ -141,6 +143,21 @@ export function SporaDittArendeTracker() {
       ["Ärendetyp", matterOptions.find((option) => option.value === matterType)?.label ?? "Beslut"],
     ],
     [reference, matterType],
+  );
+  const documentText = useMemo(
+    () =>
+      result
+        ? [
+            "Spåra ditt ärende",
+            `Diarienummer: ${result.diaryNumber}`,
+            `Status: ${result.status}`,
+            result.note,
+            `Nästa steg: ${result.nextStep}`,
+            "Intern rörelse:",
+            ...result.timeline.map((item) => `- ${item}`),
+          ].join("\n\n")
+        : "",
+    [result],
   );
 
   function generate() {
@@ -300,6 +317,19 @@ export function SporaDittArendeTracker() {
               {copyLabel}
             </button>
         </div>
+
+        {result ? (
+          <div className="mt-5">
+            <DocumentActions
+              title="Spåra ditt ärende"
+              text={documentText}
+              pdfFilename={`arende-status-${result.diaryNumber.toLowerCase().replaceAll("/", "-")}.pdf`}
+              sharePath="/spora-ditt-arende"
+              shareTitle="Spåra ditt ärende"
+              buttonLabel="Statushandling"
+            />
+          </div>
+        ) : null}
       </div>
     </section>
   );
