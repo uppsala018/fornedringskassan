@@ -20,7 +20,10 @@ export function SiteFooter() {
               ? "Den här sidan är en stilla paus inom samma webbplats. Här finns inget att bedöma just nu."
               : isMusic
                 ? "Den här utgåvan hör till samma värld som resten av sajten, men står här som en egen release med ljud, omslag och lyssningsvägar."
-              : "Förnedringskassan är satir och ska inte förväxlas med någon verklig myndighet, rådgivningstjänst eller formellt beslutsorgan."}
+                : "Förnedringskassan är satir och ska inte förväxlas med någon verklig myndighet, rådgivningstjänst eller formellt beslutsorgan."}
+          </p>
+          <p className="mt-4 max-w-2xl text-xs uppercase tracking-[0.22em] text-paper/60">
+            Detta är satir, fiktivt och byggt för att låta bekant utan att vara verkligt.
           </p>
         </div>
         <div className="space-y-4">
@@ -41,16 +44,16 @@ export function SiteFooter() {
               {isNadalage ? "Tyst väg" : isMusic ? "Vidare" : "Vägledning"}
             </p>
             <div className="mt-3 flex flex-wrap gap-3 text-sm">
-              <Link href="/nadalage" className="text-paper/90 transition hover:text-white">
+              <Link href="/nadalage" className="tap-target inline-flex items-center text-paper/90 transition hover:text-white">
                 Nådeläge
               </Link>
-              <Link href="/musik/fornedringskassan" className="text-paper/90 transition hover:text-white">
+              <Link href="/musik/fornedringskassan" className="tap-target inline-flex items-center text-paper/90 transition hover:text-white">
                 Musik: Förnedringskassan
               </Link>
-              <Link href="/om" className="text-paper/90 transition hover:text-white">
+              <Link href="/om" className="tap-target inline-flex items-center text-paper/90 transition hover:text-white">
                 Om projektet
               </Link>
-              <Link href="/fragor-och-svar" className="text-paper/90 transition hover:text-white">
+              <Link href="/fragor-och-svar" className="tap-target inline-flex items-center text-paper/90 transition hover:text-white">
                 Frågor och svar
               </Link>
             </div>

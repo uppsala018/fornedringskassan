@@ -335,20 +335,20 @@ export function HomepageShowcase() {
   };
 
   return (
-    <div className="mx-auto max-w-6xl px-2 py-7 sm:px-6 lg:px-8 lg:py-14">
-      <section className="bureaucratic-panel relative overflow-hidden rounded-dossier border border-steel/20 bg-white/88 shadow-docket">
+    <div className="homepage-showcase mx-auto max-w-6xl px-2 py-7 sm:px-6 lg:px-8 lg:py-14">
+      <section className="waiting-room-panel bureaucratic-panel relative overflow-hidden rounded-dossier border border-steel/20 bg-white/88 shadow-docket">
         <div className="relative border-b border-steel/15 bg-[linear-gradient(180deg,rgba(255,255,255,0.9),rgba(234,226,214,0.94))] px-3 py-3 sm:px-6 sm:py-4 lg:px-8">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div className="space-y-3">
               <div className="flex flex-wrap items-center gap-3">
                 <span className="inline-flex rounded-full border border-[#c8102e]/20 bg-[#c8102e]/8 px-2.5 py-1 text-[9px] uppercase tracking-[0.18em] text-stamp sm:px-3 sm:text-[10px]">Fiktiv signal</span>
               </div>
-              <p className="max-w-3xl text-[12px] leading-5 text-ink/76 sm:text-[13px] sm:leading-6">
+              <p className="mobile-measure max-w-3xl text-[12px] leading-5 text-ink/76 sm:text-[13px] sm:leading-6">
                 En digital parodi på system, blanketter och den sortens lugna nedkylning som bara kan komma från
                 ordnade rutiner.
               </p>
             </div>
-            <button type="button" onClick={advanceStamp} className="inline-flex min-h-10 items-center rounded-full border border-stamp/30 bg-stamp/10 px-3.5 py-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-stamp transition hover:-translate-y-0.5 hover:bg-stamp/15">Byt stämpel</button>
+            <button type="button" onClick={advanceStamp} className="tap-target inline-flex min-h-10 items-center rounded-full border border-stamp/30 bg-stamp/10 px-3.5 py-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-stamp transition hover:-translate-y-0.5 hover:bg-stamp/15">Byt stämpel</button>
           </div>
         </div>
 
@@ -370,7 +370,7 @@ export function HomepageShowcase() {
               <h1 className="max-w-4xl text-balance font-display text-4xl font-semibold leading-tight tracking-tight text-ink sm:text-5xl lg:text-6xl">
                 Förnedringskassan
               </h1>
-              <p className="max-w-2xl text-[13px] leading-6 text-ink/76 sm:text-[15px] sm:leading-7">
+              <p className="waiting-room-intro mobile-measure max-w-2xl text-[13px] leading-6 text-ink/76 sm:text-[15px] sm:leading-7">
                 Här börjar du i portalens väntrum: beslut, avslag och nästa knapp leder
                 vidare till olika former av ordnad obekvämlighet.
               </p>
@@ -387,16 +387,16 @@ export function HomepageShowcase() {
               <button
                 type="button"
                 onClick={advanceStamp}
-                className="stamp-drop inline-flex rotate-[-8deg] rounded-[1.1rem] border-[4px] border-stamp/80 bg-[#c8102e] px-4 py-2.5 text-[10px] font-black uppercase tracking-[0.22em] text-white shadow-[0_18px_32px_rgba(200,16,46,0.24)] ring-1 ring-stamp/20 transition hover:scale-[1.02] active:scale-[0.99] sm:px-5 sm:py-3 sm:text-xs"
+                className="tap-target stamp-drop inline-flex rotate-[-8deg] rounded-[1.1rem] border-[4px] border-stamp/80 bg-[#c8102e] px-4 py-2.5 text-[10px] font-black uppercase tracking-[0.22em] text-white shadow-[0_18px_32px_rgba(200,16,46,0.24)] ring-1 ring-stamp/20 transition hover:scale-[1.02] active:scale-[0.99] sm:px-5 sm:py-3 sm:text-xs"
               >
                 {stamps[stamp]}
               </button>
             </div>
-            <div className="mt-6 flex w-full flex-col items-center gap-2.5 sm:flex-row sm:flex-wrap sm:justify-center">
-              <button onClick={start} className="inline-flex min-h-12 w-full items-center justify-center rounded-full border-2 border-[#c8102e] bg-[#c8102e] px-6 py-3 text-[13px] font-black uppercase tracking-[0.16em] text-white shadow-[0_16px_36px_rgba(200,16,46,0.18)] transition hover:-translate-y-0.5 hover:bg-[#ad0d27] sm:w-auto sm:px-7 sm:py-3.5 sm:text-sm">
+            <div className="hero-actions mt-6 flex w-full flex-col items-center gap-2.5 sm:flex-row sm:flex-wrap sm:justify-center">
+              <button onClick={start} className="tap-target inline-flex min-h-12 w-full items-center justify-center rounded-full border-2 border-[#c8102e] bg-[#c8102e] px-6 py-3 text-[13px] font-black uppercase tracking-[0.16em] text-white shadow-[0_16px_36px_rgba(200,16,46,0.18)] transition hover:-translate-y-0.5 hover:bg-[#ad0d27] sm:w-auto sm:px-7 sm:py-3.5 sm:text-sm">
                   Starta mitt fiktiva ärende
                 </button>
-                <span className="inline-flex min-h-12 items-center justify-center rounded-full border border-steel/20 bg-paper/92 px-4 py-3 text-center text-[13px] text-ink/76 sm:px-5 sm:text-sm">
+                <span className="waiting-room-status inline-flex min-h-12 items-center justify-center rounded-full border border-steel/20 bg-paper/92 px-4 py-3 text-center text-[13px] text-ink/76 sm:px-5 sm:text-sm">
                   Din tydlighet har diarieförts.
                 </span>
               </div>
@@ -404,7 +404,7 @@ export function HomepageShowcase() {
                 {bubbles[bubble]}
               </div>
             </div>
-            <div className="mt-6 grid gap-3 sm:mt-7 sm:grid-cols-2">
+            <div className="waiting-room-grid mt-6 grid gap-3 sm:mt-7 sm:grid-cols-2">
               {actions.map(([href, label, tone, sublabel], i) => (
                 <Link
                   key={href}
@@ -414,7 +414,7 @@ export function HomepageShowcase() {
                     setHoverText(r(comments));
                   }}
                   onMouseLeave={() => setHover(null)}
-                  className={`paper-shuffle-hover relative min-h-28 overflow-hidden rounded-[1.45rem] border px-4 py-4 text-left transition-all duration-200 shadow-slip sm:px-5 hover:-translate-y-1 hover:shadow-[0_22px_48px_rgba(29,42,45,0.16)] ${i === 0 ? "border-ink bg-ink text-paper hover:bg-seal" : "border-steel/20 bg-paper/92 text-ink hover:border-steel/45 hover:bg-white"}`}
+                  className={`waiting-room-card tap-target paper-shuffle-hover relative min-h-28 overflow-hidden rounded-[1.45rem] border px-4 py-4 text-left transition-all duration-200 shadow-slip sm:px-5 hover:-translate-y-1 hover:shadow-[0_22px_48px_rgba(29,42,45,0.16)] ${i === 0 ? "border-ink bg-ink text-paper hover:bg-seal" : "border-steel/20 bg-paper/92 text-ink hover:border-steel/45 hover:bg-white"}`}
                 >
                   <span className="block text-[10px] uppercase tracking-[0.22em] opacity-70">{tone}</span>
                   <span className="mt-2 block text-sm font-semibold sm:text-base">{label}</span>
@@ -440,7 +440,7 @@ export function HomepageShowcase() {
             </div>
             <div className="rounded-[1.25rem] border border-stamp/20 bg-stamp/10 p-4 shadow-slip">
               <p className="text-[9px] uppercase tracking-[0.18em] text-stamp sm:text-[10px]">Handläggarbubblan</p>
-              <p className="mt-2 text-sm leading-7 text-ink">{bubbles[bubble]}</p>
+              <p className="waiting-room-status mobile-measure mt-2 text-sm leading-7 text-ink">{bubbles[bubble]}</p>
             </div>
           </div>
         </div>
@@ -471,20 +471,20 @@ export function HomepageShowcase() {
           <h2 className="mt-3 text-balance font-display text-3xl font-semibold tracking-tight text-ink">
             Låten Förnedringskassan
           </h2>
-          <p className="mt-4 max-w-2xl text-base leading-7 text-ink/76">
+          <p className="mobile-measure mt-4 max-w-2xl text-base leading-7 text-ink/76">
             Elektrisk Revys satirlåt hör till samma universum som resten av sajten och går att
             lyssna på direkt utan att lämna den administrativa stämningen.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <Link
               href="/musik/fornedringskassan"
-              className="inline-flex min-h-12 items-center rounded-full bg-ink px-6 py-3 text-sm font-medium text-paper transition hover:bg-seal"
+              className="tap-target inline-flex min-h-12 items-center rounded-full bg-ink px-6 py-3 text-sm font-medium text-paper transition hover:bg-seal"
             >
               Lyssna på satirlåten Förnedringskassan
             </Link>
             <Link
               href="/musik/fornedringskassan"
-              className="inline-flex min-h-12 items-center rounded-full border border-steel/20 bg-white/90 px-6 py-3 text-sm font-medium text-ink transition hover:border-steel/45 hover:bg-white"
+              className="tap-target inline-flex min-h-12 items-center rounded-full border border-steel/20 bg-white/90 px-6 py-3 text-sm font-medium text-ink transition hover:border-steel/45 hover:bg-white"
             >
               Musik: Förnedringskassan
             </Link>
@@ -515,10 +515,10 @@ export function HomepageShowcase() {
         <aside className="bureaucratic-panel rounded-dossier border border-steel/20 bg-[linear-gradient(180deg,rgba(255,255,255,0.94),rgba(248,243,233,0.96))] p-7 shadow-slip">
           <p className="text-xs uppercase tracking-[0.3em] text-ink/72">Dela beslut</p>
           <h2 className="mt-3 text-balance font-display text-3xl font-semibold tracking-tight text-ink">Sprid missförståndet med stil</h2>
-          <p className="mt-4 text-sm leading-7 text-ink/76">Välj plattform i en delningsruta, eller kopiera länken direkt. Instagram får en färdig caption, övriga tjänster öppnas med en förifylld länk när det går.</p>
+          <p className="mobile-measure mt-4 text-sm leading-7 text-ink/76">Välj plattform i en delningsruta, eller kopiera länken direkt. Instagram får en färdig caption, övriga tjänster öppnas med en förifylld länk när det går.</p>
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
-            <button onClick={copyUrl} className="inline-flex min-h-11 items-center justify-center rounded-full border border-steel/20 bg-paper px-5 py-3 text-sm font-medium text-ink transition hover:border-steel/45 hover:bg-white">{linkCopied ? "Länk kopierad" : "Kopiera länk"}</button>
-            <button onClick={() => setShareOpen(true)} className="inline-flex min-h-11 items-center justify-center rounded-full border border-[#c8102e] bg-[#c8102e] px-5 py-3 text-sm font-medium text-white transition hover:bg-[#ad0d27]">Välj socialt nätverk</button>
+            <button onClick={copyUrl} className="tap-target inline-flex min-h-11 items-center justify-center rounded-full border border-steel/20 bg-paper px-5 py-3 text-sm font-medium text-ink transition hover:border-steel/45 hover:bg-white">{linkCopied ? "Länk kopierad" : "Kopiera länk"}</button>
+            <button onClick={() => setShareOpen(true)} className="tap-target inline-flex min-h-11 items-center justify-center rounded-full border border-[#c8102e] bg-[#c8102e] px-5 py-3 text-sm font-medium text-white transition hover:bg-[#ad0d27]">Välj socialt nätverk</button>
           </div>
           <div className="mt-5 rounded-[1.25rem] border border-stamp/20 bg-stamp/10 p-4 text-sm leading-7 text-ink">Färdig text: <span className="font-medium">“Ett administrativt helt rimligt nej.”</span></div>
         </aside>
@@ -532,7 +532,7 @@ export function HomepageShowcase() {
           </p>
           <Link
             href="/handlaggarnytt"
-            className="mt-5 inline-flex min-h-11 items-center rounded-full border border-steel/20 bg-white/90 px-5 py-2.5 text-sm font-medium text-ink transition hover:border-steel/45 hover:bg-white"
+            className="tap-target mt-5 inline-flex min-h-11 items-center rounded-full border border-steel/20 bg-white/90 px-5 py-2.5 text-sm font-medium text-ink transition hover:border-steel/45 hover:bg-white"
           >
             Till Handläggarnytt
           </Link>
@@ -564,7 +564,7 @@ export function HomepageShowcase() {
               </div>
               <div className="flex flex-wrap items-center gap-2">
                 <span className="status-chip border-white/10 bg-white/8 text-paper">{pText}</span>
-                <button onClick={() => setOpen(false)} className="inline-flex min-h-11 items-center rounded-full border border-white/15 bg-white/8 px-4 py-2 text-sm text-paper transition hover:bg-white/12">Stäng</button>
+                <button onClick={() => setOpen(false)} className="tap-target inline-flex min-h-11 items-center rounded-full border border-white/15 bg-white/8 px-4 py-2 text-sm text-paper transition hover:bg-white/12">Stäng</button>
               </div>
             </div>
 
@@ -576,7 +576,7 @@ export function HomepageShowcase() {
                 </label>
                   <div className="mt-4 flex flex-wrap gap-2">{["Beslut", "Avslag", "Otydlighet", "Nåd"].map((c) => <span key={c} className="rounded-full border border-steel/15 bg-[#f6f2eb] px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-ink/72 sm:text-xs sm:tracking-[0.24em]">{c}</span>)}</div>
                 <p className="mt-4 text-sm leading-7 text-ink/76">{status}</p>
-                <button type="submit" className="mt-5 inline-flex min-h-12 w-full items-center justify-center rounded-full border border-[#c8102e] bg-[#c8102e] px-6 py-3 text-sm font-semibold text-white shadow-slip transition hover:-translate-y-0.5 hover:bg-[#ad0d27] sm:w-auto sm:px-7 sm:py-4">Skicka till handläggning</button>
+                <button type="submit" className="tap-target mt-5 inline-flex min-h-12 w-full items-center justify-center rounded-full border border-[#c8102e] bg-[#c8102e] px-6 py-3 text-sm font-semibold text-white shadow-slip transition hover:-translate-y-0.5 hover:bg-[#ad0d27] sm:w-auto sm:px-7 sm:py-4">Skicka till handläggning</button>
               </form>
 
               <div className="rounded-[1.4rem] border border-white/10 bg-white/6 p-4 shadow-slip sm:p-6">
@@ -590,13 +590,13 @@ export function HomepageShowcase() {
                   <p className="text-xs uppercase tracking-[0.28em] text-paper/55">Beslutstext</p>
                   <p className="typewriter-caret mt-3 min-h-28 whitespace-pre-line text-sm leading-7 text-paper/92 sm:min-h-32">{typed || "Beslut kommer att skrivas ut här i långsam takt."}</p>
                   <div className="mt-4 grid gap-2 sm:flex sm:flex-wrap">
-                    <button type="button" onClick={copyDecision} disabled={!typed} className="inline-flex min-h-11 items-center justify-center rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-medium text-paper transition hover:bg-white/15 disabled:cursor-not-allowed disabled:opacity-50">{copied ? "Kopierat" : "Kopiera beslut"}</button>
-                    <button type="button" onClick={downloadDecision} disabled={!typed} className="inline-flex min-h-11 items-center justify-center rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-medium text-paper transition hover:bg-white/15 disabled:cursor-not-allowed disabled:opacity-50">Ladda ner som PDF</button>
+                    <button type="button" onClick={copyDecision} disabled={!typed} className="tap-target inline-flex min-h-11 items-center justify-center rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-medium text-paper transition hover:bg-white/15 disabled:cursor-not-allowed disabled:opacity-50">{copied ? "Kopierat" : "Kopiera beslut"}</button>
+                    <button type="button" onClick={downloadDecision} disabled={!typed} className="tap-target inline-flex min-h-11 items-center justify-center rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-medium text-paper transition hover:bg-white/15 disabled:cursor-not-allowed disabled:opacity-50">Ladda ner som PDF</button>
                   </div>
                   <p className="mt-2 text-[10px] uppercase tracking-[0.24em] text-paper/55">Textexport i PDF-klädsel</p>
                   <div className="mt-4 grid gap-2 sm:grid-cols-2">
-                    <button type="button" onClick={() => setShareOpen(true)} className="inline-flex min-h-11 items-center justify-center rounded-full border border-[#c8102e] bg-[#c8102e] px-4 py-2 text-sm font-medium text-white transition hover:bg-[#ad0d27]">Välj socialt nätverk</button>
-                    <button type="button" onClick={copyUrl} className="inline-flex min-h-11 items-center justify-center rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-medium text-paper transition hover:bg-white/15">{linkCopied ? "Länk kopierad" : "Kopiera länk"}</button>
+                    <button type="button" onClick={() => setShareOpen(true)} className="tap-target inline-flex min-h-11 items-center justify-center rounded-full border border-[#c8102e] bg-[#c8102e] px-4 py-2 text-sm font-medium text-white transition hover:bg-[#ad0d27]">Välj socialt nätverk</button>
+                    <button type="button" onClick={copyUrl} className="tap-target inline-flex min-h-11 items-center justify-center rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-medium text-paper transition hover:bg-white/15">{linkCopied ? "Länk kopierad" : "Kopiera länk"}</button>
                   </div>
                   <div className="mt-4 inline-flex max-w-full rounded-full border border-[#ffcc00]/30 bg-[#ffcc00]/10 px-4 py-2 text-center text-[10px] uppercase tracking-[0.18em] text-paper/80 sm:text-xs sm:tracking-[0.24em]">{stamps[stamp]}</div>
                   <button type="button" onClick={advanceStamp} className="mt-4 inline-flex min-h-11 items-center rounded-full border border-[#ffcc00]/35 bg-[#ffcc00]/12 px-4 py-2 text-sm font-medium text-paper transition hover:bg-[#ffcc00]/18">Byt stämpeltext</button>
@@ -632,7 +632,7 @@ export function HomepageShowcase() {
               </div>
               <div className="flex flex-wrap items-center gap-2">
                 <span className="status-chip border-white/10 bg-white/8 text-paper">{shareText.slice(0, 42)}</span>
-                <button onClick={() => setShareOpen(false)} className="inline-flex min-h-11 items-center rounded-full border border-white/15 bg-white/8 px-4 py-2 text-sm text-paper transition hover:bg-white/12">Stäng</button>
+                <button onClick={() => setShareOpen(false)} className="tap-target inline-flex min-h-11 items-center rounded-full border border-white/15 bg-white/8 px-4 py-2 text-sm text-paper transition hover:bg-white/12">Stäng</button>
               </div>
             </div>
 
@@ -642,7 +642,7 @@ export function HomepageShowcase() {
                   key={target.label}
                   type="button"
                   onClick={() => void openShareTarget(target)}
-                  className="rounded-[1.35rem] border border-white/10 bg-white/8 p-4 text-left transition hover:-translate-y-0.5 hover:bg-white/12"
+                  className="tap-target rounded-[1.35rem] border border-white/10 bg-white/8 p-4 text-left transition hover:-translate-y-0.5 hover:bg-white/12"
                 >
                   <p className="text-sm font-semibold text-paper">{target.label}</p>
                   <p className="mt-2 text-sm leading-6 text-paper/76">{target.description}</p>
@@ -654,21 +654,21 @@ export function HomepageShowcase() {
               <button
                 type="button"
                 onClick={() => void copyShareCaption()}
-                className="inline-flex min-h-11 items-center justify-center rounded-full border border-white/15 bg-white/10 px-5 py-3 text-sm font-medium text-paper transition hover:bg-white/15"
+                className="tap-target inline-flex min-h-11 items-center justify-center rounded-full border border-white/15 bg-white/10 px-5 py-3 text-sm font-medium text-paper transition hover:bg-white/15"
               >
                 {shareCopied ? "Kopierat" : "Kopiera caption"}
               </button>
               <button
                 type="button"
                 onClick={() => void shareViaSystem()}
-                className="inline-flex min-h-11 items-center justify-center rounded-full border border-[#c8102e] bg-[#c8102e] px-5 py-3 text-sm font-medium text-white transition hover:bg-[#ad0d27]"
+                className="tap-target inline-flex min-h-11 items-center justify-center rounded-full border border-[#c8102e] bg-[#c8102e] px-5 py-3 text-sm font-medium text-white transition hover:bg-[#ad0d27]"
               >
                 Dela via enhetsmenyn
               </button>
               <button
                 type="button"
                 onClick={copyUrl}
-                className="inline-flex min-h-11 items-center justify-center rounded-full border border-white/15 bg-white/10 px-5 py-3 text-sm font-medium text-paper transition hover:bg-white/15"
+                className="tap-target inline-flex min-h-11 items-center justify-center rounded-full border border-white/15 bg-white/10 px-5 py-3 text-sm font-medium text-paper transition hover:bg-white/15"
               >
                 {linkCopied ? "Länk kopierad" : "Kopiera länk"}
               </button>

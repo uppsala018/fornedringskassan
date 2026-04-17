@@ -33,6 +33,8 @@ body {
     linear-gradient(180deg, #f1eee6 0%, #f6f3ec 52%, #eeebe3 100%);
   color: #1d2a2d;
   font-feature-settings: "ss01" on, "cv01" on;
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
 }
 
 a {
@@ -45,6 +47,11 @@ input,
 select,
 textarea {
   font: inherit;
+}
+
+button,
+a {
+  touch-action: manipulation;
 }
 
 button:focus-visible,
@@ -79,6 +86,15 @@ textarea:focus-visible {
 
 .status-chip {
   @apply inline-flex items-center rounded-full border border-stamp/30 bg-stamp/10 px-4 py-2 text-sm font-medium text-ink;
+}
+
+.mobile-measure {
+  text-wrap: pretty;
+  overflow-wrap: anywhere;
+}
+
+.tap-target {
+  min-height: 44px;
 }
 
 @keyframes rise-fade {
@@ -247,5 +263,33 @@ textarea:focus-visible {
   .loading-spinner,
   [class*="animate-"] {
     animation: none !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .mobile-measure {
+    max-width: 34ch;
+  }
+
+  .tap-target {
+    min-height: 48px;
+    padding-top: 0.875rem;
+    padding-bottom: 0.875rem;
+  }
+
+  .waiting-room-panel .waiting-room-intro {
+    max-width: 30ch;
+  }
+
+  .waiting-room-panel .waiting-room-status {
+    max-width: 28ch;
+  }
+
+  .waiting-room-panel .waiting-room-grid {
+    gap: 0.875rem;
+  }
+
+  .waiting-room-panel .waiting-room-card {
+    min-height: 8rem;
   }
 }

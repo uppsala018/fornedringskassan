@@ -32,7 +32,9 @@ export function PageShell({
               <h1 className="mt-4 break-words text-balance font-display text-4xl font-semibold leading-tight tracking-tight text-ink sm:text-5xl">
                 {title}
               </h1>
-              <p className="mt-5 max-w-3xl break-words text-lg leading-8 text-ink/78">{intro}</p>
+              <p className="mobile-measure mt-5 max-w-3xl break-words text-lg leading-8 text-ink/78">
+                {intro}
+              </p>
             </div>
             {showInstitutionNote ? (
               <div className="rounded-[1.4rem] border border-steel/15 bg-paper/94 p-4 sm:p-5">

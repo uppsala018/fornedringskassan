@@ -161,7 +161,7 @@ export function SporaDittArendeTracker() {
       <h2 className="mt-3 text-balance font-display text-2xl font-semibold tracking-tight text-ink">
         Följ ett ärende genom systemets stilla rörelse
       </h2>
-      <p className="mt-4 max-w-3xl text-base leading-8 text-ink/76">
+      <p className="mobile-measure mt-4 max-w-3xl text-base leading-8 text-ink/76">
         Ange ett diarienummer eller referensnummer och välj vad ärendet gäller. Då visas en
         spårning som ser aktiv ut, uppdateras som om den betydde något och förklarar ännu mindre än
         den borde.
@@ -203,7 +203,7 @@ export function SporaDittArendeTracker() {
           <div className="flex flex-wrap gap-3 pt-2">
             <button
               type="submit"
-              className="inline-flex min-h-12 items-center rounded-full bg-ink px-6 py-3 text-sm font-medium text-paper transition hover:bg-seal"
+              className="tap-target inline-flex min-h-12 items-center rounded-full bg-ink px-6 py-3 text-sm font-medium text-paper transition hover:bg-seal"
             >
               Spåra ärende
             </button>
@@ -215,7 +215,7 @@ export function SporaDittArendeTracker() {
                 setResult(null);
                 setCopyLabel("Kopiera status");
               }}
-              className="inline-flex min-h-12 items-center rounded-full border border-steel/25 bg-paper px-6 py-3 text-sm font-medium text-ink transition hover:border-steel/50 hover:bg-white"
+              className="tap-target inline-flex min-h-12 items-center rounded-full border border-steel/25 bg-paper px-6 py-3 text-sm font-medium text-ink transition hover:border-steel/50 hover:bg-white"
             >
               Rensa
             </button>
@@ -285,20 +285,20 @@ export function SporaDittArendeTracker() {
         </div>
 
         <div className="mt-5 flex flex-wrap gap-3">
-          <button
-            type="button"
-            onClick={generate}
-            className="inline-flex min-h-12 items-center rounded-full border border-steel/25 bg-paper px-6 py-3 text-sm font-medium text-ink transition hover:border-steel/50 hover:bg-white"
-          >
-            Uppdatera spårning
-          </button>
-          <button
-            type="button"
-            onClick={copyStatus}
-            className="inline-flex min-h-12 items-center rounded-full bg-ink px-6 py-3 text-sm font-medium text-paper transition hover:bg-seal"
-          >
-            {copyLabel}
-          </button>
+            <button
+              type="button"
+              onClick={generate}
+              className="tap-target inline-flex min-h-12 items-center rounded-full border border-steel/25 bg-paper px-6 py-3 text-sm font-medium text-ink transition hover:border-steel/50 hover:bg-white"
+            >
+              Uppdatera spårning
+            </button>
+            <button
+              type="button"
+              onClick={copyStatus}
+              className="tap-target inline-flex min-h-12 items-center rounded-full bg-ink px-6 py-3 text-sm font-medium text-paper transition hover:bg-seal"
+            >
+              {copyLabel}
+            </button>
         </div>
       </div>
     </section>
